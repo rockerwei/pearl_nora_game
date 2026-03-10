@@ -1,0 +1,21 @@
+{
+  "name": "Pearl Nora Kids Game",
+  "short_name": "Kids Game",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#fff6da",
+  "theme_color": "#ffb74d",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/616/616408.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/616/616408.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
