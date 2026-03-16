@@ -603,9 +603,22 @@
     }
 
     function speakEnglishLetter(letter) {
-      playAudioUrl(
-        `https://translate.google.com/translate_tts?ie=UTF-8&q=${letter.toLowerCase()}&tl=en&client=tw-ob`
-      );
+
+      stopCurrentAudio();
+      window.speechSynthesis.cancel();
+    
+      const utter = new SpeechSynthesisUtterance(letter);
+      utter.lang = "en-US";
+      utter.rate = 0.9;
+    
+      const voices = window.speechSynthesis.getVoices();
+      const voice =
+        voices.find(v => v.lang === "en-US") ||
+        voices.find(v => v.lang.startsWith("en"));
+    
+      if (voice) utter.voice = voice;
+    
+      window.speechSynthesis.speak(utter);
     }
 
     function speakNumber(numText) {
