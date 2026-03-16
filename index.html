@@ -607,7 +607,7 @@
       stopCurrentAudio();
       window.speechSynthesis.cancel();
     
-      const utter = new SpeechSynthesisUtterance(letter);
+      const utter = new SpeechSynthesisUtterance(letter.toLowerCase());
       utter.lang = "en-US";
       utter.rate = 0.9;
     
