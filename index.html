@@ -410,44 +410,101 @@
       ]
     };
 
-    const bopomofoSpeakMap = {
-      "ㄅ":"玻",
-      "ㄆ":"坡",
-      "ㄇ":"摸",
-      "ㄈ":"佛",
-      "ㄉ":"得",
-      "ㄊ":"特",
-      "ㄋ":"呢",
-      "ㄌ":"勒",
-      "ㄍ":"哥",
-      "ㄎ":"科",
-      "ㄏ":"喝",
-      "ㄐ":"機",
-      "ㄑ":"七",
-      "ㄒ":"西",
-      "ㄓ":"知",
-      "ㄔ":"吃",
-      "ㄕ":"詩",
-      "ㄖ":"日",
-      "ㄗ":"資",
-      "ㄘ":"雌",
-      "ㄙ":"思",
-      "ㄧ":"衣",
-      "ㄨ":"屋",
-      "ㄩ":"迂",
-      "ㄚ":"啊",
-      "ㄛ":"喔",
-      "ㄜ":"鵝",
-      "ㄝ":"耶",
-      "ㄞ":"哀",
-      "ㄟ":"欸",
-      "ㄠ":"凹",
-      "ㄡ":"歐",
-      "ㄢ":"安",
-      "ㄣ":"恩",
-      "ㄤ":"昂",
-      "ㄥ":"亨",
-      "ㄦ":"兒"
+    const englishAudioMap = {
+      A: "https://translate.google.com/translate_tts?ie=UTF-8&q=A&tl=en-US&client=tw-ob",
+      B: "https://translate.google.com/translate_tts?ie=UTF-8&q=B&tl=en-US&client=tw-ob",
+      C: "https://translate.google.com/translate_tts?ie=UTF-8&q=C&tl=en-US&client=tw-ob",
+      D: "https://translate.google.com/translate_tts?ie=UTF-8&q=D&tl=en-US&client=tw-ob",
+      E: "https://translate.google.com/translate_tts?ie=UTF-8&q=E&tl=en-US&client=tw-ob",
+      F: "https://translate.google.com/translate_tts?ie=UTF-8&q=F&tl=en-US&client=tw-ob",
+      G: "https://translate.google.com/translate_tts?ie=UTF-8&q=G&tl=en-US&client=tw-ob",
+      H: "https://translate.google.com/translate_tts?ie=UTF-8&q=H&tl=en-US&client=tw-ob",
+      I: "https://translate.google.com/translate_tts?ie=UTF-8&q=I&tl=en-US&client=tw-ob",
+      J: "https://translate.google.com/translate_tts?ie=UTF-8&q=J&tl=en-US&client=tw-ob",
+      K: "https://translate.google.com/translate_tts?ie=UTF-8&q=K&tl=en-US&client=tw-ob",
+      L: "https://translate.google.com/translate_tts?ie=UTF-8&q=L&tl=en-US&client=tw-ob",
+      M: "https://translate.google.com/translate_tts?ie=UTF-8&q=M&tl=en-US&client=tw-ob",
+      N: "https://translate.google.com/translate_tts?ie=UTF-8&q=N&tl=en-US&client=tw-ob",
+      O: "https://translate.google.com/translate_tts?ie=UTF-8&q=O&tl=en-US&client=tw-ob",
+      P: "https://translate.google.com/translate_tts?ie=UTF-8&q=P&tl=en-US&client=tw-ob",
+      Q: "https://translate.google.com/translate_tts?ie=UTF-8&q=Q&tl=en-US&client=tw-ob",
+      R: "https://translate.google.com/translate_tts?ie=UTF-8&q=R&tl=en-US&client=tw-ob",
+      S: "https://translate.google.com/translate_tts?ie=UTF-8&q=S&tl=en-US&client=tw-ob",
+      T: "https://translate.google.com/translate_tts?ie=UTF-8&q=T&tl=en-US&client=tw-ob",
+      U: "https://translate.google.com/translate_tts?ie=UTF-8&q=U&tl=en-US&client=tw-ob",
+      V: "https://translate.google.com/translate_tts?ie=UTF-8&q=V&tl=en-US&client=tw-ob",
+      W: "https://translate.google.com/translate_tts?ie=UTF-8&q=W&tl=en-US&client=tw-ob",
+      X: "https://translate.google.com/translate_tts?ie=UTF-8&q=X&tl=en-US&client=tw-ob",
+      Y: "https://translate.google.com/translate_tts?ie=UTF-8&q=Y&tl=en-US&client=tw-ob",
+      Z: "https://translate.google.com/translate_tts?ie=UTF-8&q=Z&tl=en-US&client=tw-ob"
+    };
+
+    const numberAudioMap = {
+      "1": "https://translate.google.com/translate_tts?ie=UTF-8&q=一&tl=zh-TW&client=tw-ob",
+      "2": "https://translate.google.com/translate_tts?ie=UTF-8&q=二&tl=zh-TW&client=tw-ob",
+      "3": "https://translate.google.com/translate_tts?ie=UTF-8&q=三&tl=zh-TW&client=tw-ob",
+      "4": "https://translate.google.com/translate_tts?ie=UTF-8&q=四&tl=zh-TW&client=tw-ob",
+      "5": "https://translate.google.com/translate_tts?ie=UTF-8&q=五&tl=zh-TW&client=tw-ob",
+      "6": "https://translate.google.com/translate_tts?ie=UTF-8&q=六&tl=zh-TW&client=tw-ob",
+      "7": "https://translate.google.com/translate_tts?ie=UTF-8&q=七&tl=zh-TW&client=tw-ob",
+      "8": "https://translate.google.com/translate_tts?ie=UTF-8&q=八&tl=zh-TW&client=tw-ob",
+      "9": "https://translate.google.com/translate_tts?ie=UTF-8&q=九&tl=zh-TW&client=tw-ob",
+      "10": "https://translate.google.com/translate_tts?ie=UTF-8&q=十&tl=zh-TW&client=tw-ob",
+      "11": "https://translate.google.com/translate_tts?ie=UTF-8&q=十一&tl=zh-TW&client=tw-ob",
+      "12": "https://translate.google.com/translate_tts?ie=UTF-8&q=十二&tl=zh-TW&client=tw-ob",
+      "13": "https://translate.google.com/translate_tts?ie=UTF-8&q=十三&tl=zh-TW&client=tw-ob",
+      "14": "https://translate.google.com/translate_tts?ie=UTF-8&q=十四&tl=zh-TW&client=tw-ob",
+      "15": "https://translate.google.com/translate_tts?ie=UTF-8&q=十五&tl=zh-TW&client=tw-ob",
+      "16": "https://translate.google.com/translate_tts?ie=UTF-8&q=十六&tl=zh-TW&client=tw-ob",
+      "17": "https://translate.google.com/translate_tts?ie=UTF-8&q=十七&tl=zh-TW&client=tw-ob",
+      "18": "https://translate.google.com/translate_tts?ie=UTF-8&q=十八&tl=zh-TW&client=tw-ob",
+      "19": "https://translate.google.com/translate_tts?ie=UTF-8&q=十九&tl=zh-TW&client=tw-ob",
+      "20": "https://translate.google.com/translate_tts?ie=UTF-8&q=二十&tl=zh-TW&client=tw-ob"
+    };
+
+    const bopomofoAudioMap = {
+      "ㄅ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄅ&tl=zh-TW&client=tw-ob",
+      "ㄆ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄆ&tl=zh-TW&client=tw-ob",
+      "ㄇ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄇ&tl=zh-TW&client=tw-ob",
+      "ㄈ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄈ&tl=zh-TW&client=tw-ob",
+      "ㄉ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄉ&tl=zh-TW&client=tw-ob",
+      "ㄊ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄊ&tl=zh-TW&client=tw-ob",
+      "ㄋ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄋ&tl=zh-TW&client=tw-ob",
+      "ㄌ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄌ&tl=zh-TW&client=tw-ob",
+      "ㄍ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄍ&tl=zh-TW&client=tw-ob",
+      "ㄎ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄎ&tl=zh-TW&client=tw-ob",
+      "ㄏ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄏ&tl=zh-TW&client=tw-ob",
+      "ㄐ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄐ&tl=zh-TW&client=tw-ob",
+      "ㄑ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄑ&tl=zh-TW&client=tw-ob",
+      "ㄒ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄒ&tl=zh-TW&client=tw-ob",
+      "ㄓ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄓ&tl=zh-TW&client=tw-ob",
+      "ㄔ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄔ&tl=zh-TW&client=tw-ob",
+      "ㄕ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄕ&tl=zh-TW&client=tw-ob",
+      "ㄖ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄖ&tl=zh-TW&client=tw-ob",
+      "ㄗ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄗ&tl=zh-TW&client=tw-ob",
+      "ㄘ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄘ&tl=zh-TW&client=tw-ob",
+      "ㄙ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄙ&tl=zh-TW&client=tw-ob",
+      "ㄧ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄧ&tl=zh-TW&client=tw-ob",
+      "ㄨ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄨ&tl=zh-TW&client=tw-ob",
+      "ㄩ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄩ&tl=zh-TW&client=tw-ob",
+      "ㄚ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄚ&tl=zh-TW&client=tw-ob",
+      "ㄛ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄛ&tl=zh-TW&client=tw-ob",
+      "ㄜ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄜ&tl=zh-TW&client=tw-ob",
+      "ㄝ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄝ&tl=zh-TW&client=tw-ob",
+      "ㄞ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄞ&tl=zh-TW&client=tw-ob",
+      "ㄟ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄟ&tl=zh-TW&client=tw-ob",
+      "ㄠ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄠ&tl=zh-TW&client=tw-ob",
+      "ㄡ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄡ&tl=zh-TW&client=tw-ob",
+      "ㄢ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄢ&tl=zh-TW&client=tw-ob",
+      "ㄣ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄣ&tl=zh-TW&client=tw-ob",
+      "ㄤ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄤ&tl=zh-TW&client=tw-ob",
+      "ㄥ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄥ&tl=zh-TW&client=tw-ob",
+      "ㄦ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄦ&tl=zh-TW&client=tw-ob"
+    };
+
+    const phraseAudioMap = {
+      correct: "https://translate.google.com/translate_tts?ie=UTF-8&q=答對了&tl=zh-TW&client=tw-ob",
+      retry: "https://translate.google.com/translate_tts?ie=UTF-8&q=再來一次，你可以的&tl=zh-TW&client=tw-ob"
     };
 
     const animalCards = [
@@ -479,6 +536,7 @@
     let animationTimer = null;
     let nextQuestionTimer = null;
     let cardPool = [];
+    let currentAudio = null;
 
     const modeEl = document.getElementById("mode");
     const optionsEl = document.getElementById("options");
@@ -519,133 +577,45 @@
       streakCountEl.textContent = streakCount;
     }
 
-    function voiceNameMatch(v, names) {
-      const n = (v.name + " " + (v.voiceURI || "")).toLowerCase();
-      return names.some(name => n.includes(name));
+    function stopCurrentAudio() {
+      if (currentAudio) {
+        currentAudio.pause();
+        currentAudio.currentTime = 0;
+        currentAudio = null;
+      }
     }
 
-    function getFemaleZhVoice() {
-      const voices = speechSynthesis.getVoices();
+    function playAudioUrl(src) {
+      if (!src || !hasUserInteracted) return;
 
-      const strongFemale = [
-        "ting-ting",
-        "mei-jia",
-        "meijia",
-        "sin-ji",
-        "sinji",
-        "siri female",
-        "female"
-      ];
+      stopCurrentAudio();
 
-      const weakFemale = [
-        "ting",
-        "mei",
-        "siri"
-      ];
+      const audio = new Audio(src);
+      currentAudio = audio;
 
-      const maleHints = [
-        "male",
-        "daniel",
-        "alex",
-        "fred",
-        "thomas",
-        "jorge"
-      ];
-
-      return (
-        voices.find(v => v.lang === "zh-TW" && voiceNameMatch(v, strongFemale)) ||
-        voices.find(v => v.lang.startsWith("zh") && voiceNameMatch(v, strongFemale)) ||
-        voices.find(v => v.lang === "zh-TW" && voiceNameMatch(v, weakFemale) && !voiceNameMatch(v, maleHints)) ||
-        voices.find(v => v.lang.startsWith("zh") && voiceNameMatch(v, weakFemale) && !voiceNameMatch(v, maleHints)) ||
-        voices.find(v => v.lang === "zh-TW" && !voiceNameMatch(v, maleHints)) ||
-        voices.find(v => v.lang.startsWith("zh") && !voiceNameMatch(v, maleHints)) ||
-        null
-      );
-    }
-
-    function getFemaleEnVoice() {
-      const voices = speechSynthesis.getVoices();
-
-      const femaleHints = [
-        "samantha",
-        "victoria",
-        "karen",
-        "zira",
-        "ava",
-        "allison",
-        "female"
-      ];
-
-      const maleHints = [
-        "daniel",
-        "alex",
-        "fred",
-        "thomas",
-        "male"
-      ];
-
-      return (
-        voices.find(v => /^en/i.test(v.lang) && voiceNameMatch(v, femaleHints)) ||
-        voices.find(v => /^en/i.test(v.lang) && !voiceNameMatch(v, maleHints)) ||
-        null
-      );
-    }
-
-    function speakWithVoice(text, { lang, rate, pitch, voice }) {
-      if (!hasUserInteracted) return;
-
-      speechSynthesis.cancel();
-
-      const utter = new SpeechSynthesisUtterance(text);
-      utter.lang = lang;
-      utter.volume = 1;
-      utter.rate = rate;
-      utter.pitch = pitch;
-      if (voice) utter.voice = voice;
-
-      speechSynthesis.speak(utter);
-    }
-
-    function speakZh(text, extra = {}) {
-      const voice = getFemaleZhVoice();
-      speakWithVoice(text, {
-        lang: "zh-TW",
-        rate: extra.rate ?? 0.52,
-        pitch: extra.pitch ?? 1.22,
-        voice
+      audio.addEventListener("error", (e) => {
+        console.error("Audio error:", src, e);
       });
-    }
 
-    function speakEn(text, extra = {}) {
-      const voice = getFemaleEnVoice();
-      speakWithVoice(text, {
-        lang: "en-US",
-        rate: extra.rate ?? 0.52,
-        pitch: extra.pitch ?? 1.16,
-        voice
-      });
-    }
-
-    function speakBopomofo(symbol) {
-      const spoken = bopomofoSpeakMap[symbol] || symbol;
-      speakZh(spoken, {
-        rate: 0.40,
-        pitch: 1.26
+      audio.play().catch((err) => {
+        console.error("Audio 播放失敗:", src, err);
       });
     }
 
     function speakEnglishLetter(letter) {
-      speakEn(letter, {
-        rate: 0.52,
-        pitch: 1.16
-      });
+      playAudioUrl(englishAudioMap[letter]);
     }
 
-    function speakNumber(num) {
-      speakZh(String(num), {
-        rate: 0.50,
-        pitch: 1.22
-      });
+    function speakNumber(numText) {
+      playAudioUrl(numberAudioMap[String(numText)]);
+    }
+
+    function speakBopomofo(symbol) {
+      playAudioUrl(bopomofoAudioMap[symbol]);
+    }
+
+    function speakPhrase(key) {
+      playAudioUrl(phraseAudioMap[key]);
     }
 
     function speak(text) {
@@ -665,11 +635,6 @@
         speakBopomofo(clean);
         return;
       }
-
-      speakZh(clean, {
-        rate: 0.54,
-        pitch: 1.22
-      });
     }
 
     function speakCurrent() {
@@ -755,6 +720,7 @@
 
     function pickQuestion() {
       clearAllTimers();
+      stopCurrentAudio();
       clearOptionStatesOnly();
       hideAnimalCard();
       marioOverlayEl.classList.remove("show");
@@ -799,7 +765,7 @@
         correctCount++;
         streakCount++;
         updateScores();
-        speakZh("你好棒", { rate: 0.56, pitch: 1.28 });
+        speakPhrase("correct");
         playSuccessSound();
         runPowerUpThenCard();
       } else {
@@ -807,7 +773,7 @@
         wrongCount++;
         streakCount = 0;
         updateScores();
-        speakZh("再來一次，你可以的", { rate: 0.55, pitch: 1.20 });
+        speakPhrase("retry");
         playFailSound();
         setTimeout(() => {
           if (hasUserInteracted && !locked) speakCurrent();
@@ -843,6 +809,7 @@
     document.getElementById("resetBtn").addEventListener("click", () => {
       unlockAndSpeak();
       clearAllTimers();
+      stopCurrentAudio();
       correctCount = 0;
       wrongCount = 0;
       streakCount = 0;
@@ -868,18 +835,15 @@
       }
     }, { once: true });
 
-    speechSynthesis.onvoiceschanged = () => {
-      getFemaleZhVoice();
-      getFemaleEnVoice();
-    };
-
     resetCardPool();
     updateScores();
     hideAnimalCard();
     pickQuestion();
 
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("service-worker.js");
+    if ("serviceWorker" in navigator && location.protocol !== "file:") {
+      navigator.serviceWorker.register("service-worker.js").catch(err => {
+        console.log("service worker register skipped:", err);
+      });
     }
   </script>
 </body>
