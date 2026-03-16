@@ -1,24 +1,886 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
-<body>
-  <button id="a">唸 A</button>
-  <button id="b">唸 ㄅ</button>
-  <button id="c">唸 1</button>
-
-  <script>
-    function speak(text, lang) {
-      speechSynthesis.cancel();
-      const u = new SpeechSynthesisUtterance(text);
-      u.lang = lang;
-      u.volume = 1;
-      u.rate = 0.5;
-      u.pitch = 1.1;
-      speechSynthesis.speak(u);
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#ffb74d" />
+  <link rel="manifest" href="manifest.json">
+  <title>兒童學習小遊戲</title>
+  <style>
+    :root{
+      --bg1:#fff6da;
+      --bg2:#eef7ff;
+      --card:#ffffffee;
+      --text:#2f2f2f;
+      --blue:#64b5f6;
+      --orange:#ff8a65;
+      --shadow:0 14px 34px rgba(0,0,0,.10);
     }
 
-    document.getElementById("a").onclick = () => speak("a", "en-US");
-    document.getElementById("b").onclick = () => speak("玻", "zh-TW");
-    document.getElementById("c").onclick = () => speak("一", "zh-TW");
+    *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+    html,body{margin:0;padding:0}
+    body{
+      min-height:100vh;
+      font-family:-apple-system,BlinkMacSystemFont,"PingFang TC","Microsoft JhengHei",sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at top left,#fff1b8 0,transparent 30%),
+        radial-gradient(circle at top right,#c8f0ff 0,transparent 28%),
+        linear-gradient(180deg,var(--bg1),var(--bg2));
+      padding:14px;
+      overflow-x:hidden;
+    }
+
+    .wrap{max-width:560px;margin:0 auto}
+
+    .app-shell{
+      background:rgba(255,255,255,.58);
+      backdrop-filter:blur(12px);
+      border-radius:36px;
+      box-shadow:0 22px 50px rgba(0,0,0,.12);
+      padding:14px;
+      border:1px solid rgba(255,255,255,.45);
+    }
+
+    .panel{
+      background:var(--card);
+      border-radius:32px;
+      box-shadow:var(--shadow);
+      padding:16px;
+      position:relative;
+    }
+
+    .mode-row{
+      margin-bottom:14px;
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:10px;
+      align-items:center;
+    }
+
+    select{
+      width:100%;
+      border:none;
+      border-radius:22px;
+      padding:16px 18px;
+      font-size:18px;
+      font-weight:900;
+      box-shadow:var(--shadow);
+      background:#fff;
+      color:var(--text);
+    }
+
+    .mini-fullscreen{
+      border:none;
+      border-radius:20px;
+      padding:16px 18px;
+      background:#fff;
+      box-shadow:var(--shadow);
+      font-size:18px;
+      cursor:pointer;
+      white-space:nowrap;
+    }
+
+    .question-card{
+      background:linear-gradient(180deg,#fffdf7,#fff);
+      border-radius:28px;
+      padding:18px;
+      box-shadow:var(--shadow);
+      text-align:center;
+    }
+
+    .options{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:14px;
+    }
+
+    .option{
+      min-height:110px;
+      font-size:clamp(30px,8vw,48px);
+      font-weight:900;
+      border:0;
+      border-radius:24px;
+      background:linear-gradient(180deg,#fff7f2,#ffe9d8);
+      transition:transform .12s ease, box-shadow .12s ease, background .12s ease;
+      position:relative;
+      overflow:hidden;
+      cursor:pointer;
+      color:#222;
+      box-shadow:0 10px 0 #efc8a8, var(--shadow);
+    }
+
+    .option::after{
+      content:"";
+      position:absolute;
+      left:-35%;
+      top:0;
+      width:38%;
+      height:100%;
+      background:rgba(255,255,255,.32);
+      transform:skewX(-20deg);
+      transition:left .24s ease;
+    }
+
+    .option:hover::after{left:120%}
+    .option:hover{transform:translateY(-2px)}
+    .option:active{transform:translateY(4px);box-shadow:0 4px 0 #efc8a8, var(--shadow)}
+    .option.correct{background:#e8f8e8;color:#246d2f;box-shadow:0 10px 0 #bfe3c2, var(--shadow)}
+    .option.wrong{background:#ffefef;color:#c62828;box-shadow:0 10px 0 #f3c2c2, var(--shadow)}
+
+    .reward-stage{
+      margin-top:14px;
+      min-height:300px;
+      position:relative;
+    }
+
+    .animal-card{
+      display:none;
+      background:linear-gradient(180deg,#fffdf7,#f8fbff);
+      border:3px dashed #d9e8ff;
+      border-radius:28px;
+      padding:22px;
+      box-shadow:var(--shadow);
+      animation:cardPop .45s ease;
+    }
+
+    .animal-card.show{
+      display:block;
+    }
+
+    .animal-photo-wrap{
+      width:100%;
+      height:260px;
+      border-radius:28px;
+      overflow:hidden;
+      box-shadow:var(--shadow);
+      background:#fff;
+    }
+
+    .animal-photo{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+
+    @keyframes cardPop{
+      0%{transform:scale(.84) translateY(20px);opacity:0}
+      100%{transform:scale(1) translateY(0);opacity:1}
+    }
+
+    .mario-overlay{
+      position:absolute;
+      inset:0;
+      z-index:20;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      pointer-events:none;
+      background:linear-gradient(180deg,rgba(255,255,255,.82),rgba(255,255,255,.58));
+      border-radius:28px;
+      overflow:hidden;
+    }
+
+    .mario-overlay.show{
+      display:flex;
+    }
+
+    .powerup-wrap{
+      position:relative;
+      width:260px;
+      height:260px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .mushroom-big,
+    .main-star-big,
+    .mini-star-big{
+      position:absolute;
+      user-select:none;
+    }
+
+    .mushroom-big{
+      font-size:100px;
+      left:50%;
+      top:54%;
+      transform:translate(-110px,40px) scale(.4);
+      opacity:0;
+      animation:mushroomJump3s 3s ease forwards;
+    }
+
+    .main-star-big{
+      font-size:120px;
+      left:50%;
+      top:50%;
+      transform:translate(-10px,-10px) scale(.2) rotate(0deg);
+      opacity:0;
+      animation:mainStarSpin3s 3s ease forwards;
+    }
+
+    .mini-star-big.s1{font-size:34px;left:50%;top:50%;transform:translate(-20px,-20px);animation:miniStarFly3s_1 3s ease-out forwards}
+    .mini-star-big.s2{font-size:30px;left:50%;top:50%;transform:translate(10px,-30px);animation:miniStarFly3s_2 3s ease-out forwards}
+    .mini-star-big.s3{font-size:32px;left:50%;top:50%;transform:translate(-18px,18px);animation:miniStarFly3s_3 3s ease-out forwards}
+    .mini-star-big.s4{font-size:28px;left:50%;top:50%;transform:translate(26px,14px);animation:miniStarFly3s_4 3s ease-out forwards}
+    .mini-star-big.s5{font-size:26px;left:50%;top:50%;transform:translate(-46px,0);animation:miniStarFly3s_5 3s ease-out forwards}
+    .mini-star-big.s6{font-size:26px;left:50%;top:50%;transform:translate(48px,-4px);animation:miniStarFly3s_6 3s ease-out forwards}
+
+    @keyframes mushroomJump3s{
+      0%{transform:translate(-110px,60px) scale(.3);opacity:0}
+      15%{transform:translate(-110px,-35px) scale(1.2);opacity:1}
+      35%{transform:translate(-110px,-5px) scale(1);opacity:1}
+      75%{transform:translate(-110px,-12px) scale(1);opacity:1}
+      100%{transform:translate(-110px,-12px) scale(1);opacity:0}
+    }
+
+    @keyframes mainStarSpin3s{
+      0%{transform:translate(-10px,-10px) scale(.2) rotate(0deg);opacity:0}
+      15%{transform:translate(-10px,-10px) scale(1.45) rotate(180deg);opacity:1}
+      35%{transform:translate(-10px,-10px) scale(1) rotate(320deg);opacity:1}
+      75%{transform:translate(-10px,-10px) scale(1.08) rotate(540deg);opacity:1}
+      100%{transform:translate(-10px,-10px) scale(1.08) rotate(720deg);opacity:0}
+    }
+
+    @keyframes miniStarFly3s_1{
+      0%{transform:translate(-20px,-20px) scale(.2);opacity:0}
+      15%{opacity:1}
+      70%{transform:translate(-120px,-120px) scale(1.4);opacity:1}
+      100%{transform:translate(-150px,-150px) scale(1.7);opacity:0}
+    }
+    @keyframes miniStarFly3s_2{
+      0%{transform:translate(10px,-30px) scale(.2);opacity:0}
+      15%{opacity:1}
+      70%{transform:translate(120px,-110px) scale(1.4);opacity:1}
+      100%{transform:translate(150px,-140px) scale(1.7);opacity:0}
+    }
+    @keyframes miniStarFly3s_3{
+      0%{transform:translate(-18px,18px) scale(.2);opacity:0}
+      15%{opacity:1}
+      70%{transform:translate(-110px,110px) scale(1.4);opacity:1}
+      100%{transform:translate(-145px,145px) scale(1.7);opacity:0}
+    }
+    @keyframes miniStarFly3s_4{
+      0%{transform:translate(26px,14px) scale(.2);opacity:0}
+      15%{opacity:1}
+      70%{transform:translate(120px,105px) scale(1.4);opacity:1}
+      100%{transform:translate(150px,138px) scale(1.7);opacity:0}
+    }
+    @keyframes miniStarFly3s_5{
+      0%{transform:translate(-46px,0) scale(.2);opacity:0}
+      15%{opacity:1}
+      70%{transform:translate(-170px,-8px) scale(1.4);opacity:1}
+      100%{transform:translate(-205px,-10px) scale(1.7);opacity:0}
+    }
+    @keyframes miniStarFly3s_6{
+      0%{transform:translate(48px,-4px) scale(.2);opacity:0}
+      15%{opacity:1}
+      70%{transform:translate(170px,-15px) scale(1.4);opacity:1}
+      100%{transform:translate(205px,-18px) scale(1.7);opacity:0}
+    }
+
+    .bottom-actions{
+      margin-top:14px;
+      display:grid;
+      grid-template-columns:1fr 1fr 1fr;
+      gap:12px;
+    }
+
+    button.action{
+      border:none;
+      border-radius:24px;
+      padding:18px 16px;
+      font-size:22px;
+      font-weight:900;
+      box-shadow:var(--shadow);
+      cursor:pointer;
+    }
+
+    .btn-primary{background:var(--blue);color:#fff}
+    .btn-next{background:var(--orange);color:#fff}
+    .btn-ghost{background:#fff;color:#444}
+
+    .mini-stats{
+      margin-top:14px;
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:10px;
+    }
+
+    .stat{
+      background:#fff;
+      border-radius:20px;
+      padding:12px 8px;
+      text-align:center;
+      box-shadow:var(--shadow);
+    }
+
+    .stat .n{font-size:24px;font-weight:900}
+    .stat .t{font-size:12px;color:#666;font-weight:900}
+
+    .footer{
+      margin-top:12px;
+      text-align:center;
+      color:#777;
+      font-size:12px;
+      font-weight:800;
+    }
+
+    @media (max-width: 560px){
+      body{padding:10px}
+      .app-shell{padding:10px;border-radius:26px}
+      .bottom-actions{grid-template-columns:1fr}
+      .mini-stats{grid-template-columns:repeat(3,1fr)}
+      button.action{font-size:20px}
+      .option{min-height:96px}
+      .animal-photo-wrap{height:220px}
+      .powerup-wrap{transform:scale(.88)}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="app-shell">
+      <div class="panel">
+        <div class="mode-row">
+          <select id="mode">
+            <option value="letters">🔤 英文字母 ABC</option>
+            <option value="numbers">🔢 數字 123</option>
+            <option value="bopomofo">📝 注音 ㄅㄆㄇㄈ</option>
+            <option value="mixed">🎯 混合模式</option>
+          </select>
+          <button class="mini-fullscreen" id="fullscreenBtn">📱</button>
+        </div>
+
+        <div class="question-card">
+          <div class="options" id="options"></div>
+        </div>
+
+        <div class="reward-stage">
+          <div class="mario-overlay" id="marioOverlay">
+            <div class="powerup-wrap">
+              <span class="mushroom-big">🍄</span>
+              <span class="main-star-big">⭐</span>
+              <span class="mini-star-big s1">✨</span>
+              <span class="mini-star-big s2">🌟</span>
+              <span class="mini-star-big s3">✨</span>
+              <span class="mini-star-big s4">🌟</span>
+              <span class="mini-star-big s5">✨</span>
+              <span class="mini-star-big s6">🌟</span>
+            </div>
+          </div>
+
+          <div class="animal-card" id="animalCard">
+            <div class="animal-photo-wrap">
+              <img id="animalPhoto" class="animal-photo" src="" alt="動物圖片">
+            </div>
+          </div>
+        </div>
+
+        <div class="bottom-actions">
+          <button class="action btn-primary" id="speakBtn">🔊 再念一次</button>
+          <button class="action btn-next" id="nextBtn">➡️ 下一題</button>
+          <button class="action btn-ghost" id="resetBtn">🔄 重設分數</button>
+        </div>
+
+        <div class="mini-stats">
+          <div class="stat"><div class="n" id="correctCount">0</div><div class="t">答對</div></div>
+          <div class="stat"><div class="n" id="wrongCount">0</div><div class="t">答錯</div></div>
+          <div class="stat"><div class="n" id="streakCount">0</div><div class="t">連續答對</div></div>
+        </div>
+      </div>
+
+      <div class="footer">UTF-8 繁體中文 · iPad / 手機 / 電腦都可使用</div>
+    </div>
+  </div>
+
+  <script>
+    const sets = {
+      letters: [
+        "A","B","C","D","E","F","G","H","I","J","K","L","M",
+        "N","O","P","Q","R","S","T","U","V","W","X","Y","Z"
+      ],
+      numbers: Array.from({ length: 20 }, (_, i) => String(i + 1)),
+      bopomofo: [
+        "ㄅ","ㄆ","ㄇ","ㄈ","ㄉ","ㄊ","ㄋ","ㄌ","ㄍ","ㄎ","ㄏ",
+        "ㄐ","ㄑ","ㄒ","ㄓ","ㄔ","ㄕ","ㄖ","ㄗ","ㄘ","ㄙ",
+        "ㄧ","ㄨ","ㄩ","ㄚ","ㄛ","ㄜ","ㄝ","ㄞ","ㄟ","ㄠ","ㄡ",
+        "ㄢ","ㄣ","ㄤ","ㄥ","ㄦ"
+      ]
+    };
+
+    const bopomofoSpeakMap = {
+      "ㄅ":"玻",
+      "ㄆ":"坡",
+      "ㄇ":"摸",
+      "ㄈ":"佛",
+      "ㄉ":"得",
+      "ㄊ":"特",
+      "ㄋ":"呢",
+      "ㄌ":"勒",
+      "ㄍ":"哥",
+      "ㄎ":"科",
+      "ㄏ":"喝",
+      "ㄐ":"機",
+      "ㄑ":"七",
+      "ㄒ":"西",
+      "ㄓ":"知",
+      "ㄔ":"吃",
+      "ㄕ":"詩",
+      "ㄖ":"日",
+      "ㄗ":"資",
+      "ㄘ":"雌",
+      "ㄙ":"思",
+      "ㄧ":"衣",
+      "ㄨ":"屋",
+      "ㄩ":"迂",
+      "ㄚ":"啊",
+      "ㄛ":"喔",
+      "ㄜ":"鵝",
+      "ㄝ":"耶",
+      "ㄞ":"哀",
+      "ㄟ":"欸",
+      "ㄠ":"凹",
+      "ㄡ":"歐",
+      "ㄢ":"安",
+      "ㄣ":"恩",
+      "ㄤ":"昂",
+      "ㄥ":"亨",
+      "ㄦ":"兒"
+    };
+
+    const animalCards = [
+      { img:"https://images.unsplash.com/photo-1518717758536-85ae29035b6d?auto=format&fit=crop&w=1200&q=80" },
+      { img:"https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=1200&q=80" },
+      { img:"https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308?auto=format&fit=crop&w=1200&q=80" },
+      { img:"https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?auto=format&fit=crop&w=1200&q=80" },
+      { img:"https://images.unsplash.com/photo-1502784444185-1f8f4d66d8ee?auto=format&fit=crop&w=1200&q=80" },
+      { img:"https://images.unsplash.com/photo-1546182990-dffeafbe841d?auto=format&fit=crop&w=1200&q=80" },
+      { img:"https://images.unsplash.com/photo-1557053910-d9eadeed1c58?auto=format&fit=crop&w=1200&q=80" },
+      { img:"https://images.unsplash.com/photo-1523805009345-7448845a9e53?auto=format&fit=crop&w=1200&q=80" },
+      { img:"https://images.unsplash.com/photo-1564349683136-77e08dba1ef7?auto=format&fit=crop&w=1200&q=80" },
+      { img:"https://images.unsplash.com/photo-1444464666168-49d633b86797?auto=format&fit=crop&w=1200&q=80" },
+      { img:"https://images.unsplash.com/photo-1466721591366-2d5fba72006d?auto=format&fit=crop&w=1200&q=80" },
+      { img:"https://images.unsplash.com/photo-1506947411487-a56738267384?auto=format&fit=crop&w=1200&q=80" },
+      { img:"https://images.unsplash.com/photo-1524704654690-b56c05c78a00?auto=format&fit=crop&w=1200&q=80" },
+      { img:"https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1200&q=80" },
+      { img:"https://images.unsplash.com/photo-1437622368342-7a3d73a34c8f?auto=format&fit=crop&w=1200&q=80" },
+      { img:"https://images.unsplash.com/photo-1572715376701-98568319fd0b?auto=format&fit=crop&w=1200&q=80" }
+    ];
+
+    let currentAnswer = "";
+    let currentOptions = [];
+    let locked = false;
+    let correctCount = 0;
+    let wrongCount = 0;
+    let streakCount = 0;
+    let hasUserInteracted = false;
+    let animationTimer = null;
+    let nextQuestionTimer = null;
+    let cardPool = [];
+
+    const modeEl = document.getElementById("mode");
+    const optionsEl = document.getElementById("options");
+    const correctCountEl = document.getElementById("correctCount");
+    const wrongCountEl = document.getElementById("wrongCount");
+    const streakCountEl = document.getElementById("streakCount");
+    const marioOverlayEl = document.getElementById("marioOverlay");
+    const animalCardEl = document.getElementById("animalCard");
+    const animalPhotoEl = document.getElementById("animalPhoto");
+
+    function shuffle(arr) {
+      return [...arr].sort(() => Math.random() - 0.5);
+    }
+
+    function resetCardPool() {
+      cardPool = shuffle(animalCards);
+    }
+
+    function nextAnimalCard() {
+      if (cardPool.length === 0) resetCardPool();
+      return cardPool.pop();
+    }
+
+    function getPool(mode) {
+      if (mode === "mixed") {
+        return [
+          ...sets.letters.slice(0, 10),
+          ...sets.numbers.slice(0, 10),
+          ...sets.bopomofo.slice(0, 12)
+        ];
+      }
+      return sets[mode];
+    }
+
+    function updateScores() {
+      correctCountEl.textContent = correctCount;
+      wrongCountEl.textContent = wrongCount;
+      streakCountEl.textContent = streakCount;
+    }
+
+    function voiceNameMatch(v, names) {
+      const n = (v.name + " " + (v.voiceURI || "")).toLowerCase();
+      return names.some(name => n.includes(name));
+    }
+
+    function getFemaleZhVoice() {
+      const voices = speechSynthesis.getVoices();
+
+      const strongFemale = [
+        "ting-ting",
+        "mei-jia",
+        "meijia",
+        "sin-ji",
+        "sinji",
+        "siri female",
+        "female"
+      ];
+
+      const weakFemale = [
+        "ting",
+        "mei",
+        "siri"
+      ];
+
+      const maleHints = [
+        "male",
+        "daniel",
+        "alex",
+        "fred",
+        "thomas",
+        "jorge"
+      ];
+
+      return (
+        voices.find(v => v.lang === "zh-TW" && voiceNameMatch(v, strongFemale)) ||
+        voices.find(v => v.lang.startsWith("zh") && voiceNameMatch(v, strongFemale)) ||
+        voices.find(v => v.lang === "zh-TW" && voiceNameMatch(v, weakFemale) && !voiceNameMatch(v, maleHints)) ||
+        voices.find(v => v.lang.startsWith("zh") && voiceNameMatch(v, weakFemale) && !voiceNameMatch(v, maleHints)) ||
+        voices.find(v => v.lang === "zh-TW" && !voiceNameMatch(v, maleHints)) ||
+        voices.find(v => v.lang.startsWith("zh") && !voiceNameMatch(v, maleHints)) ||
+        null
+      );
+    }
+
+    function getFemaleEnVoice() {
+      const voices = speechSynthesis.getVoices();
+
+      const femaleHints = [
+        "samantha",
+        "victoria",
+        "karen",
+        "zira",
+        "ava",
+        "allison",
+        "female"
+      ];
+
+      const maleHints = [
+        "daniel",
+        "alex",
+        "fred",
+        "thomas",
+        "male"
+      ];
+
+      return (
+        voices.find(v => /^en/i.test(v.lang) && voiceNameMatch(v, femaleHints)) ||
+        voices.find(v => /^en/i.test(v.lang) && !voiceNameMatch(v, maleHints)) ||
+        null
+      );
+    }
+
+    function speakWithVoice(text, { lang, rate, pitch, voice }) {
+      if (!hasUserInteracted) return;
+
+      speechSynthesis.cancel();
+
+      const utter = new SpeechSynthesisUtterance(text);
+      utter.lang = lang;
+      utter.volume = 1;
+      utter.rate = rate;
+      utter.pitch = pitch;
+      if (voice) utter.voice = voice;
+
+      speechSynthesis.speak(utter);
+    }
+
+    function speakZh(text, extra = {}) {
+      const voice = getFemaleZhVoice();
+      speakWithVoice(text, {
+        lang: "zh-TW",
+        rate: extra.rate ?? 0.52,
+        pitch: extra.pitch ?? 1.22,
+        voice
+      });
+    }
+
+    function speakEn(text, extra = {}) {
+      const voice = getFemaleEnVoice();
+      speakWithVoice(text, {
+        lang: "en-US",
+        rate: extra.rate ?? 0.52,
+        pitch: extra.pitch ?? 1.16,
+        voice
+      });
+    }
+
+    function speakBopomofo(symbol) {
+      const spoken = bopomofoSpeakMap[symbol] || symbol;
+      speakZh(spoken, {
+        rate: 0.40,
+        pitch: 1.26
+      });
+    }
+
+    function speakEnglishLetter(letter) {
+      speakEn(letter, {
+        rate: 0.52,
+        pitch: 1.16
+      });
+    }
+
+    function speakNumber(num) {
+      speakZh(String(num), {
+        rate: 0.50,
+        pitch: 1.22
+      });
+    }
+
+    function speak(text) {
+      const clean = String(text).trim();
+
+      if (/^[A-Z]$/.test(clean)) {
+        speakEnglishLetter(clean);
+        return;
+      }
+
+      if (/^[0-9]+$/.test(clean)) {
+        speakNumber(clean);
+        return;
+      }
+
+      if (/^[ㄅ-ㄩ]$/.test(clean)) {
+        speakBopomofo(clean);
+        return;
+      }
+
+      speakZh(clean, {
+        rate: 0.54,
+        pitch: 1.22
+      });
+    }
+
+    function speakCurrent() {
+      speak(currentAnswer);
+    }
+
+    function playSuccessSound() {
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      const notes = [523.25, 659.25, 783.99, 1046.5];
+
+      notes.forEach((freq, i) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = "square";
+        osc.frequency.value = freq;
+        gain.gain.value = 0.045;
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        const start = ctx.currentTime + i * 0.08;
+        osc.start(start);
+        osc.stop(start + 0.12);
+      });
+    }
+
+    function playFailSound() {
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      const notes = [349.23, 293.66];
+
+      notes.forEach((freq, i) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = "triangle";
+        osc.frequency.value = freq;
+        gain.gain.value = 0.04;
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        const start = ctx.currentTime + i * 0.14;
+        osc.start(start);
+        osc.stop(start + 0.16);
+      });
+    }
+
+    function clearAllTimers() {
+      clearTimeout(animationTimer);
+      clearTimeout(nextQuestionTimer);
+    }
+
+    function hideAnimalCard() {
+      animalCardEl.classList.remove("show");
+      animalPhotoEl.src = "";
+    }
+
+    function showAnimalCard(card) {
+      animalPhotoEl.src = card.img;
+      animalPhotoEl.alt = "動物圖片";
+      animalCardEl.classList.remove("show");
+      void animalCardEl.offsetWidth;
+      animalCardEl.classList.add("show");
+    }
+
+    function goNextQuestionAuto() {
+      clearTimeout(nextQuestionTimer);
+      nextQuestionTimer = setTimeout(() => {
+        pickQuestion();
+      }, 5000);
+    }
+
+    function runPowerUpThenCard() {
+      const card = nextAnimalCard();
+
+      hideAnimalCard();
+      marioOverlayEl.classList.remove("show");
+      void marioOverlayEl.offsetWidth;
+      marioOverlayEl.classList.add("show");
+
+      clearTimeout(animationTimer);
+      animationTimer = setTimeout(() => {
+        marioOverlayEl.classList.remove("show");
+        showAnimalCard(card);
+        goNextQuestionAuto();
+      }, 3000);
+    }
+
+    function pickQuestion() {
+      clearAllTimers();
+      clearOptionStatesOnly();
+      hideAnimalCard();
+      marioOverlayEl.classList.remove("show");
+      locked = false;
+
+      const pool = getPool(modeEl.value);
+      currentAnswer = pool[Math.floor(Math.random() * pool.length)];
+      const others = shuffle(pool.filter(x => x !== currentAnswer)).slice(0, 3);
+      currentOptions = shuffle([currentAnswer, ...others]);
+      renderOptions();
+
+      if (hasUserInteracted) {
+        setTimeout(() => speakCurrent(), 120);
+      }
+    }
+
+    function renderOptions() {
+      optionsEl.innerHTML = "";
+      currentOptions.forEach(opt => {
+        const btn = document.createElement("button");
+        btn.className = "option";
+        btn.textContent = opt;
+        btn.addEventListener("click", () => handleAnswer(opt, btn));
+        optionsEl.appendChild(btn);
+      });
+    }
+
+    function clearOptionStatesOnly() {
+      const allBtns = optionsEl.querySelectorAll(".option");
+      allBtns.forEach(btn => {
+        btn.classList.remove("correct", "wrong");
+      });
+    }
+
+    function handleAnswer(selected, btn) {
+      if (!hasUserInteracted) hasUserInteracted = true;
+      if (locked) return;
+
+      if (selected === currentAnswer) {
+        locked = true;
+        btn.classList.add("correct");
+        correctCount++;
+        streakCount++;
+        updateScores();
+        speakZh("你好棒", { rate: 0.56, pitch: 1.28 });
+        playSuccessSound();
+        runPowerUpThenCard();
+      } else {
+        btn.classList.add("wrong");
+        wrongCount++;
+        streakCount = 0;
+        updateScores();
+        speakZh("再來一次，你可以的", { rate: 0.55, pitch: 1.20 });
+        playFailSound();
+        setTimeout(() => {
+          if (hasUserInteracted && !locked) speakCurrent();
+        }, 1000);
+      }
+    }
+
+    function unlockAndSpeak() {
+      if (!hasUserInteracted) {
+        hasUserInteracted = true;
+        setTimeout(() => speakCurrent(), 120);
+      }
+    }
+
+    async function requestFullScreen() {
+      const el = document.documentElement;
+      if (document.fullscreenElement) return;
+      if (el.requestFullscreen) {
+        await el.requestFullscreen().catch(() => {});
+      }
+    }
+
+    document.getElementById("speakBtn").addEventListener("click", () => {
+      unlockAndSpeak();
+      speakCurrent();
+    });
+
+    document.getElementById("nextBtn").addEventListener("click", () => {
+      unlockAndSpeak();
+      pickQuestion();
+    });
+
+    document.getElementById("resetBtn").addEventListener("click", () => {
+      unlockAndSpeak();
+      clearAllTimers();
+      correctCount = 0;
+      wrongCount = 0;
+      streakCount = 0;
+      updateScores();
+      resetCardPool();
+      pickQuestion();
+    });
+
+    document.getElementById("fullscreenBtn").addEventListener("click", async () => {
+      unlockAndSpeak();
+      await requestFullScreen();
+    });
+
+    modeEl.addEventListener("change", () => {
+      unlockAndSpeak();
+      pickQuestion();
+    });
+
+    document.body.addEventListener("pointerdown", () => {
+      if (!hasUserInteracted) {
+        hasUserInteracted = true;
+        setTimeout(() => speakCurrent(), 120);
+      }
+    }, { once: true });
+
+    speechSynthesis.onvoiceschanged = () => {
+      getFemaleZhVoice();
+      getFemaleEnVoice();
+    };
+
+    resetCardPool();
+    updateScores();
+    hideAnimalCard();
+    pickQuestion();
+
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("service-worker.js");
+    }
   </script>
 </body>
 </html>
