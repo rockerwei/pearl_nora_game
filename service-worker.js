@@ -1,4 +1,4 @@
-const CACHE_NAME = "kids-game-cache-v3";
+const CACHE_NAME = "kids-game-cache-v4";
 
 const urlsToCache = [
   "./",
@@ -8,8 +8,7 @@ const urlsToCache = [
 self.addEventListener("install", event => {
   self.skipWaiting();
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => cache.addAll(urlsToCache))
+    caches.open(CACHE_NAME).then(cache => cache.addAll(urlsToCache))
   );
 });
 
@@ -27,9 +26,19 @@ self.addEventListener("activate", event => {
 });
 
 self.addEventListener("fetch", event => {
+  const url = new URL(event.request.url);
+
+  // 不攔外部資源，尤其是 Google TTS 音訊
+  if (url.origin !== location.origin) {
+    return;
+  }
+
+  // 只處理 GET
+  if (event.request.method !== "GET") {
+    return;
+  }
+
   event.respondWith(
-    fetch(event.request).catch(() =>
-      caches.match(event.request)
-    )
+    fetch(event.request).catch(() => caches.match(event.request))
   );
 });
