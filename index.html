@@ -819,3 +819,32 @@
       unlockAndSpeak();
       await requestFullScreen();
     });
+
+    modeEl.addEventListener("change", () => {
+      unlockAndSpeak();
+      pickQuestion();
+    });
+
+    document.body.addEventListener("pointerdown", () => {
+      if (!hasUserInteracted) {
+        hasUserInteracted = true;
+        setTimeout(() => speakCurrent(), 120);
+      }
+    }, { once: true });
+
+    speechSynthesis.onvoiceschanged = () => {
+      getFemaleZhVoice();
+      getFemaleEnVoice();
+    };
+
+    resetCardPool();
+    updateScores();
+    hideAnimalCard();
+    pickQuestion();
+
+    if ("serviceWorker" in navigator && location.protocol !== "file:") {
+      navigator.serviceWorker.register("service-worker.js").catch(() => {});
+    }
+  </script>
+</body>
+</html>
