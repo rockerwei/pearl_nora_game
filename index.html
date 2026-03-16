@@ -558,25 +558,23 @@
 
     function playAudioUrl(src) {
       if (!src || !hasUserInteracted) return;
-
+    
+      window.speechSynthesis.cancel();
       stopCurrentAudio();
-
+    
       const audio = new Audio(src);
       currentAudio = audio;
-
+    
       audio.addEventListener("error", (e) => {
         console.error("Audio error:", src, e);
       });
-
+    
       audio.play().catch((err) => {
         console.error("Audio 播放失敗:", src, err);
       });
     }
 
     function speakEnglishLetter(letter) {
-      stopCurrentAudio();
-      window.speechSynthesis.cancel();
-    
       const pronunciationMap = {
         A: "ay",
         B: "bee",
@@ -606,20 +604,10 @@
         Z: "zee"
       };
     
-      const utter = new SpeechSynthesisUtterance(pronunciationMap[letter] || letter);
-      utter.lang = "en-US";
-      utter.rate = 0.9;
-      utter.pitch = 1;
-    
-      const voices = window.speechSynthesis.getVoices();
-      const voice =
-        voices.find(v => /en-US/i.test(v.lang) && /Samantha|Karen|Moira|Ava|Allison|Female/i.test(v.name)) ||
-        voices.find(v => /en-US/i.test(v.lang)) ||
-        voices.find(v => /^en/i.test(v.lang));
-    
-      if (voice) utter.voice = voice;
-    
-      window.speechSynthesis.speak(utter);
+      const text = pronunciationMap[letter] || letter;
+      playAudioUrl(
+        `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodeURIComponent(text)}&tl=en-US&client=tw-ob`
+      );
     }
 
     function speakNumber(numText) {
