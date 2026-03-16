@@ -410,11 +410,44 @@
       ]
     };
 
-    const numberZhMap = {
-      "1":"一","2":"二","3":"三","4":"四","5":"五",
-      "6":"六","7":"七","8":"八","9":"九","10":"十",
-      "11":"十一","12":"十二","13":"十三","14":"十四","15":"十五",
-      "16":"十六","17":"十七","18":"十八","19":"十九","20":"二十"
+    const bopomofoSpeakMap = {
+      "ㄅ":"玻",
+      "ㄆ":"坡",
+      "ㄇ":"摸",
+      "ㄈ":"佛",
+      "ㄉ":"得",
+      "ㄊ":"特",
+      "ㄋ":"呢",
+      "ㄌ":"勒",
+      "ㄍ":"哥",
+      "ㄎ":"科",
+      "ㄏ":"喝",
+      "ㄐ":"機",
+      "ㄑ":"七",
+      "ㄒ":"西",
+      "ㄓ":"知",
+      "ㄔ":"吃",
+      "ㄕ":"詩",
+      "ㄖ":"日",
+      "ㄗ":"資",
+      "ㄘ":"雌",
+      "ㄙ":"思",
+      "ㄧ":"衣",
+      "ㄨ":"屋",
+      "ㄩ":"迂",
+      "ㄚ":"啊",
+      "ㄛ":"喔",
+      "ㄜ":"鵝",
+      "ㄝ":"耶",
+      "ㄞ":"哀",
+      "ㄟ":"欸",
+      "ㄠ":"凹",
+      "ㄡ":"歐",
+      "ㄢ":"安",
+      "ㄣ":"恩",
+      "ㄤ":"昂",
+      "ㄥ":"亨",
+      "ㄦ":"兒"
     };
 
     const animalCards = [
@@ -446,7 +479,6 @@
     let animationTimer = null;
     let nextQuestionTimer = null;
     let cardPool = [];
-    let currentUtteranceId = 0;
 
     const modeEl = document.getElementById("mode");
     const optionsEl = document.getElementById("options");
@@ -487,105 +519,128 @@
       streakCountEl.textContent = streakCount;
     }
 
-    function loadVoices() {
-      return speechSynthesis.getVoices();
+    function voiceNameMatch(v, names) {
+      const n = (v.name + " " + (v.voiceURI || "")).toLowerCase();
+      return names.some(name => n.includes(name));
     }
 
-    function pickVoiceByLang(langPrefix) {
-      const voices = loadVoices();
-      const lowerPrefix = langPrefix.toLowerCase();
+    function getFemaleZhVoice() {
+      const voices = speechSynthesis.getVoices();
+      const strongFemale = ["ting-ting", "mei-jia", "meijia", "sin-ji", "sinji", "siri female", "female"];
+      const weakFemale = ["ting", "mei", "siri"];
+      const maleHints = ["male", "daniel", "alex", "fred", "thomas", "jorge"];
+
       return (
-        voices.find(v => v.lang && v.lang.toLowerCase() === lowerPrefix) ||
-        voices.find(v => v.lang && v.lang.toLowerCase().startsWith(lowerPrefix.split("-")[0])) ||
+        voices.find(v => v.lang === "zh-TW" && voiceNameMatch(v, strongFemale)) ||
+        voices.find(v => v.lang.startsWith("zh") && voiceNameMatch(v, strongFemale)) ||
+        voices.find(v => v.lang === "zh-TW" && voiceNameMatch(v, weakFemale) && !voiceNameMatch(v, maleHints)) ||
+        voices.find(v => v.lang.startsWith("zh") && voiceNameMatch(v, weakFemale) && !voiceNameMatch(v, maleHints)) ||
+        voices.find(v => v.lang === "zh-TW" && !voiceNameMatch(v, maleHints)) ||
+        voices.find(v => v.lang.startsWith("zh") && !voiceNameMatch(v, maleHints)) ||
         null
       );
     }
 
-    function stopSpeech() {
-      try {
-        speechSynthesis.cancel();
-      } catch (_) {}
+    function getFemaleEnVoice() {
+      const voices = speechSynthesis.getVoices();
+      const femaleHints = ["samantha", "victoria", "karen", "zira", "ava", "allison", "female"];
+      const maleHints = ["daniel", "alex", "fred", "thomas", "male"];
+
+      return (
+        voices.find(v => /^en/i.test(v.lang) && voiceNameMatch(v, femaleHints)) ||
+        voices.find(v => /^en/i.test(v.lang) && !voiceNameMatch(v, maleHints)) ||
+        null
+      );
     }
 
-    function speakWithTTS(text, { lang = "zh-TW", rate = 0.5, pitch = 1.0, voice = null } = {}) {
-      if (!hasUserInteracted || !text) return;
+    function speakWithVoice(text, { lang, rate, pitch, voice }) {
+      if (!hasUserInteracted) return;
 
-      stopSpeech();
-      currentUtteranceId += 1;
-      const myId = currentUtteranceId;
-
+      speechSynthesis.cancel();
       const utter = new SpeechSynthesisUtterance(text);
       utter.lang = lang;
+      utter.volume = 1;
       utter.rate = rate;
       utter.pitch = pitch;
-      utter.volume = 1;
       if (voice) utter.voice = voice;
-
-      utter.onerror = () => {
-        if (myId !== currentUtteranceId) return;
-        if (voice) {
-          const fallback = new SpeechSynthesisUtterance(text);
-          fallback.lang = lang;
-          fallback.rate = rate;
-          fallback.pitch = pitch;
-          fallback.volume = 1;
-          speechSynthesis.speak(fallback);
-        }
-      };
-
       speechSynthesis.speak(utter);
     }
 
     function speakZh(text, extra = {}) {
-      speakWithTTS(text, {
+      const voice = getFemaleZhVoice();
+      speakWithVoice(text, {
         lang: "zh-TW",
-        rate: extra.rate ?? 0.48,
-        pitch: extra.pitch ?? 1.06,
-        voice: pickVoiceByLang("zh-TW")
+        rate: extra.rate ?? 0.52,
+        pitch: extra.pitch ?? 1.22,
+        voice
       });
     }
 
     function speakEn(text, extra = {}) {
-      speakWithTTS(text, {
+      const voice = getFemaleEnVoice();
+      speakWithVoice(text, {
         lang: "en-US",
-        rate: extra.rate ?? 0.42,
-        pitch: extra.pitch ?? 1.02,
-        voice: pickVoiceByLang("en-US")
+        rate: extra.rate ?? 0.52,
+        pitch: extra.pitch ?? 1.16,
+        voice
+      });
+    }
+
+    function speakBopomofo(symbol) {
+      const spoken = bopomofoSpeakMap[symbol] || symbol;
+      speakZh(spoken, {
+        rate: 0.40,
+        pitch: 1.26
+      });
+    }
+
+    function numberToZh(numText) {
+      const n = Number(numText);
+      const map = {
+        1: "一", 2: "二", 3: "三", 4: "四", 5: "五",
+        6: "六", 7: "七", 8: "八", 9: "九", 10: "十",
+        11: "十一", 12: "十二", 13: "十三", 14: "十四", 15: "十五",
+        16: "十六", 17: "十七", 18: "十八", 19: "十九", 20: "二十"
+      };
+      return map[n] || String(numText);
+    }
+
+    function speakNumber(numText) {
+      speakZh(numberToZh(numText), {
+        rate: 0.50,
+        pitch: 1.08
       });
     }
 
     function speakEnglishLetter(letter) {
-      const map = {
-        A: "a", B: "b", C: "c", D: "d", E: "e", F: "f", G: "g",
-        H: "h", I: "i", J: "j", K: "k", L: "l", M: "m", N: "n",
-        O: "o", P: "p", Q: "q", R: "r", S: "s", T: "t", U: "u",
-        V: "v", W: "double u", X: "x", Y: "y", Z: "z"
-      };
-      speakEn(map[letter] || letter.toLowerCase(), { rate: 0.40, pitch: 1.00 });
-    }
-
-    function speakNumber(numText) {
-      speakZh(numberZhMap[String(numText)] || String(numText), { rate: 0.48, pitch: 1.04 });
-    }
-
-    function speakBopomofo(symbol) {
-      speakZh(symbol, { rate: 0.36, pitch: 1.02 });
-    }
-
-    function speakPhraseCorrect() {
-      speakZh("答對了", { rate: 0.48, pitch: 1.04 });
-    }
-
-    function speakPhraseRetry() {
-      speakZh("再來一次，你可以的", { rate: 0.50, pitch: 1.06 });
+      speakEn(letter.toLowerCase(), {
+        rate: 0.42,
+        pitch: 1.05
+      });
     }
 
     function speak(text) {
       const clean = String(text).trim();
-      if (/^[A-Z]$/.test(clean)) return void speakEnglishLetter(clean);
-      if (/^[0-9]+$/.test(clean)) return void speakNumber(clean);
-      if (/^[ㄅ-ㄦ]$/.test(clean)) return void speakBopomofo(clean);
-      speakZh(clean);
+
+      if (/^[A-Z]$/.test(clean)) {
+        speakEnglishLetter(clean);
+        return;
+      }
+
+      if (/^[0-9]+$/.test(clean)) {
+        speakNumber(clean);
+        return;
+      }
+
+      if (/^[ㄅ-ㄦ]$/.test(clean)) {
+        speakBopomofo(clean);
+        return;
+      }
+
+      speakZh(clean, {
+        rate: 0.54,
+        pitch: 1.22
+      });
     }
 
     function speakCurrent() {
@@ -665,7 +720,6 @@
 
     function pickQuestion() {
       clearAllTimers();
-      stopSpeech();
       clearOptionStatesOnly();
       hideAnimalCard();
       marioOverlayEl.classList.remove("show");
@@ -709,7 +763,7 @@
         correctCount++;
         streakCount++;
         updateScores();
-        speakPhraseCorrect();
+        speakZh("答對了", { rate: 0.55, pitch: 1.25 });
         playSuccessSound();
         runPowerUpThenCard();
       } else {
@@ -717,7 +771,7 @@
         wrongCount++;
         streakCount = 0;
         updateScores();
-        speakPhraseRetry();
+        speakZh("再來一次，你可以的", { rate: 0.55, pitch: 1.20 });
         playFailSound();
         setTimeout(() => {
           if (hasUserInteracted && !locked) speakCurrent();
@@ -728,7 +782,6 @@
     function unlockAndSpeak() {
       if (!hasUserInteracted) {
         hasUserInteracted = true;
-        loadVoices();
         setTimeout(() => speakCurrent(), 120);
       }
     }
@@ -754,7 +807,6 @@
     document.getElementById("resetBtn").addEventListener("click", () => {
       unlockAndSpeak();
       clearAllTimers();
-      stopSpeech();
       correctCount = 0;
       wrongCount = 0;
       streakCount = 0;
@@ -767,35 +819,3 @@
       unlockAndSpeak();
       await requestFullScreen();
     });
-
-    modeEl.addEventListener("change", () => {
-      unlockAndSpeak();
-      pickQuestion();
-    });
-
-    document.body.addEventListener("pointerdown", () => {
-      if (!hasUserInteracted) {
-        hasUserInteracted = true;
-        loadVoices();
-        setTimeout(() => speakCurrent(), 120);
-      }
-    }, { once: true });
-
-    if ("speechSynthesis" in window) {
-      speechSynthesis.onvoiceschanged = () => loadVoices();
-      loadVoices();
-      setTimeout(loadVoices, 300);
-      setTimeout(loadVoices, 1000);
-    }
-
-    resetCardPool();
-    updateScores();
-    hideAnimalCard();
-    pickQuestion();
-
-    if ("serviceWorker" in navigator && location.protocol !== "file:") {
-      navigator.serviceWorker.register("service-worker.js").catch(() => {});
-    }
-  </script>
-</body>
-</html>
