@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="theme-color" content="#ffb74d" />
-  <link rel="manifest" href="manifest.json">
+  <!-- <link rel="manifest" href="manifest.json"> -->
   <title>兒童學習小遊戲</title>
   <style>
     :root{
@@ -842,8 +842,8 @@
     hideAnimalCard();
     pickQuestion();
 
-    if ("serviceWorker" in navigator && location.protocol !== "file:") {
-      navigator.serviceWorker.register("service-worker.js").catch(() => {});
+    // if ("serviceWorker" in navigator && location.protocol !== "file:") {
+    //   navigator.serviceWorker.register("service-worker.js").catch(() => {});
     }
   </script>
 </body>
