@@ -1,7 +1,8 @@
-const CACHE_NAME = "kids-game-cache-v4";
+const CACHE_NAME = "kids-game-cache-v5";
 
 const urlsToCache = [
   "./",
+  "./index.html",
   "./manifest.json"
 ];
 
@@ -16,9 +17,7 @@ self.addEventListener("activate", event => {
   event.waitUntil(
     caches.keys().then(keys =>
       Promise.all(
-        keys
-          .filter(key => key !== CACHE_NAME)
-          .map(key => caches.delete(key))
+        keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key))
       )
     )
   );
@@ -28,15 +27,8 @@ self.addEventListener("activate", event => {
 self.addEventListener("fetch", event => {
   const url = new URL(event.request.url);
 
-  // 不攔外部資源，尤其是 Google TTS 音訊
-  if (url.origin !== location.origin) {
-    return;
-  }
-
-  // 只處理 GET
-  if (event.request.method !== "GET") {
-    return;
-  }
+  if (url.origin !== location.origin) return;
+  if (event.request.method !== "GET") return;
 
   event.respondWith(
     fetch(event.request).catch(() => caches.match(event.request))
