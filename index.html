@@ -603,7 +603,7 @@
     }
 
     function speakEnglishLetter(letter) {
-      playAudioUrl(englishAudioMap[letter]);
+      playAudioUrl(`https://translate.google.com/translate_tts?ie=UTF-8&q=${letter}&tl=en&client=tw-ob`);
     }
 
     function speakNumber(numText) {
