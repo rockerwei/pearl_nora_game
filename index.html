@@ -410,45 +410,77 @@
       ]
     };
 
-    const bopomofoSpeakMap = {
-      "ㄅ":"玻",
-      "ㄆ":"坡",
-      "ㄇ":"摸",
-      "ㄈ":"佛",
-      "ㄉ":"得",
-      "ㄊ":"特",
-      "ㄋ":"呢",
-      "ㄌ":"勒",
-      "ㄍ":"哥",
-      "ㄎ":"科",
-      "ㄏ":"喝",
-      "ㄐ":"機",
-      "ㄑ":"七",
-      "ㄒ":"西",
-      "ㄓ":"知",
-      "ㄔ":"吃",
-      "ㄕ":"詩",
-      "ㄖ":"日",
-      "ㄗ":"資",
-      "ㄘ":"雌",
-      "ㄙ":"思",
-      "ㄧ":"衣",
-      "ㄨ":"屋",
-      "ㄩ":"迂",
-      "ㄚ":"啊",
-      "ㄛ":"喔",
-      "ㄜ":"鵝",
-      "ㄝ":"耶",
-      "ㄞ":"哀",
-      "ㄟ":"欸",
-      "ㄠ":"凹",
-      "ㄡ":"歐",
-      "ㄢ":"安",
-      "ㄣ":"恩",
-      "ㄤ":"昂",
-      "ㄥ":"亨",
-      "ㄦ":"兒"
+    const bopomofoAudioMap = {
+      "ㄅ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄅ&tl=zh-TW&client=tw-ob",
+      "ㄆ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄆ&tl=zh-TW&client=tw-ob",
+      "ㄇ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄇ&tl=zh-TW&client=tw-ob",
+      "ㄈ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄈ&tl=zh-TW&client=tw-ob",
+      "ㄉ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄉ&tl=zh-TW&client=tw-ob",
+      "ㄊ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄊ&tl=zh-TW&client=tw-ob",
+      "ㄋ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄋ&tl=zh-TW&client=tw-ob",
+      "ㄌ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄌ&tl=zh-TW&client=tw-ob",
+
+      "ㄍ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄍ&tl=zh-TW&client=tw-ob",
+      "ㄎ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄎ&tl=zh-TW&client=tw-ob",
+      "ㄏ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄏ&tl=zh-TW&client=tw-ob",
+
+      "ㄐ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄐ&tl=zh-TW&client=tw-ob",
+      "ㄑ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄑ&tl=zh-TW&client=tw-ob",
+      "ㄒ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄒ&tl=zh-TW&client=tw-ob",
+
+      "ㄓ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄓ&tl=zh-TW&client=tw-ob",
+      "ㄔ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄔ&tl=zh-TW&client=tw-ob",
+      "ㄕ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄕ&tl=zh-TW&client=tw-ob",
+      "ㄖ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄖ&tl=zh-TW&client=tw-ob",
+
+      "ㄗ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄗ&tl=zh-TW&client=tw-ob",
+      "ㄘ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄘ&tl=zh-TW&client=tw-ob",
+      "ㄙ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄙ&tl=zh-TW&client=tw-ob",
+
+      "ㄧ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄧ&tl=zh-TW&client=tw-ob",
+      "ㄨ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄨ&tl=zh-TW&client=tw-ob",
+      "ㄩ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄩ&tl=zh-TW&client=tw-ob",
+
+      "ㄚ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄚ&tl=zh-TW&client=tw-ob",
+      "ㄛ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄛ&tl=zh-TW&client=tw-ob",
+      "ㄜ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄜ&tl=zh-TW&client=tw-ob",
+      "ㄝ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄝ&tl=zh-TW&client=tw-ob",
+
+      "ㄞ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄞ&tl=zh-TW&client=tw-ob",
+      "ㄟ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄟ&tl=zh-TW&client=tw-ob",
+      "ㄠ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄠ&tl=zh-TW&client=tw-ob",
+      "ㄡ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄡ&tl=zh-TW&client=tw-ob",
+
+      "ㄢ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄢ&tl=zh-TW&client=tw-ob",
+      "ㄣ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄣ&tl=zh-TW&client=tw-ob",
+      "ㄤ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄤ&tl=zh-TW&client=tw-ob",
+      "ㄥ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄥ&tl=zh-TW&client=tw-ob",
+      "ㄦ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄦ&tl=zh-TW&client=tw-ob"
     };
+
+    let currentBopomofoAudio = null;
+
+    function stopBopomofoAudio() {
+      if (currentBopomofoAudio) {
+        currentBopomofoAudio.pause();
+        currentBopomofoAudio.currentTime = 0;
+        currentBopomofoAudio = null;
+      }
+    }
+
+    function speakBopomofo(symbol) {
+      const src = bopomofoAudioMap[symbol];
+
+      // 沒有音檔就不唸，避免又回退成錯誤 TTS
+      if (!src) return;
+
+      speechSynthesis.cancel();
+      stopBopomofoAudio();
+
+      const audio = new Audio(src);
+      currentBopomofoAudio = audio;
+      audio.play().catch(() => {});
+    }
 
     const animalCards = [
       { img:"https://images.unsplash.com/photo-1518717758536-85ae29035b6d?auto=format&fit=crop&w=1200&q=80" },
@@ -527,40 +559,56 @@
     function getFemaleZhVoice() {
       const voices = speechSynthesis.getVoices();
 
-      const strongFemale = [
-        "ting-ting",
-        "mei-jia",
-        "meijia",
-        "sin-ji",
-        "sinji",
-        "siri female",
-        "female"
-      ];
+      const preferredOrder = [
+        // Apple 常見台灣女聲
+        { lang: "zh-TW", names: ["mei-jia", "meijia"] },
+        { lang: "zh-TW", names: ["ting-ting", "tingting"] },
+        { lang: "zh-TW", names: ["siri female", "siri"] },
 
-      const weakFemale = [
-        "ting",
-        "mei",
-        "siri"
+        // 次選：只要是 zh-TW 且名字偏女性
+        { lang: "zh-TW", names: ["female"] },
+
+        // 最後才放寬到其他中文女聲
+        { lang: "zh", names: ["mei-jia", "meijia", "ting-ting", "tingting", "female"] }
       ];
 
       const maleHints = [
-        "male",
-        "daniel",
-        "alex",
-        "fred",
-        "thomas",
-        "jorge"
+        "male", "alex", "daniel", "fred", "thomas", "jorge", "kyoko", "lee"
       ];
 
-      return (
-        voices.find(v => v.lang === "zh-TW" && voiceNameMatch(v, strongFemale)) ||
-        voices.find(v => v.lang.startsWith("zh") && voiceNameMatch(v, strongFemale)) ||
-        voices.find(v => v.lang === "zh-TW" && voiceNameMatch(v, weakFemale) && !voiceNameMatch(v, maleHints)) ||
-        voices.find(v => v.lang.startsWith("zh") && voiceNameMatch(v, weakFemale) && !voiceNameMatch(v, maleHints)) ||
-        voices.find(v => v.lang === "zh-TW" && !voiceNameMatch(v, maleHints)) ||
-        voices.find(v => v.lang.startsWith("zh") && !voiceNameMatch(v, maleHints)) ||
-        null
+      const normalize = (v) => `${v.name} ${v.voiceURI || ""}`.toLowerCase();
+
+      for (const rule of preferredOrder) {
+        const match = voices.find(v => {
+          const n = normalize(v);
+          const langOk = rule.lang === "zh"
+            ? v.lang.toLowerCase().startsWith("zh")
+            : v.lang.toLowerCase() === rule.lang.toLowerCase();
+
+          const hasWantedName = rule.names.some(name => n.includes(name));
+          const looksMale = maleHints.some(name => n.includes(name));
+
+          return langOk && hasWantedName && !looksMale;
+        });
+
+        if (match) return match;
+      }
+
+      // fallback 1: 只接受 zh-TW，寧可普通也不要中國口音
+      const zhTwVoice = voices.find(v =>
+        v.lang.toLowerCase() === "zh-tw" &&
+        !maleHints.some(name => normalize(v).includes(name))
       );
+      if (zhTwVoice) return zhTwVoice;
+
+      // fallback 2: 再退到任一中文女聲
+      const anyZhFemale = voices.find(v =>
+        v.lang.toLowerCase().startsWith("zh") &&
+        !maleHints.some(name => normalize(v).includes(name))
+      );
+      if (anyZhFemale) return anyZhFemale;
+
+      return null;
     }
 
     function getFemaleEnVoice() {
@@ -610,8 +658,8 @@
       const voice = getFemaleZhVoice();
       speakWithVoice(text, {
         lang: "zh-TW",
-        rate: extra.rate ?? 0.52,
-        pitch: extra.pitch ?? 1.22,
+        rate: extra.rate ?? 0.48,
+        pitch: extra.pitch ?? 1.08,
         voice
       });
     }
@@ -626,25 +674,46 @@
       });
     }
 
-    function speakBopomofo(symbol) {
-      const spoken = bopomofoSpeakMap[symbol] || symbol;
-      speakZh(spoken, {
-        rate: 0.40,
-        pitch: 1.26
+    function speakNumber(numText) {
+      speakZh(numText, {
+        rate: 0.50,
+        pitch: 1.08
       });
     }
+
+    const englishLetterSpeakMap = {
+      A: "A",
+      B: "B",
+      C: "C",
+      D: "D",
+      E: "E",
+      F: "F",
+      G: "G",
+      H: "H",
+      I: "I",
+      J: "J",
+      K: "K",
+      L: "L",
+      M: "M",
+      N: "N",
+      O: "O",
+      P: "P",
+      Q: "Q",
+      R: "R",
+      S: "S",
+      T: "T",
+      U: "U",
+      V: "V",
+      W: "double u",
+      X: "X",
+      Y: "Y",
+      Z: "Z"
+    };
 
     function speakEnglishLetter(letter) {
-      speakEn(letter, {
-        rate: 0.52,
-        pitch: 1.16
-      });
-    }
-
-    function speakNumber(num) {
-      speakZh(String(num), {
-        rate: 0.50,
-        pitch: 1.22
+      speakEn(letter.toLowerCase(), {
+        rate: 0.42,
+        pitch: 1.05
       });
     }
 
@@ -755,6 +824,7 @@
 
     function pickQuestion() {
       clearAllTimers();
+      stopBopomofoAudio();
       clearOptionStatesOnly();
       hideAnimalCard();
       marioOverlayEl.classList.remove("show");
@@ -799,7 +869,7 @@
         correctCount++;
         streakCount++;
         updateScores();
-        speakZh("你好棒", { rate: 0.56, pitch: 1.28 });
+        speakZh("答對了", { rate: 0.47, pitch: 1.06 });
         playSuccessSound();
         runPowerUpThenCard();
       } else {
@@ -843,6 +913,7 @@
     document.getElementById("resetBtn").addEventListener("click", () => {
       unlockAndSpeak();
       clearAllTimers();
+      stopBopomofoAudio();
       correctCount = 0;
       wrongCount = 0;
       streakCount = 0;
