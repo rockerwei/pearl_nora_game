@@ -8,14 +8,14 @@
   "orientation": "portrait",
   "icons": [
     {
-      "src": "https://image1.gamme.com.tw/news2/2017/52/41/qZqZo6SVk6ecq6Q.jpg",
+      "src": "https://png.pngtree.com/png-clipart/20241117/original/pngtree-elephant-cute-png-image_17169598.png",
       "sizes": "192x192",
-      "type": "image/jpeg"
+      "type": "image/png"
     },
     {
-      "src": "https://image1.gamme.com.tw/news2/2017/52/41/qZqZo6SVk6ecq6Q.jpg",
+      "src": "https://png.pngtree.com/png-clipart/20241117/original/pngtree-elephant-cute-png-image_17169598.png",
       "sizes": "512x512",
-      "type": "image/jpeg"
+      "type": "image/png"
     }
   ]
 }
