@@ -410,101 +410,11 @@
       ]
     };
 
-    const englishAudioMap = {
-      A: "https://translate.google.com/translate_tts?ie=UTF-8&q=A&tl=en-US&client=tw-ob",
-      B: "https://translate.google.com/translate_tts?ie=UTF-8&q=B&tl=en-US&client=tw-ob",
-      C: "https://translate.google.com/translate_tts?ie=UTF-8&q=C&tl=en-US&client=tw-ob",
-      D: "https://translate.google.com/translate_tts?ie=UTF-8&q=D&tl=en-US&client=tw-ob",
-      E: "https://translate.google.com/translate_tts?ie=UTF-8&q=E&tl=en-US&client=tw-ob",
-      F: "https://translate.google.com/translate_tts?ie=UTF-8&q=F&tl=en-US&client=tw-ob",
-      G: "https://translate.google.com/translate_tts?ie=UTF-8&q=G&tl=en-US&client=tw-ob",
-      H: "https://translate.google.com/translate_tts?ie=UTF-8&q=H&tl=en-US&client=tw-ob",
-      I: "https://translate.google.com/translate_tts?ie=UTF-8&q=I&tl=en-US&client=tw-ob",
-      J: "https://translate.google.com/translate_tts?ie=UTF-8&q=J&tl=en-US&client=tw-ob",
-      K: "https://translate.google.com/translate_tts?ie=UTF-8&q=K&tl=en-US&client=tw-ob",
-      L: "https://translate.google.com/translate_tts?ie=UTF-8&q=L&tl=en-US&client=tw-ob",
-      M: "https://translate.google.com/translate_tts?ie=UTF-8&q=M&tl=en-US&client=tw-ob",
-      N: "https://translate.google.com/translate_tts?ie=UTF-8&q=N&tl=en-US&client=tw-ob",
-      O: "https://translate.google.com/translate_tts?ie=UTF-8&q=O&tl=en-US&client=tw-ob",
-      P: "https://translate.google.com/translate_tts?ie=UTF-8&q=P&tl=en-US&client=tw-ob",
-      Q: "https://translate.google.com/translate_tts?ie=UTF-8&q=Q&tl=en-US&client=tw-ob",
-      R: "https://translate.google.com/translate_tts?ie=UTF-8&q=R&tl=en-US&client=tw-ob",
-      S: "https://translate.google.com/translate_tts?ie=UTF-8&q=S&tl=en-US&client=tw-ob",
-      T: "https://translate.google.com/translate_tts?ie=UTF-8&q=T&tl=en-US&client=tw-ob",
-      U: "https://translate.google.com/translate_tts?ie=UTF-8&q=U&tl=en-US&client=tw-ob",
-      V: "https://translate.google.com/translate_tts?ie=UTF-8&q=V&tl=en-US&client=tw-ob",
-      W: "https://translate.google.com/translate_tts?ie=UTF-8&q=W&tl=en-US&client=tw-ob",
-      X: "https://translate.google.com/translate_tts?ie=UTF-8&q=X&tl=en-US&client=tw-ob",
-      Y: "https://translate.google.com/translate_tts?ie=UTF-8&q=Y&tl=en-US&client=tw-ob",
-      Z: "https://translate.google.com/translate_tts?ie=UTF-8&q=Z&tl=en-US&client=tw-ob"
-    };
-
-    const numberAudioMap = {
-      "1": "https://translate.google.com/translate_tts?ie=UTF-8&q=一&tl=zh-TW&client=tw-ob",
-      "2": "https://translate.google.com/translate_tts?ie=UTF-8&q=二&tl=zh-TW&client=tw-ob",
-      "3": "https://translate.google.com/translate_tts?ie=UTF-8&q=三&tl=zh-TW&client=tw-ob",
-      "4": "https://translate.google.com/translate_tts?ie=UTF-8&q=四&tl=zh-TW&client=tw-ob",
-      "5": "https://translate.google.com/translate_tts?ie=UTF-8&q=五&tl=zh-TW&client=tw-ob",
-      "6": "https://translate.google.com/translate_tts?ie=UTF-8&q=六&tl=zh-TW&client=tw-ob",
-      "7": "https://translate.google.com/translate_tts?ie=UTF-8&q=七&tl=zh-TW&client=tw-ob",
-      "8": "https://translate.google.com/translate_tts?ie=UTF-8&q=八&tl=zh-TW&client=tw-ob",
-      "9": "https://translate.google.com/translate_tts?ie=UTF-8&q=九&tl=zh-TW&client=tw-ob",
-      "10": "https://translate.google.com/translate_tts?ie=UTF-8&q=十&tl=zh-TW&client=tw-ob",
-      "11": "https://translate.google.com/translate_tts?ie=UTF-8&q=十一&tl=zh-TW&client=tw-ob",
-      "12": "https://translate.google.com/translate_tts?ie=UTF-8&q=十二&tl=zh-TW&client=tw-ob",
-      "13": "https://translate.google.com/translate_tts?ie=UTF-8&q=十三&tl=zh-TW&client=tw-ob",
-      "14": "https://translate.google.com/translate_tts?ie=UTF-8&q=十四&tl=zh-TW&client=tw-ob",
-      "15": "https://translate.google.com/translate_tts?ie=UTF-8&q=十五&tl=zh-TW&client=tw-ob",
-      "16": "https://translate.google.com/translate_tts?ie=UTF-8&q=十六&tl=zh-TW&client=tw-ob",
-      "17": "https://translate.google.com/translate_tts?ie=UTF-8&q=十七&tl=zh-TW&client=tw-ob",
-      "18": "https://translate.google.com/translate_tts?ie=UTF-8&q=十八&tl=zh-TW&client=tw-ob",
-      "19": "https://translate.google.com/translate_tts?ie=UTF-8&q=十九&tl=zh-TW&client=tw-ob",
-      "20": "https://translate.google.com/translate_tts?ie=UTF-8&q=二十&tl=zh-TW&client=tw-ob"
-    };
-
-    const bopomofoAudioMap = {
-      "ㄅ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄅ&tl=zh-TW&client=tw-ob",
-      "ㄆ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄆ&tl=zh-TW&client=tw-ob",
-      "ㄇ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄇ&tl=zh-TW&client=tw-ob",
-      "ㄈ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄈ&tl=zh-TW&client=tw-ob",
-      "ㄉ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄉ&tl=zh-TW&client=tw-ob",
-      "ㄊ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄊ&tl=zh-TW&client=tw-ob",
-      "ㄋ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄋ&tl=zh-TW&client=tw-ob",
-      "ㄌ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄌ&tl=zh-TW&client=tw-ob",
-      "ㄍ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄍ&tl=zh-TW&client=tw-ob",
-      "ㄎ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄎ&tl=zh-TW&client=tw-ob",
-      "ㄏ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄏ&tl=zh-TW&client=tw-ob",
-      "ㄐ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄐ&tl=zh-TW&client=tw-ob",
-      "ㄑ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄑ&tl=zh-TW&client=tw-ob",
-      "ㄒ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄒ&tl=zh-TW&client=tw-ob",
-      "ㄓ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄓ&tl=zh-TW&client=tw-ob",
-      "ㄔ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄔ&tl=zh-TW&client=tw-ob",
-      "ㄕ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄕ&tl=zh-TW&client=tw-ob",
-      "ㄖ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄖ&tl=zh-TW&client=tw-ob",
-      "ㄗ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄗ&tl=zh-TW&client=tw-ob",
-      "ㄘ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄘ&tl=zh-TW&client=tw-ob",
-      "ㄙ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄙ&tl=zh-TW&client=tw-ob",
-      "ㄧ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄧ&tl=zh-TW&client=tw-ob",
-      "ㄨ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄨ&tl=zh-TW&client=tw-ob",
-      "ㄩ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄩ&tl=zh-TW&client=tw-ob",
-      "ㄚ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄚ&tl=zh-TW&client=tw-ob",
-      "ㄛ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄛ&tl=zh-TW&client=tw-ob",
-      "ㄜ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄜ&tl=zh-TW&client=tw-ob",
-      "ㄝ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄝ&tl=zh-TW&client=tw-ob",
-      "ㄞ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄞ&tl=zh-TW&client=tw-ob",
-      "ㄟ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄟ&tl=zh-TW&client=tw-ob",
-      "ㄠ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄠ&tl=zh-TW&client=tw-ob",
-      "ㄡ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄡ&tl=zh-TW&client=tw-ob",
-      "ㄢ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄢ&tl=zh-TW&client=tw-ob",
-      "ㄣ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄣ&tl=zh-TW&client=tw-ob",
-      "ㄤ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄤ&tl=zh-TW&client=tw-ob",
-      "ㄥ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄥ&tl=zh-TW&client=tw-ob",
-      "ㄦ": "https://translate.google.com/translate_tts?ie=UTF-8&q=ㄦ&tl=zh-TW&client=tw-ob"
-    };
-
-    const phraseAudioMap = {
-      correct: "https://translate.google.com/translate_tts?ie=UTF-8&q=答對了&tl=zh-TW&client=tw-ob",
-      retry: "https://translate.google.com/translate_tts?ie=UTF-8&q=再來一次，你可以的&tl=zh-TW&client=tw-ob"
+    const numberZhMap = {
+      "1":"一","2":"二","3":"三","4":"四","5":"五",
+      "6":"六","7":"七","8":"八","9":"九","10":"十",
+      "11":"十一","12":"十二","13":"十三","14":"十四","15":"十五",
+      "16":"十六","17":"十七","18":"十八","19":"十九","20":"二十"
     };
 
     const animalCards = [
@@ -536,7 +446,7 @@
     let animationTimer = null;
     let nextQuestionTimer = null;
     let cardPool = [];
-    let currentAudio = null;
+    let currentUtteranceId = 0;
 
     const modeEl = document.getElementById("mode");
     const optionsEl = document.getElementById("options");
@@ -577,64 +487,105 @@
       streakCountEl.textContent = streakCount;
     }
 
-    function stopCurrentAudio() {
-      if (currentAudio) {
-        currentAudio.pause();
-        currentAudio.currentTime = 0;
-        currentAudio = null;
-      }
+    function loadVoices() {
+      return speechSynthesis.getVoices();
     }
 
-    function playAudioUrl(src) {
-      if (!src || !hasUserInteracted) return;
+    function pickVoiceByLang(langPrefix) {
+      const voices = loadVoices();
+      const lowerPrefix = langPrefix.toLowerCase();
+      return (
+        voices.find(v => v.lang && v.lang.toLowerCase() === lowerPrefix) ||
+        voices.find(v => v.lang && v.lang.toLowerCase().startsWith(lowerPrefix.split("-")[0])) ||
+        null
+      );
+    }
 
-      stopCurrentAudio();
+    function stopSpeech() {
+      try {
+        speechSynthesis.cancel();
+      } catch (_) {}
+    }
 
-      const audio = new Audio(src);
-      currentAudio = audio;
+    function speakWithTTS(text, { lang = "zh-TW", rate = 0.5, pitch = 1.0, voice = null } = {}) {
+      if (!hasUserInteracted || !text) return;
 
-      audio.addEventListener("error", (e) => {
-        console.error("Audio error:", src, e);
+      stopSpeech();
+      currentUtteranceId += 1;
+      const myId = currentUtteranceId;
+
+      const utter = new SpeechSynthesisUtterance(text);
+      utter.lang = lang;
+      utter.rate = rate;
+      utter.pitch = pitch;
+      utter.volume = 1;
+      if (voice) utter.voice = voice;
+
+      utter.onerror = () => {
+        if (myId !== currentUtteranceId) return;
+        if (voice) {
+          const fallback = new SpeechSynthesisUtterance(text);
+          fallback.lang = lang;
+          fallback.rate = rate;
+          fallback.pitch = pitch;
+          fallback.volume = 1;
+          speechSynthesis.speak(fallback);
+        }
+      };
+
+      speechSynthesis.speak(utter);
+    }
+
+    function speakZh(text, extra = {}) {
+      speakWithTTS(text, {
+        lang: "zh-TW",
+        rate: extra.rate ?? 0.48,
+        pitch: extra.pitch ?? 1.06,
+        voice: pickVoiceByLang("zh-TW")
       });
+    }
 
-      audio.play().catch((err) => {
-        console.error("Audio 播放失敗:", src, err);
+    function speakEn(text, extra = {}) {
+      speakWithTTS(text, {
+        lang: "en-US",
+        rate: extra.rate ?? 0.42,
+        pitch: extra.pitch ?? 1.02,
+        voice: pickVoiceByLang("en-US")
       });
     }
 
     function speakEnglishLetter(letter) {
-      playAudioUrl(englishAudioMap[letter]);
+      const map = {
+        A: "a", B: "b", C: "c", D: "d", E: "e", F: "f", G: "g",
+        H: "h", I: "i", J: "j", K: "k", L: "l", M: "m", N: "n",
+        O: "o", P: "p", Q: "q", R: "r", S: "s", T: "t", U: "u",
+        V: "v", W: "double u", X: "x", Y: "y", Z: "z"
+      };
+      speakEn(map[letter] || letter.toLowerCase(), { rate: 0.40, pitch: 1.00 });
     }
 
     function speakNumber(numText) {
-      playAudioUrl(numberAudioMap[String(numText)]);
+      speakZh(numberZhMap[String(numText)] || String(numText), { rate: 0.48, pitch: 1.04 });
     }
 
     function speakBopomofo(symbol) {
-      playAudioUrl(bopomofoAudioMap[symbol]);
+      speakZh(symbol, { rate: 0.36, pitch: 1.02 });
     }
 
-    function speakPhrase(key) {
-      playAudioUrl(phraseAudioMap[key]);
+    function speakPhraseCorrect() {
+      speakZh("答對了", { rate: 0.48, pitch: 1.04 });
+    }
+
+    function speakPhraseRetry() {
+      speakZh("再來一次，你可以的", { rate: 0.50, pitch: 1.06 });
     }
 
     function speak(text) {
       const clean = String(text).trim();
-
-      if (/^[A-Z]$/.test(clean)) {
-        speakEnglishLetter(clean);
-        return;
-      }
-
-      if (/^[0-9]+$/.test(clean)) {
-        speakNumber(clean);
-        return;
-      }
-
-      if (/^[ㄅ-ㄩ]$/.test(clean)) {
-        speakBopomofo(clean);
-        return;
-      }
+      if (/^[A-Z]$/.test(clean)) return void speakEnglishLetter(clean);
+      if (/^[0-9]+$/.test(clean)) return void speakNumber(clean);
+      if (/^[ㄅ-ㄦ]$/.test(clean)) return void speakBopomofo(clean);
+      speakZh(clean);
     }
 
     function speakCurrent() {
@@ -644,7 +595,6 @@
     function playSuccessSound() {
       const ctx = new (window.AudioContext || window.webkitAudioContext)();
       const notes = [523.25, 659.25, 783.99, 1046.5];
-
       notes.forEach((freq, i) => {
         const osc = ctx.createOscillator();
         const gain = ctx.createGain();
@@ -662,7 +612,6 @@
     function playFailSound() {
       const ctx = new (window.AudioContext || window.webkitAudioContext)();
       const notes = [349.23, 293.66];
-
       notes.forEach((freq, i) => {
         const osc = ctx.createOscillator();
         const gain = ctx.createGain();
@@ -697,19 +646,15 @@
 
     function goNextQuestionAuto() {
       clearTimeout(nextQuestionTimer);
-      nextQuestionTimer = setTimeout(() => {
-        pickQuestion();
-      }, 5000);
+      nextQuestionTimer = setTimeout(() => pickQuestion(), 5000);
     }
 
     function runPowerUpThenCard() {
       const card = nextAnimalCard();
-
       hideAnimalCard();
       marioOverlayEl.classList.remove("show");
       void marioOverlayEl.offsetWidth;
       marioOverlayEl.classList.add("show");
-
       clearTimeout(animationTimer);
       animationTimer = setTimeout(() => {
         marioOverlayEl.classList.remove("show");
@@ -720,7 +665,7 @@
 
     function pickQuestion() {
       clearAllTimers();
-      stopCurrentAudio();
+      stopSpeech();
       clearOptionStatesOnly();
       hideAnimalCard();
       marioOverlayEl.classList.remove("show");
@@ -749,8 +694,7 @@
     }
 
     function clearOptionStatesOnly() {
-      const allBtns = optionsEl.querySelectorAll(".option");
-      allBtns.forEach(btn => {
+      optionsEl.querySelectorAll(".option").forEach(btn => {
         btn.classList.remove("correct", "wrong");
       });
     }
@@ -765,7 +709,7 @@
         correctCount++;
         streakCount++;
         updateScores();
-        speakPhrase("correct");
+        speakPhraseCorrect();
         playSuccessSound();
         runPowerUpThenCard();
       } else {
@@ -773,7 +717,7 @@
         wrongCount++;
         streakCount = 0;
         updateScores();
-        speakPhrase("retry");
+        speakPhraseRetry();
         playFailSound();
         setTimeout(() => {
           if (hasUserInteracted && !locked) speakCurrent();
@@ -784,6 +728,7 @@
     function unlockAndSpeak() {
       if (!hasUserInteracted) {
         hasUserInteracted = true;
+        loadVoices();
         setTimeout(() => speakCurrent(), 120);
       }
     }
@@ -809,7 +754,7 @@
     document.getElementById("resetBtn").addEventListener("click", () => {
       unlockAndSpeak();
       clearAllTimers();
-      stopCurrentAudio();
+      stopSpeech();
       correctCount = 0;
       wrongCount = 0;
       streakCount = 0;
@@ -831,9 +776,17 @@
     document.body.addEventListener("pointerdown", () => {
       if (!hasUserInteracted) {
         hasUserInteracted = true;
+        loadVoices();
         setTimeout(() => speakCurrent(), 120);
       }
     }, { once: true });
+
+    if ("speechSynthesis" in window) {
+      speechSynthesis.onvoiceschanged = () => loadVoices();
+      loadVoices();
+      setTimeout(loadVoices, 300);
+      setTimeout(loadVoices, 1000);
+    }
 
     resetCardPool();
     updateScores();
@@ -841,9 +794,7 @@
     pickQuestion();
 
     if ("serviceWorker" in navigator && location.protocol !== "file:") {
-      navigator.serviceWorker.register("service-worker.js").catch(err => {
-        console.log("service worker register skipped:", err);
-      });
+      navigator.serviceWorker.register("service-worker.js").catch(() => {});
     }
   </script>
 </body>
