@@ -1,8 +1,7 @@
-const CACHE_NAME = "kids-game-cache-v2";
+const CACHE_NAME = "kids-game-cache-v3";
 
 const urlsToCache = [
   "./",
-  "./index.html",
   "./manifest.json"
 ];
 
