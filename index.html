@@ -696,7 +696,7 @@
       makeCard("sea-life","tropical fish",29),
       makeCard("sea-life","reef life",30),
 
-      // 恐龍 10（權重最高）
+      // 恐龍 10
       makeCard("dinosaur","t-rex",31),
       makeCard("dinosaur","tyrannosaurus",32),
       makeCard("dinosaur","dinosaur",33),
@@ -737,6 +737,8 @@
     let audioCtx = null;
     let availableVoices = [];
     let repeatSpeakTimers = [];
+    let preloadedCard = null;
+    let preloadedImage = null;
 
     const modeEl = document.getElementById("mode");
     const optionsEl = document.getElementById("options");
@@ -766,6 +768,26 @@
     function nextAnimalCard() {
       if (cardPool.length === 0) resetCardPool();
       return cardPool.pop();
+    }
+
+    function preloadNextAnimalCard() {
+      const card = nextAnimalCard();
+      if (!card) {
+        preloadedCard = null;
+        preloadedImage = null;
+        return;
+      }
+
+      const img = new Image();
+      img.onload = () => {
+        preloadedCard = card;
+        preloadedImage = img;
+      };
+      img.onerror = () => {
+        preloadedCard = null;
+        preloadedImage = null;
+      };
+      img.src = card.img;
     }
 
     function getLettersPool() {
@@ -948,34 +970,34 @@
     function speakPhrase(key) {
       if (!hasUserInteracted) return;
       if (!("speechSynthesis" in window)) return;
-    
+
       initAudio();
       stopSpeech();
-    
+
       let text = "";
       let lang = "zh-TW";
       let rate = 0.9;
       let pitch = 1;
-    
+
       if (key === "correct") {
         text = "做得很好，請繼續下一題";
         pitch = 1.02;
       } else if (key === "retry") {
         text = "再來一次，你可以的";
       }
-    
+
       const utter = new SpeechSynthesisUtterance(text);
       utter.lang = lang;
       utter.rate = rate;
       utter.pitch = pitch;
       utter.volume = 1;
-    
+
       const voice = getZhVoice();
       if (voice) {
         utter.voice = voice;
         utter.lang = voice.lang;
       }
-    
+
       window.speechSynthesis.speak(utter);
     }
 
@@ -1090,7 +1112,9 @@
     }
 
     function runPowerUpThenCard() {
-      const card = nextAnimalCard();
+      preloadedCard = null;
+      preloadedImage = null;
+      preloadNextAnimalCard();
 
       hideAnimalCard();
       marioOverlayEl.classList.remove("show");
@@ -1100,7 +1124,19 @@
       clearTimeout(animationTimer);
       animationTimer = setTimeout(() => {
         marioOverlayEl.classList.remove("show");
-        showAnimalCard(card);
+
+        if (preloadedCard && preloadedImage) {
+          animalPhotoEl.onload = null;
+          animalPhotoEl.onerror = null;
+          animalPhotoEl.src = preloadedImage.src;
+          animalPhotoEl.alt = "動物圖片";
+          animalCardEl.classList.remove("show");
+          void animalCardEl.offsetWidth;
+          animalCardEl.classList.add("show");
+        } else {
+          showAnimalCard(nextAnimalCard());
+        }
+
         goNextQuestionAuto();
       }, 3000);
     }
