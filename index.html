@@ -933,7 +933,7 @@
         </div>
       </div>
 
-      <div class="footer">UTF-8 繁體中文 · 300 組免費 CDN 卡片 · 獨角獸滿版動畫</div>
+      <div class="footer">UTF-8 繁體中文 · 1000 張 URL 卡片版 · 獨角獸滿版動畫</div>
     </div>
   </div>
 
@@ -965,9 +965,7 @@
     }
 
     const numberZhMap = {};
-    for (let i = 1; i <= 100; i++) {
-      numberZhMap[String(i)] = numberToZh(i);
-    }
+    for (let i = 1; i <= 100; i++) numberZhMap[String(i)] = numberToZh(i);
 
     const bopomofoSpeakMap = {
       "ㄅ":"ㄅ","ㄆ":"ㄆ","ㄇ":"ㄇ","ㄈ":"ㄈ","ㄉ":"ㄉ","ㄊ":"ㄊ","ㄋ":"ㄋ","ㄌ":"ㄌ","ㄍ":"ㄍ","ㄎ":"ㄎ",
@@ -1000,71 +998,86 @@
     const cardKeywordMap = {
       dinosaur: {
         label: "恐龍",
-        count: 40,
+        count: 140,
         keywords: [
           "cute dinosaur toy","cartoon dinosaur","dinosaur figure","trex toy","triceratops toy",
-          "stegosaurus toy","brachiosaurus toy","velociraptor toy","spinosaurus toy","kawaii dinosaur"
+          "stegosaurus toy","brachiosaurus toy","velociraptor toy","spinosaurus toy","kawaii dinosaur",
+          "dinosaur model","jurassic toy","trex figure","cute dinosaur plush","dinosaur park toy",
+          "green dinosaur toy","baby dinosaur toy","cartoon trex","dinosaur close up","dinosaur collectible"
         ]
       },
       pet: {
         label: "寵物",
-        count: 40,
+        count: 140,
         keywords: [
           "cute puppy","cute kitten","pet rabbit","hamster pet","cute parrot",
-          "pet dog","pet cat","cute guinea pig","cute bird pet","cute dog cat"
+          "pet dog","pet cat","cute guinea pig","cute bird pet","cute dog cat",
+          "pet bunny","cute puppy portrait","kitten close up","pet family","fluffy kitten",
+          "small dog cute","shiba pet","golden retriever puppy","cute rabbit pet","sleeping kitten"
         ]
       },
       sanrio: {
         label: "三麗鷗明星",
-        count: 40,
+        count: 120,
         keywords: [
           "hello kitty toy","my melody toy","kuromi toy","cinnamoroll toy","pompompurin toy",
-          "sanrio plush","sanrio figure","hello kitty doll","sanrio character toy","cute sanrio toy"
+          "sanrio plush","sanrio figure","hello kitty doll","sanrio character toy","cute sanrio toy",
+          "sanrio kids toy","hello kitty plush","sanrio gift","sanrio collection","kawaii sanrio",
+          "my melody plush","kuromi doll","cinnamoroll plush","hello kitty figure","sanrio cute"
         ]
       },
       capybara: {
         label: "水豚君",
-        count: 30,
+        count: 100,
         keywords: [
           "capybara cute","capybara bath","capybara orange bath","capybara cartoon","capybara plush",
-          "capybara toy","cute capybara","capybara hot spring","kawaii capybara","capybara animal"
+          "capybara toy","cute capybara","capybara hot spring","kawaii capybara","capybara animal",
+          "capybara portrait","baby capybara","capybara couple","capybara bath orange","capybara relaxing"
         ]
       },
       shinchan: {
         label: "蠟筆小新",
-        count: 35,
+        count: 120,
         keywords: [
           "crayon shin chan toy","shin chan figure","shin chan doll","crayon shinchan toy","shinchan plush",
-          "shinchan figure toy","shin chan character toy","cute shinchan doll","shinchan cartoon toy","crayon shin chan plush"
+          "shinchan figure toy","shin chan character toy","cute shinchan doll","shinchan cartoon toy","crayon shin chan plush",
+          "shinchan kids toy","shin chan collectible","shinchan figure collection","shin chan gift","shinchan cute",
+          "crayon shin chan doll","shin chan character figure","shinchan plush doll","shin chan toy set","shinchan model"
         ]
       },
       pawpatrol: {
         label: "汪汪隊",
-        count: 35,
+        count: 120,
         keywords: [
           "paw patrol toy","chase paw patrol toy","marshall paw patrol toy","skye paw patrol toy","paw patrol figure",
-          "paw patrol plush","paw patrol character toy","paw patrol kids toy","cute paw patrol toy","paw patrol doll"
+          "paw patrol plush","paw patrol character toy","paw patrol kids toy","cute paw patrol toy","paw patrol doll",
+          "paw patrol collectible","paw patrol set","paw patrol figurine","paw patrol puppy toy","paw patrol gift",
+          "chase toy","marshall toy","skye toy","paw patrol plush doll","paw patrol characters"
         ]
       },
       doraemon: {
         label: "多啦A夢",
-        count: 40,
+        count: 130,
         keywords: [
           "doraemon toy","doraemon figure","doraemon doll","cute doraemon toy","doraemon plush",
-          "doraemon character toy","blue doraemon toy","doraemon kids toy","doraemon cartoon figure","doraemon plush doll"
+          "doraemon character toy","blue doraemon toy","doraemon kids toy","doraemon cartoon figure","doraemon plush doll",
+          "doraemon collectible","doraemon statue","doraemon gift","doraemon model","doraemon cute",
+          "doraemon character figure","doraemon plush toy","doraemon collection","doraemon display","blue robot cat toy"
         ]
       },
       dorami: {
         label: "多啦美",
-        count: 40,
+        count: 130,
         keywords: [
           "dorami toy","dorami figure","dorami doll","cute dorami toy","dorami plush",
-          "dorami character toy","yellow dorami toy","dorami kids toy","dorami cartoon figure","dorami plush doll"
+          "dorami character toy","yellow dorami toy","dorami kids toy","dorami cartoon figure","dorami plush doll",
+          "dorami collectible","dorami gift","dorami cute","dorami model","dorami character figure",
+          "dorami plush toy","dorami collection","dorami display","yellow robot cat toy","dorami cute doll"
         ]
       }
     };
 
-    function build300Cards() {
+    function build1000Cards() {
       let nextStartId = 1;
       const result = [];
       Object.entries(cardKeywordMap).forEach(([category, config]) => {
@@ -1075,7 +1088,7 @@
       return result;
     }
 
-    const animalCards = build300Cards();
+    const animalCards = build1000Cards();
 
     let currentAnswer = "";
     let currentOptions = [];
@@ -1086,7 +1099,6 @@
     let hasUserInteracted = false;
     let animationTimer = null;
     let nextQuestionTimer = null;
-    let retryTimer = null;
     let cardPool = [];
     let audioCtx = null;
     let availableVoices = [];
@@ -1109,7 +1121,6 @@
     const numberRangeEl = document.getElementById("numberRange");
     const bopomofoRangeEl = document.getElementById("bopomofoRange");
     const autoNextToggleEl = document.getElementById("autoNextToggle");
-
     const settingsWrapEl = document.getElementById("settingsWrap");
     const settingsToggleEl = document.getElementById("settingsToggle");
 
@@ -1133,7 +1144,6 @@
         preloadedImage = null;
         return;
       }
-
       const img = new Image();
       img.onload = () => {
         preloadedCard = card;
@@ -1193,12 +1203,8 @@
     }
 
     function initAudio() {
-      if (!audioCtx) {
-        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      }
-      if (audioCtx.state === "suspended") {
-        audioCtx.resume().catch(() => {});
-      }
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      if (audioCtx.state === "suspended") audioCtx.resume().catch(() => {});
     }
 
     function loadVoices() {
@@ -1239,9 +1245,7 @@
 
     function stopSpeech() {
       clearRepeatSpeakTimers();
-      if ("speechSynthesis" in window) {
-        window.speechSynthesis.cancel();
-      }
+      if ("speechSynthesis" in window) window.speechSynthesis.cancel();
     }
 
     function speakRepeated(builder, times = 3, gap = 2000, onDone = null) {
@@ -1282,7 +1286,6 @@
         if (onDone) onDone();
         return;
       }
-
       initAudio();
       speakRepeated(() => {
         const utter = new SpeechSynthesisUtterance(text);
@@ -1290,7 +1293,6 @@
         utter.rate = rate;
         utter.pitch = pitch;
         utter.volume = 1;
-
         const selectedVoice = lang.startsWith("en") ? getEnVoice() : getZhVoice();
         if (selectedVoice) {
           utter.voice = selectedVoice;
@@ -1307,7 +1309,6 @@
         O: "oh", P: "pee", Q: "cue", R: "ar", S: "ess", T: "tee", U: "you",
         V: "vee", W: "double u", X: "ex", Y: "why", Z: "zee"
       };
-
       speakRepeated(() => {
         const utter = new SpeechSynthesisUtterance(letterSpeakMap[letter] || letter);
         utter.lang = "en-US";
@@ -1324,13 +1325,11 @@
     }
 
     function speakNumber(numText, times = 3, onDone = null) {
-      const text = numberZhMap[String(numText)] || String(numText);
-      speakText(text, "zh-TW", 0.8, 1, times, 2000, onDone);
+      speakText(numberZhMap[String(numText)] || String(numText), "zh-TW", 0.8, 1, times, 2000, onDone);
     }
 
     function speakBopomofo(symbol, times = 3, onDone = null) {
-      const text = bopomofoSpeakMap[symbol] || symbol;
-      speakText(text, "zh-TW", 0.74, 1, times, 2000, onDone);
+      speakText(bopomofoSpeakMap[symbol] || symbol, "zh-TW", 0.74, 1, times, 2000, onDone);
     }
 
     function speak(text, times = 3, onDone = null) {
@@ -1390,7 +1389,6 @@
     function clearAllTimers() {
       clearTimeout(animationTimer);
       clearTimeout(nextQuestionTimer);
-      clearTimeout(retryTimer);
       clearRepeatSpeakTimers();
     }
 
@@ -1402,7 +1400,7 @@
     }
 
     function showAnimalCard(card, retryCount = 0) {
-      const maxRetry = 20;
+      const maxRetry = 30;
       if (!card) return;
 
       animalCardEl.classList.remove("show");
@@ -1427,7 +1425,7 @@
         animalPhotoEl.onload = null;
         animalPhotoEl.onerror = null;
         if (retryCount >= maxRetry) {
-          animalPhotoEl.src = "https://loremflickr.com/1200/900/dinosaur?lock=999999";
+          animalPhotoEl.src = `https://loremflickr.com/1200/900/cute-animal?lock=${900000 + retryCount}`;
           setTimeout(finishShow, 120);
           return;
         }
@@ -1468,7 +1466,6 @@
         if (preloadedCard && preloadedImage && preloadedImage.src) {
           const readyCard = preloadedCard;
           const readySrc = preloadedImage.src;
-
           preloadedCard = null;
           preloadedImage = null;
           preloadNextAnimalCard();
@@ -1511,12 +1508,10 @@
       const uniquePool = [...new Set(pool)];
       const others = shuffle(uniquePool.filter(x => x !== answer)).slice(0, 3);
       const candidate = shuffle([answer, ...others]);
-
       while (candidate.length < 4 && uniquePool.length > candidate.length) {
         const remaining = shuffle(uniquePool.filter(x => !candidate.includes(x)))[0];
         if (remaining) candidate.push(remaining);
       }
-
       return shuffle(candidate);
     }
 
@@ -1562,9 +1557,7 @@
 
       preloadNextAnimalCard();
 
-      if (hasUserInteracted) {
-        setTimeout(() => speakCurrent(), 180);
-      }
+      if (hasUserInteracted) setTimeout(() => speakCurrent(), 180);
     }
 
     function speakPhrase(key, onDone = null) {
@@ -1610,7 +1603,6 @@
         playFailSound();
 
         const myToken = questionToken;
-
         setTimeout(() => {
           speakPhrase("retry", () => {
             setTimeout(() => {
@@ -1644,9 +1636,7 @@
     async function requestFullScreen() {
       const el = document.documentElement;
       if (document.fullscreenElement) return;
-      if (el.requestFullscreen) {
-        await el.requestFullscreen().catch(() => {});
-      }
+      if (el.requestFullscreen) await el.requestFullscreen().catch(() => {});
     }
 
     settingsToggleEl.addEventListener("click", () => {
