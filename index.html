@@ -83,7 +83,8 @@
     }
 
     .settings-card{
-      margin-bottom:14px;
+      margin-top:14px;
+      margin-bottom:0;
       background:linear-gradient(180deg,#ffffff,#fffaf3);
       border-radius:24px;
       padding:14px;
@@ -463,46 +464,6 @@
           <button class="mini-fullscreen" id="fullscreenBtn">📱</button>
         </div>
 
-        <div class="settings-card">
-          <div class="settings-title">家長模式</div>
-          <div class="settings-grid">
-            <div class="setting-item">
-              <label for="letterRange">英文題庫</label>
-              <select id="letterRange">
-                <option value="all">A-Z</option>
-                <option value="easy6">A-F</option>
-                <option value="easy10">A-J</option>
-              </select>
-            </div>
-
-            <div class="setting-item">
-              <label for="numberRange">數字題庫</label>
-              <select id="numberRange">
-                <option value="all">1-20</option>
-                <option value="easy10">1-10</option>
-                <option value="easy5">1-5</option>
-              </select>
-            </div>
-
-            <div class="setting-item">
-              <label for="bopomofoRange">注音題庫</label>
-              <select id="bopomofoRange">
-                <option value="all">全部</option>
-                <option value="easy10">前 10 個</option>
-                <option value="easy21">前 21 個</option>
-              </select>
-            </div>
-
-            <div class="setting-item toggle-wrap">
-              <div class="toggle-title">自動下一題</div>
-              <label class="switch">
-                <input type="checkbox" id="autoNextToggle" checked />
-                <span class="slider"></span>
-              </label>
-            </div>
-          </div>
-        </div>
-
         <div class="question-card">
           <div class="prompt">請找出剛剛念的內容</div>
           <div class="options" id="options"></div>
@@ -540,6 +501,45 @@
           <div class="stat"><div class="n" id="wrongCount">0</div><div class="t">答錯</div></div>
           <div class="stat"><div class="n" id="streakCount">0</div><div class="t">連續答對</div></div>
         </div>
+
+        <div class="settings-card">
+          <div class="settings-title">家長模式</div>
+          <div class="settings-grid">
+            <div class="setting-item">
+              <label for="letterRange">英文題庫</label>
+              <select id="letterRange">
+                <option value="all">A-Z</option>
+                <option value="easy6">A-F</option>
+                <option value="easy10">A-J</option>
+              </select>
+            </div>
+        <div class="setting-item">
+              <label for="numberRange">數字題庫</label>
+              <select id="numberRange">
+                <option value="all">1-20</option>
+                <option value="easy10">1-10</option>
+                <option value="easy5">1-5</option>
+              </select>
+            </div>
+
+            <div class="setting-item">
+              <label for="bopomofoRange">注音題庫</label>
+              <select id="bopomofoRange">
+                <option value="all">全部</option>
+                <option value="easy10">前 10 個</option>
+                <option value="easy21">前 21 個</option>
+              </select>
+            </div>
+
+            <div class="setting-item toggle-wrap">
+              <div class="toggle-title">自動下一題</div>
+              <label class="switch">
+                <input type="checkbox" id="autoNextToggle" checked />
+                <span class="slider"></span>
+              </label>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div class="footer">UTF-8 繁體中文 · iPad / 手機 / 電腦都可使用</div>
@@ -552,7 +552,7 @@
         "A","B","C","D","E","F","G","H","I","J","K","L","M",
         "N","O","P","Q","R","S","T","U","V","W","X","Y","Z"
       ],
-      numbers: Array.from({ length: 20 }, (_, i) => String(i + 1)),
+      numbers: Array.from({ length: 100 }, (_, i) => String(i + 1)),
       bopomofo: [
         "ㄅ","ㄆ","ㄇ","ㄈ","ㄉ","ㄊ","ㄋ","ㄌ","ㄍ","ㄎ","ㄏ",
         "ㄐ","ㄑ","ㄒ","ㄓ","ㄔ","ㄕ","ㄖ","ㄗ","ㄘ","ㄙ",
@@ -561,12 +561,25 @@
       ]
     };
 
-    const numberZhMap = {
-      "1":"一","2":"二","3":"三","4":"四","5":"五",
-      "6":"六","7":"七","8":"八","9":"九","10":"十",
-      "11":"十一","12":"十二","13":"十三","14":"十四","15":"十五",
-      "16":"十六","17":"十七","18":"十八","19":"十九","20":"二十"
-    };
+    function numberToZh(num) {
+      const digits = ["零","一","二","三","四","五","六","七","八","九"];
+      if (num <= 10) {
+        if (num === 10) return "十";
+        return digits[num];
+      }
+      if (num < 20) {
+        return "十" + digits[num % 10];
+      }
+      if (num % 10 === 0) {
+        return digits[Math.floor(num / 10)] + "十";
+      }
+      return digits[Math.floor(num / 10)] + "十" + digits[num % 10];
+    }
+    
+    const numberZhMap = {};
+    for (let i = 1; i <= 100; i++) {
+      numberZhMap[String(i)] = i === 100 ? "一百" : numberToZh(i);
+    }
 
     // 比直接念單一注音稍穩一點
     const bopomofoSpeakMap = {
@@ -678,8 +691,18 @@
 
     function getNumbersPool() {
       const range = numberRangeEl.value;
-      if (range === "easy5") return fullSets.numbers.slice(0, 5);
-      if (range === "easy10") return fullSets.numbers.slice(0, 10);
+    
+      if (range === "1-10") return fullSets.numbers.slice(0, 10);
+      if (range === "11-20") return fullSets.numbers.slice(10, 20);
+      if (range === "21-30") return fullSets.numbers.slice(20, 30);
+      if (range === "31-40") return fullSets.numbers.slice(30, 40);
+      if (range === "41-50") return fullSets.numbers.slice(40, 50);
+      if (range === "51-60") return fullSets.numbers.slice(50, 60);
+      if (range === "61-70") return fullSets.numbers.slice(60, 70);
+      if (range === "71-80") return fullSets.numbers.slice(70, 80);
+      if (range === "81-90") return fullSets.numbers.slice(80, 90);
+      if (range === "91-100") return fullSets.numbers.slice(90, 100);
+    
       return fullSets.numbers;
     }
 
@@ -696,9 +719,9 @@
       if (mode === "bopomofo") return getBopomofoPool();
 
       return [
-        ...getLettersPool().slice(0, Math.min(getLettersPool().length, 8)),
-        ...getNumbersPool().slice(0, Math.min(getNumbersPool().length, 8)),
-        ...getBopomofoPool().slice(0, Math.min(getBopomofoPool().length, 8))
+        ...getLettersPool().slice(0, Math.min(getLettersPool().length, 6)),
+        ...getNumbersPool().slice(0, Math.min(getNumbersPool().length, 6)),
+        ...getBopomofoPool().slice(0, Math.min(getBopomofoPool().length, 6))
       ];
     }
 
