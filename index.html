@@ -204,53 +204,76 @@
       overflow:hidden;
       border-radius:28px;
       background:
-        radial-gradient(circle at 20% 20%, rgba(255,255,255,.75), transparent 18%),
-        radial-gradient(circle at 80% 18%, rgba(255,255,255,.45), transparent 16%),
-        radial-gradient(circle at 50% 80%, rgba(255,255,255,.28), transparent 20%),
-        linear-gradient(135deg,#ffd6f6 0%, #ffe9b8 22%, #d4f4ff 45%, #e3d8ff 68%, #ffc7e8 100%);
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,.92), transparent 18%),
+        radial-gradient(circle at 80% 18%, rgba(255,255,255,.55), transparent 16%),
+        radial-gradient(circle at 50% 80%, rgba(255,255,255,.35), transparent 20%),
+        linear-gradient(135deg,#ffd6f6 0%, #ffe9b8 20%, #d4f4ff 45%, #e3d8ff 68%, #ffc7e8 100%);
     }
 
     .unicorn-overlay.show{
       display:flex;
-      animation:unicornOverlayIn .25s ease;
+      animation:unicornOverlayIn .18s ease;
     }
 
     @keyframes unicornOverlayIn{
-      0%{opacity:0;transform:scale(.98)}
+      0%{opacity:0;transform:scale(.96)}
       100%{opacity:1;transform:scale(1)}
+    }
+
+    .flash-ring{
+      position:absolute;
+      left:50%;
+      top:50%;
+      width:120px;
+      height:120px;
+      border-radius:50%;
+      border:10px solid rgba(255,255,255,.6);
+      transform:translate(-50%,-50%) scale(.2);
+      opacity:0;
+      filter:blur(1px);
+    }
+
+    .flash-ring.ring1{animation:ringBlast 1.2s ease-out .1s forwards}
+    .flash-ring.ring2{animation:ringBlast 1.4s ease-out .35s forwards}
+    .flash-ring.ring3{animation:ringBlast 1.6s ease-out .6s forwards}
+
+    @keyframes ringBlast{
+      0%{opacity:0;transform:translate(-50%,-50%) scale(.2)}
+      20%{opacity:.9}
+      100%{opacity:0;transform:translate(-50%,-50%) scale(5.5)}
     }
 
     .unicorn-bg-glow{
       position:absolute;
       border-radius:50%;
-      filter:blur(18px);
-      opacity:.5;
-      animation:glowFloat 2.8s ease-in-out infinite;
+      filter:blur(22px);
+      opacity:.65;
+      animation:glowFloat 2.2s ease-in-out infinite;
     }
 
     .unicorn-bg-glow.glow1{
-      width:180px;height:180px;
-      left:-30px;top:20px;
-      background:rgba(255,182,223,.7);
+      width:220px;height:220px;
+      left:-30px;top:10px;
+      background:rgba(255,182,223,.78);
     }
 
     .unicorn-bg-glow.glow2{
-      width:220px;height:220px;
-      right:-40px;top:30px;
-      background:rgba(173,232,255,.65);
-      animation-delay:.5s;
+      width:260px;height:260px;
+      right:-40px;top:24px;
+      background:rgba(173,232,255,.72);
+      animation-delay:.45s;
     }
 
     .unicorn-bg-glow.glow3{
-      width:200px;height:200px;
-      left:30%;bottom:-40px;
-      background:rgba(255,241,170,.6);
-      animation-delay:1s;
+      width:220px;height:220px;
+      left:28%;bottom:-30px;
+      background:rgba(255,241,170,.7);
+      animation-delay:.9s;
     }
 
     @keyframes glowFloat{
       0%,100%{transform:translateY(0) scale(1)}
-      50%{transform:translateY(-10px) scale(1.06)}
+      50%{transform:translateY(-12px) scale(1.08)}
     }
 
     .sparkles-layer{
@@ -261,36 +284,40 @@
     .sparkle{
       position:absolute;
       opacity:0;
-      animation:sparkleTwinkle 2.8s ease-in-out forwards;
-      filter:drop-shadow(0 4px 8px rgba(255,255,255,.45));
+      animation:sparkleTwinkle 2.4s ease-in-out forwards;
+      filter:drop-shadow(0 4px 12px rgba(255,255,255,.6));
     }
 
-    .sparkle.s1{left:8%;top:20%;font-size:30px;animation-delay:.1s}
-    .sparkle.s2{left:20%;top:12%;font-size:24px;animation-delay:.35s}
-    .sparkle.s3{left:30%;top:28%;font-size:28px;animation-delay:.7s}
-    .sparkle.s4{left:78%;top:18%;font-size:28px;animation-delay:.25s}
-    .sparkle.s5{left:86%;top:36%;font-size:24px;animation-delay:.9s}
-    .sparkle.s6{left:66%;top:10%;font-size:30px;animation-delay:.5s}
-    .sparkle.s7{left:12%;bottom:22%;font-size:30px;animation-delay:1.05s}
-    .sparkle.s8{right:10%;bottom:18%;font-size:28px;animation-delay:1.25s}
-    .sparkle.s9{left:44%;bottom:16%;font-size:26px;animation-delay:1.45s}
-    .sparkle.s10{left:58%;top:48%;font-size:24px;animation-delay:1.1s}
-    .sparkle.s11{left:34%;bottom:24%;font-size:24px;animation-delay:1.6s}
-    .sparkle.s12{right:24%;bottom:28%;font-size:26px;animation-delay:1.8s}
+    .sparkle.s1{left:8%;top:20%;font-size:34px;animation-delay:.05s}
+    .sparkle.s2{left:20%;top:12%;font-size:28px;animation-delay:.18s}
+    .sparkle.s3{left:30%;top:28%;font-size:32px;animation-delay:.32s}
+    .sparkle.s4{left:78%;top:18%;font-size:32px;animation-delay:.12s}
+    .sparkle.s5{left:86%;top:36%;font-size:28px;animation-delay:.46s}
+    .sparkle.s6{left:66%;top:10%;font-size:34px;animation-delay:.28s}
+    .sparkle.s7{left:12%;bottom:22%;font-size:34px;animation-delay:.62s}
+    .sparkle.s8{right:10%;bottom:18%;font-size:32px;animation-delay:.75s}
+    .sparkle.s9{left:44%;bottom:16%;font-size:30px;animation-delay:.88s}
+    .sparkle.s10{left:58%;top:48%;font-size:28px;animation-delay:.54s}
+    .sparkle.s11{left:34%;bottom:24%;font-size:28px;animation-delay:1.02s}
+    .sparkle.s12{right:24%;bottom:28%;font-size:30px;animation-delay:1.12s}
+    .sparkle.s13{left:52%;top:14%;font-size:32px;animation-delay:1.18s}
+    .sparkle.s14{right:16%;top:52%;font-size:30px;animation-delay:1.26s}
+    .sparkle.s15{left:18%;top:52%;font-size:28px;animation-delay:1.36s}
+    .sparkle.s16{left:70%;bottom:12%;font-size:30px;animation-delay:1.46s}
 
     @keyframes sparkleTwinkle{
-      0%{opacity:0;transform:translateY(12px) scale(.4) rotate(0deg)}
-      20%{opacity:1}
-      50%{opacity:1;transform:translateY(-6px) scale(1.15) rotate(10deg)}
-      100%{opacity:0;transform:translateY(-18px) scale(.8) rotate(-10deg)}
+      0%{opacity:0;transform:translateY(18px) scale(.35) rotate(0deg)}
+      18%{opacity:1}
+      50%{opacity:1;transform:translateY(-8px) scale(1.2) rotate(12deg)}
+      100%{opacity:0;transform:translateY(-26px) scale(.85) rotate(-10deg)}
     }
 
     .rainbow-trail{
       position:absolute;
       left:-18%;
       bottom:18%;
-      width:74%;
-      height:16px;
+      width:82%;
+      height:18px;
       border-radius:999px;
       opacity:0;
       transform:rotate(-18deg) scaleX(.2);
@@ -304,45 +331,59 @@
         #b38cff 100%
       );
       box-shadow:
-        0 0 0 6px rgba(255,255,255,.16),
+        0 0 0 8px rgba(255,255,255,.16),
         0 10px 30px rgba(255,105,180,.18);
-      animation:rainbowTrailFly 2.6s ease-out forwards;
+    }
+
+    .rainbow-trail-1{animation:rainbowTrailFly 2.4s ease-out forwards}
+    .rainbow-trail-2{
+      height:10px;
+      width:66%;
+      bottom:28%;
+      opacity:.75;
+      filter:blur(2px);
+      animation:rainbowTrailFly2 2.6s ease-out forwards;
     }
 
     @keyframes rainbowTrailFly{
       0%{opacity:0;transform:translate(-40px,30px) rotate(-18deg) scaleX(.2)}
-      20%{opacity:.95}
-      65%{opacity:1;transform:translate(60px,-25px) rotate(-18deg) scaleX(1)}
-      100%{opacity:0;transform:translate(120px,-70px) rotate(-18deg) scaleX(1.05)}
+      20%{opacity:1}
+      65%{opacity:1;transform:translate(80px,-20px) rotate(-18deg) scaleX(1)}
+      100%{opacity:0;transform:translate(150px,-80px) rotate(-18deg) scaleX(1.08)}
+    }
+
+    @keyframes rainbowTrailFly2{
+      0%{opacity:0;transform:translate(-10px,20px) rotate(-14deg) scaleX(.15)}
+      22%{opacity:.85}
+      70%{opacity:.95;transform:translate(100px,-16px) rotate(-14deg) scaleX(1)}
+      100%{opacity:0;transform:translate(170px,-70px) rotate(-14deg) scaleX(1.05)}
     }
 
     .unicorn-flight{
       position:absolute;
       left:0;
       bottom:0;
-      width:160px;
-      height:160px;
+      width:240px;
+      height:220px;
       animation:unicornFlyAcross 2.8s cubic-bezier(.2,.7,.2,1) forwards;
     }
 
     @keyframes unicornFlyAcross{
       0%{
-        transform:translate(-120px,80px) scale(.75) rotate(-8deg);
+        transform:translate(-180px,110px) scale(.88) rotate(-10deg);
         opacity:0;
       }
-      12%{
+      10%{opacity:1}
+      30%{
+        transform:translate(60px,22px) scale(1.08) rotate(-3deg);
         opacity:1;
       }
-      35%{
-        transform:translate(80px,15px) scale(.95) rotate(-2deg);
-        opacity:1;
-      }
-      62%{
-        transform:translate(230px,-45px) scale(1.08) rotate(3deg);
+      58%{
+        transform:translate(220px,-26px) scale(1.22) rotate(3deg);
         opacity:1;
       }
       100%{
-        transform:translate(470px,-150px) scale(.88) rotate(8deg);
+        transform:translate(520px,-170px) scale(.95) rotate(10deg);
         opacity:0;
       }
     }
@@ -351,12 +392,17 @@
       position:relative;
       width:140px;
       height:110px;
-      animation:unicornBob .75s ease-in-out infinite;
+      animation:unicornBob .52s ease-in-out infinite;
+    }
+
+    .unicorn-big{
+      transform:scale(1.65);
+      transform-origin:center center;
     }
 
     @keyframes unicornBob{
       0%,100%{transform:translateY(0)}
-      50%{transform:translateY(-8px)}
+      50%{transform:translateY(-10px)}
     }
 
     .unicorn-body{
@@ -367,7 +413,7 @@
       height:46px;
       background:#fff;
       border-radius:42px;
-      box-shadow:0 6px 16px rgba(0,0,0,.08);
+      box-shadow:0 6px 18px rgba(0,0,0,.10);
     }
 
     .unicorn-head{
@@ -378,7 +424,7 @@
       height:38px;
       background:#fff;
       border-radius:50%;
-      box-shadow:0 6px 16px rgba(0,0,0,.08);
+      box-shadow:0 6px 18px rgba(0,0,0,.10);
     }
 
     .unicorn-ear{
@@ -396,14 +442,14 @@
     .unicorn-horn{
       position:absolute;
       right:28px;
-      top:0;
+      top:-2px;
       width:0;
       height:0;
-      border-left:7px solid transparent;
-      border-right:7px solid transparent;
-      border-bottom:24px solid #ffd54f;
+      border-left:8px solid transparent;
+      border-right:8px solid transparent;
+      border-bottom:28px solid #ffd54f;
       transform:rotate(8deg);
-      filter:drop-shadow(0 3px 6px rgba(255,213,79,.4));
+      filter:drop-shadow(0 3px 8px rgba(255,213,79,.55));
     }
 
     .unicorn-eye{
@@ -424,7 +470,7 @@
       height:10px;
       background:#ffbfd4;
       border-radius:50%;
-      opacity:.9;
+      opacity:.95;
     }
 
     .unicorn-mane{
@@ -465,73 +511,65 @@
       border-radius:12px;
     }
 
-    .unicorn-leg.leg1{left:36px;animation:legKick .42s ease-in-out infinite}
-    .unicorn-leg.leg2{left:52px;animation:legKick .42s ease-in-out infinite .12s}
-    .unicorn-leg.leg3{left:76px;animation:legKick .42s ease-in-out infinite .06s}
-    .unicorn-leg.leg4{left:92px;animation:legKick .42s ease-in-out infinite .18s}
+    .unicorn-leg.leg1{left:36px;animation:legKick .3s ease-in-out infinite}
+    .unicorn-leg.leg2{left:52px;animation:legKick .3s ease-in-out infinite .08s}
+    .unicorn-leg.leg3{left:76px;animation:legKick .3s ease-in-out infinite .04s}
+    .unicorn-leg.leg4{left:92px;animation:legKick .3s ease-in-out infinite .12s}
 
     @keyframes legKick{
       0%,100%{transform:rotate(0deg)}
-      50%{transform:rotate(18deg)}
+      50%{transform:rotate(22deg)}
     }
 
     .unicorn-tail{
       position:absolute;
       left:14px;
       top:42px;
-      width:26px;
+      width:28px;
       height:16px;
       border-radius:999px;
       background:linear-gradient(90deg,#ffb0d9,#9ed8ff,#fff59d);
       transform:rotate(-24deg);
-      animation:tailWave .42s ease-in-out infinite;
+      animation:tailWave .28s ease-in-out infinite;
     }
 
     @keyframes tailWave{
       0%,100%{transform:rotate(-24deg)}
-      50%{transform:rotate(-42deg)}
+      50%{transform:rotate(-46deg)}
     }
 
     .unicorn-wing{
       position:absolute;
-      left:50px;
-      top:20px;
+      top:18px;
       width:34px;
       height:28px;
       background:linear-gradient(180deg,#ffffff,#f8eaff);
       border-radius:50% 50% 50% 10%;
       box-shadow:0 4px 10px rgba(0,0,0,.05);
       transform-origin:bottom left;
-      animation:wingFlap .26s ease-in-out infinite;
+    }
+
+    .unicorn-wing.wing1{
+      left:46px;
+      animation:wingFlap .18s ease-in-out infinite;
+    }
+
+    .unicorn-wing.wing2{
+      left:56px;
+      top:24px;
+      opacity:.8;
+      transform:scale(.82);
+      animation:wingFlap2 .18s ease-in-out infinite;
     }
 
     @keyframes wingFlap{
-      0%,100%{transform:rotate(-12deg)}
-      50%{transform:rotate(18deg)}
+      0%,100%{transform:rotate(-16deg)}
+      50%{transform:rotate(24deg)}
     }
 
-    .unicorn-text{
-      position:absolute;
-      left:50%;
-      top:18%;
-      transform:translateX(-50%);
-      font-size:34px;
-      font-weight:900;
-      letter-spacing:1px;
-      color:#fff;
-      text-shadow:
-        0 3px 10px rgba(255,105,180,.35),
-        0 0 18px rgba(255,255,255,.55);
-      opacity:0;
-      animation:unicornTextPop 2.1s ease forwards;
-    }
-
-    @keyframes unicornTextPop{
-      0%{opacity:0;transform:translateX(-50%) translateY(10px) scale(.75)}
-      20%{opacity:1}
-      45%{transform:translateX(-50%) translateY(0) scale(1.08)}
-      80%{opacity:1}
-      100%{opacity:0;transform:translateX(-50%) translateY(-10px) scale(1)}
+    @keyframes wingFlap2{
+      0%,100%{transform:scale(.82) rotate(-8deg)}
+      50%{transform:scale(.82) rotate(18deg)}
     }
 
     .bottom-actions{
@@ -740,7 +778,6 @@
       .option{min-height:96px}
       .animal-photo-wrap{height:240px}
       .reward-stage{min-height:300px}
-      .unicorn-text{font-size:28px}
     }
   </style>
 </head>
@@ -765,6 +802,10 @@
 
         <div class="reward-stage">
           <div class="unicorn-overlay" id="marioOverlay">
+            <div class="flash-ring ring1"></div>
+            <div class="flash-ring ring2"></div>
+            <div class="flash-ring ring3"></div>
+
             <div class="unicorn-bg-glow glow1"></div>
             <div class="unicorn-bg-glow glow2"></div>
             <div class="unicorn-bg-glow glow3"></div>
@@ -782,12 +823,17 @@
               <span class="sparkle s10">🫧</span>
               <span class="sparkle s11">💖</span>
               <span class="sparkle s12">✨</span>
+              <span class="sparkle s13">🌟</span>
+              <span class="sparkle s14">💫</span>
+              <span class="sparkle s15">✨</span>
+              <span class="sparkle s16">💖</span>
             </div>
 
-            <div class="rainbow-trail"></div>
+            <div class="rainbow-trail rainbow-trail-1"></div>
+            <div class="rainbow-trail rainbow-trail-2"></div>
 
             <div class="unicorn-flight">
-              <div class="unicorn">
+              <div class="unicorn unicorn-big">
                 <div class="unicorn-body"></div>
                 <div class="unicorn-head"></div>
                 <div class="unicorn-ear ear1"></div>
@@ -803,11 +849,10 @@
                 <div class="unicorn-leg leg3"></div>
                 <div class="unicorn-leg leg4"></div>
                 <div class="unicorn-tail"></div>
-                <div class="unicorn-wing"></div>
+                <div class="unicorn-wing wing1"></div>
+                <div class="unicorn-wing wing2"></div>
               </div>
             </div>
-
-            <div class="unicorn-text">太棒了 ✨</div>
           </div>
 
           <div class="animal-card" id="animalCard">
@@ -957,128 +1002,64 @@
         label: "恐龍",
         count: 40,
         keywords: [
-          "cute dinosaur toy",
-          "cartoon dinosaur",
-          "dinosaur figure",
-          "trex toy",
-          "triceratops toy",
-          "stegosaurus toy",
-          "brachiosaurus toy",
-          "velociraptor toy",
-          "spinosaurus toy",
-          "kawaii dinosaur"
+          "cute dinosaur toy","cartoon dinosaur","dinosaur figure","trex toy","triceratops toy",
+          "stegosaurus toy","brachiosaurus toy","velociraptor toy","spinosaurus toy","kawaii dinosaur"
         ]
       },
       pet: {
         label: "寵物",
         count: 40,
         keywords: [
-          "cute puppy",
-          "cute kitten",
-          "pet rabbit",
-          "hamster pet",
-          "cute parrot",
-          "pet dog",
-          "pet cat",
-          "cute guinea pig",
-          "cute bird pet",
-          "cute dog cat"
+          "cute puppy","cute kitten","pet rabbit","hamster pet","cute parrot",
+          "pet dog","pet cat","cute guinea pig","cute bird pet","cute dog cat"
         ]
       },
       sanrio: {
         label: "三麗鷗明星",
         count: 40,
         keywords: [
-          "hello kitty toy",
-          "my melody toy",
-          "kuromi toy",
-          "cinnamoroll toy",
-          "pompompurin toy",
-          "sanrio plush",
-          "sanrio figure",
-          "hello kitty doll",
-          "sanrio character toy",
-          "cute sanrio toy"
+          "hello kitty toy","my melody toy","kuromi toy","cinnamoroll toy","pompompurin toy",
+          "sanrio plush","sanrio figure","hello kitty doll","sanrio character toy","cute sanrio toy"
         ]
       },
       capybara: {
         label: "水豚君",
         count: 30,
         keywords: [
-          "capybara cute",
-          "capybara bath",
-          "capybara orange bath",
-          "capybara cartoon",
-          "capybara plush",
-          "capybara toy",
-          "cute capybara",
-          "capybara hot spring",
-          "kawaii capybara",
-          "capybara animal"
+          "capybara cute","capybara bath","capybara orange bath","capybara cartoon","capybara plush",
+          "capybara toy","cute capybara","capybara hot spring","kawaii capybara","capybara animal"
         ]
       },
       shinchan: {
         label: "蠟筆小新",
         count: 35,
         keywords: [
-          "crayon shin chan toy",
-          "shin chan figure",
-          "shin chan doll",
-          "crayon shinchan toy",
-          "shinchan plush",
-          "shinchan figure toy",
-          "shin chan character toy",
-          "cute shinchan doll",
-          "shinchan cartoon toy",
-          "crayon shin chan plush"
+          "crayon shin chan toy","shin chan figure","shin chan doll","crayon shinchan toy","shinchan plush",
+          "shinchan figure toy","shin chan character toy","cute shinchan doll","shinchan cartoon toy","crayon shin chan plush"
         ]
       },
       pawpatrol: {
         label: "汪汪隊",
         count: 35,
         keywords: [
-          "paw patrol toy",
-          "chase paw patrol toy",
-          "marshall paw patrol toy",
-          "skye paw patrol toy",
-          "paw patrol figure",
-          "paw patrol plush",
-          "paw patrol character toy",
-          "paw patrol kids toy",
-          "cute paw patrol toy",
-          "paw patrol doll"
+          "paw patrol toy","chase paw patrol toy","marshall paw patrol toy","skye paw patrol toy","paw patrol figure",
+          "paw patrol plush","paw patrol character toy","paw patrol kids toy","cute paw patrol toy","paw patrol doll"
         ]
       },
       doraemon: {
         label: "多啦A夢",
         count: 40,
         keywords: [
-          "doraemon toy",
-          "doraemon figure",
-          "doraemon doll",
-          "cute doraemon toy",
-          "doraemon plush",
-          "doraemon character toy",
-          "blue doraemon toy",
-          "doraemon kids toy",
-          "doraemon cartoon figure",
-          "doraemon plush doll"
+          "doraemon toy","doraemon figure","doraemon doll","cute doraemon toy","doraemon plush",
+          "doraemon character toy","blue doraemon toy","doraemon kids toy","doraemon cartoon figure","doraemon plush doll"
         ]
       },
       dorami: {
         label: "多啦美",
         count: 40,
         keywords: [
-          "dorami toy",
-          "dorami figure",
-          "dorami doll",
-          "cute dorami toy",
-          "dorami plush",
-          "dorami character toy",
-          "yellow dorami toy",
-          "dorami kids toy",
-          "dorami cartoon figure",
-          "dorami plush doll"
+          "dorami toy","dorami figure","dorami doll","cute dorami toy","dorami plush",
+          "dorami character toy","yellow dorami toy","dorami kids toy","dorami cartoon figure","dorami plush doll"
         ]
       }
     };
@@ -1087,13 +1068,7 @@
       let nextStartId = 1;
       const result = [];
       Object.entries(cardKeywordMap).forEach(([category, config]) => {
-        const group = expandCards(
-          category,
-          config.label,
-          config.keywords,
-          nextStartId,
-          config.count
-        );
+        const group = expandCards(category, config.label, config.keywords, nextStartId, config.count);
         result.push(...group);
         nextStartId += config.count;
       });
@@ -1204,7 +1179,6 @@
       if (mode === "letters") return getLettersPool();
       if (mode === "numbers") return getNumbersPool();
       if (mode === "bopomofo") return getBopomofoPool();
-
       return [
         ...getLettersPool().slice(0, Math.min(getLettersPool().length, 6)),
         ...getNumbersPool().slice(0, Math.min(getNumbersPool().length, 6)),
@@ -1271,11 +1245,7 @@
     }
 
     function speakRepeated(builder, times = 3, gap = 2000, onDone = null) {
-      if (!hasUserInteracted) {
-        if (onDone) onDone();
-        return;
-      }
-      if (!("speechSynthesis" in window)) {
+      if (!hasUserInteracted || !("speechSynthesis" in window)) {
         if (onDone) onDone();
         return;
       }
@@ -1284,47 +1254,36 @@
       window.speechSynthesis.cancel();
 
       let finished = 0;
-
       for (let i = 0; i < times; i++) {
         const timer = setTimeout(() => {
           window.speechSynthesis.cancel();
           const utter = builder();
-
           if (!utter) {
             finished++;
             if (finished === times && onDone) onDone();
             return;
           }
-
           utter.onend = () => {
             finished++;
             if (finished === times && onDone) onDone();
           };
-
           utter.onerror = () => {
             finished++;
             if (finished === times && onDone) onDone();
           };
-
           window.speechSynthesis.speak(utter);
         }, i * gap);
-
         repeatSpeakTimers.push(timer);
       }
     }
 
     function speakText(text, lang = "zh-TW", rate = 0.82, pitch = 1, times = 3, gap = 2000, onDone = null) {
-      if (!hasUserInteracted) {
-        if (onDone) onDone();
-        return;
-      }
-      if (!("speechSynthesis" in window)) {
+      if (!hasUserInteracted || !("speechSynthesis" in window)) {
         if (onDone) onDone();
         return;
       }
 
       initAudio();
-
       speakRepeated(() => {
         const utter = new SpeechSynthesisUtterance(text);
         utter.lang = lang;
@@ -1342,17 +1301,6 @@
     }
 
     function speakEnglishLetter(letter, times = 3, onDone = null) {
-      if (!hasUserInteracted) {
-        if (onDone) onDone();
-        return;
-      }
-      if (!("speechSynthesis" in window)) {
-        if (onDone) onDone();
-        return;
-      }
-
-      initAudio();
-
       const letterSpeakMap = {
         A: "ay", B: "bee", C: "see", D: "dee", E: "ee", F: "ef", G: "gee",
         H: "aitch", I: "eye", J: "jay", K: "kay", L: "el", M: "em", N: "en",
@@ -1366,7 +1314,6 @@
         utter.rate = 0.72;
         utter.pitch = 1;
         utter.volume = 1;
-
         const voice = getEnVoice();
         if (voice) {
           utter.voice = voice;
@@ -1388,22 +1335,9 @@
 
     function speak(text, times = 3, onDone = null) {
       const clean = String(text).trim();
-
-      if (/^[A-Z]$/.test(clean)) {
-        speakEnglishLetter(clean, times, onDone);
-        return;
-      }
-
-      if (/^[0-9]+$/.test(clean)) {
-        speakNumber(clean, times, onDone);
-        return;
-      }
-
-      if (bopomofoSpeakMap[clean]) {
-        speakBopomofo(clean, times, onDone);
-        return;
-      }
-
+      if (/^[A-Z]$/.test(clean)) return speakEnglishLetter(clean, times, onDone);
+      if (/^[0-9]+$/.test(clean)) return speakNumber(clean, times, onDone);
+      if (bopomofoSpeakMap[clean]) return speakBopomofo(clean, times, onDone);
       if (onDone) onDone();
     }
 
@@ -1415,12 +1349,10 @@
       if (!audioCtx) return;
       const osc = audioCtx.createOscillator();
       const gain = audioCtx.createGain();
-
       osc.type = type;
       osc.frequency.value = freq;
       gain.gain.setValueAtTime(volume, start);
       gain.gain.exponentialRampToValueAtTime(0.0001, start + duration);
-
       osc.connect(gain);
       gain.connect(audioCtx.destination);
       osc.start(start);
@@ -1434,6 +1366,18 @@
       beep(659.25, now + 0.08, 0.12, "square", 0.05);
       beep(783.99, now + 0.16, 0.12, "square", 0.05);
       beep(1046.5, now + 0.24, 0.16, "square", 0.05);
+    }
+
+    function playUnicornRhythmSound() {
+      initAudio();
+      const now = audioCtx.currentTime + 0.02;
+      beep(659.25, now + 0.00, 0.10, "triangle", 0.035);
+      beep(783.99, now + 0.12, 0.10, "triangle", 0.035);
+      beep(987.77, now + 0.24, 0.12, "triangle", 0.038);
+      beep(1318.51, now + 0.40, 0.18, "triangle", 0.04);
+      beep(1046.5, now + 0.70, 0.10, "sine", 0.03);
+      beep(1318.51, now + 0.84, 0.10, "sine", 0.03);
+      beep(1567.98, now + 0.98, 0.14, "sine", 0.032);
     }
 
     function playFailSound() {
@@ -1458,7 +1402,7 @@
     }
 
     function showAnimalCard(card, retryCount = 0) {
-      const maxRetry = 12;
+      const maxRetry = 20;
       if (!card) return;
 
       animalCardEl.classList.remove("show");
@@ -1466,26 +1410,35 @@
       animalPhotoEl.onerror = null;
       animalLabelEl.textContent = card.label || "卡片";
 
-      animalPhotoEl.onload = () => {
-        animalPhotoEl.onload = null;
-        animalPhotoEl.onerror = null;
+      const finishShow = () => {
         animalPhotoEl.alt = card.label || "卡通圖片";
         animalCardEl.classList.remove("show");
         void animalCardEl.offsetWidth;
         animalCardEl.classList.add("show");
       };
 
+      animalPhotoEl.onload = () => {
+        animalPhotoEl.onload = null;
+        animalPhotoEl.onerror = null;
+        finishShow();
+      };
+
       animalPhotoEl.onerror = () => {
         animalPhotoEl.onload = null;
         animalPhotoEl.onerror = null;
         if (retryCount >= maxRetry) {
-          animalPhotoEl.src = "";
+          animalPhotoEl.src = "https://loremflickr.com/1200/900/dinosaur?lock=999999";
+          setTimeout(finishShow, 120);
           return;
         }
         showAnimalCard(nextAnimalCard(), retryCount + 1);
       };
 
       animalPhotoEl.src = card.img;
+
+      setTimeout(() => {
+        if (animalPhotoEl.src) finishShow();
+      }, 350);
     }
 
     function autoNextEnabled() {
@@ -1506,26 +1459,49 @@
       void marioOverlayEl.offsetWidth;
       marioOverlayEl.classList.add("show");
 
+      playUnicornRhythmSound();
+
       clearTimeout(animationTimer);
       animationTimer = setTimeout(() => {
         marioOverlayEl.classList.remove("show");
 
-        if (preloadedCard && preloadedImage) {
+        if (preloadedCard && preloadedImage && preloadedImage.src) {
+          const readyCard = preloadedCard;
+          const readySrc = preloadedImage.src;
+
+          preloadedCard = null;
+          preloadedImage = null;
+          preloadNextAnimalCard();
+
+          animalLabelEl.textContent = readyCard.label || "卡片";
           animalPhotoEl.onload = null;
           animalPhotoEl.onerror = null;
-          animalLabelEl.textContent = preloadedCard.label || "卡片";
-          animalPhotoEl.src = preloadedImage.src;
-          animalPhotoEl.alt = preloadedCard.label || "卡通圖片";
-          animalCardEl.classList.remove("show");
-          void animalCardEl.offsetWidth;
-          animalCardEl.classList.add("show");
+
+          animalPhotoEl.onload = () => {
+            animalPhotoEl.onload = null;
+            animalPhotoEl.onerror = null;
+            animalCardEl.classList.remove("show");
+            void animalCardEl.offsetWidth;
+            animalCardEl.classList.add("show");
+          };
+
+          animalPhotoEl.onerror = () => {
+            animalPhotoEl.onload = null;
+            animalPhotoEl.onerror = null;
+            showAnimalCard(readyCard);
+          };
+
+          animalPhotoEl.src = readySrc;
+
+          setTimeout(() => {
+            animalCardEl.classList.remove("show");
+            void animalCardEl.offsetWidth;
+            animalCardEl.classList.add("show");
+          }, 250);
         } else {
           showAnimalCard(nextAnimalCard());
+          preloadNextAnimalCard();
         }
-
-        preloadedCard = null;
-        preloadedImage = null;
-        preloadNextAnimalCard();
 
         goNextQuestionAuto();
       }, 3000);
@@ -1556,16 +1532,14 @@
     }
 
     function clearOptionStatesOnly() {
-      const allBtns = optionsEl.querySelectorAll(".option");
-      allBtns.forEach(btn => {
+      optionsEl.querySelectorAll(".option").forEach(btn => {
         btn.classList.remove("correct", "wrong");
         btn.disabled = false;
       });
     }
 
     function setOptionsDisabled(disabled) {
-      const allBtns = optionsEl.querySelectorAll(".option");
-      allBtns.forEach(btn => {
+      optionsEl.querySelectorAll(".option").forEach(btn => {
         btn.disabled = disabled;
       });
     }
@@ -1598,11 +1572,9 @@
         if (onDone) onDone();
         return;
       }
-
       let text = "";
       if (key === "correct") text = "做得很好，請繼續下一題";
       if (key === "retry") text = "再來一次，你可以的";
-
       speakText(text, "zh-TW", 0.9, 1, 1, 0, onDone);
     }
 
@@ -1677,12 +1649,8 @@
       }
     }
 
-    function toggleSettings() {
-      settingsWrapEl.classList.toggle("open");
-    }
-
     settingsToggleEl.addEventListener("click", () => {
-      toggleSettings();
+      settingsWrapEl.classList.toggle("open");
     });
 
     document.getElementById("speakBtn").addEventListener("click", () => {
