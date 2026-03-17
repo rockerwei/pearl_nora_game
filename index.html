@@ -135,10 +135,11 @@
     .option:active{transform:translateY(4px);box-shadow:0 4px 0 #efc8a8, var(--shadow)}
     .option.correct{background:#e8f8e8;color:#246d2f;box-shadow:0 10px 0 #bfe3c2, var(--shadow)}
     .option.wrong{background:#ffefef;color:#c62828;box-shadow:0 10px 0 #f3c2c2, var(--shadow)}
+    .option:disabled{cursor:not-allowed;opacity:.96}
 
     .reward-stage{
       margin-top:14px;
-      min-height:300px;
+      min-height:340px;
       position:relative;
     }
 
@@ -149,7 +150,7 @@
       border-radius:28px;
       padding:22px;
       box-shadow:var(--shadow);
-      animation:cardPop .45s ease;
+      animation:cardPop .24s ease;
     }
 
     .animal-card.show{
@@ -158,11 +159,12 @@
 
     .animal-photo-wrap{
       width:100%;
-      height:260px;
+      height:280px;
       border-radius:28px;
       overflow:hidden;
       box-shadow:var(--shadow);
       background:#fff;
+      position:relative;
     }
 
     .animal-photo{
@@ -170,14 +172,28 @@
       height:100%;
       object-fit:cover;
       display:block;
+      background:#fff;
+    }
+
+    .animal-label{
+      position:absolute;
+      left:12px;
+      bottom:12px;
+      padding:8px 12px;
+      border-radius:999px;
+      background:rgba(0,0,0,.45);
+      color:#fff;
+      font-size:13px;
+      font-weight:900;
+      backdrop-filter:blur(6px);
     }
 
     @keyframes cardPop{
-      0%{transform:scale(.84) translateY(20px);opacity:0}
+      0%{transform:scale(.9) translateY(8px);opacity:0}
       100%{transform:scale(1) translateY(0);opacity:1}
     }
 
-    .mario-overlay{
+    .unicorn-overlay{
       position:absolute;
       inset:0;
       z-index:20;
@@ -185,107 +201,337 @@
       align-items:center;
       justify-content:center;
       pointer-events:none;
-      background:linear-gradient(180deg,rgba(255,255,255,.82),rgba(255,255,255,.58));
-      border-radius:28px;
       overflow:hidden;
+      border-radius:28px;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,.75), transparent 18%),
+        radial-gradient(circle at 80% 18%, rgba(255,255,255,.45), transparent 16%),
+        radial-gradient(circle at 50% 80%, rgba(255,255,255,.28), transparent 20%),
+        linear-gradient(135deg,#ffd6f6 0%, #ffe9b8 22%, #d4f4ff 45%, #e3d8ff 68%, #ffc7e8 100%);
     }
 
-    .mario-overlay.show{
+    .unicorn-overlay.show{
       display:flex;
+      animation:unicornOverlayIn .25s ease;
     }
 
-    .powerup-wrap{
-      position:relative;
-      width:260px;
-      height:260px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
+    @keyframes unicornOverlayIn{
+      0%{opacity:0;transform:scale(.98)}
+      100%{opacity:1;transform:scale(1)}
     }
 
-    .mushroom-big,
-    .main-star-big,
-    .mini-star-big{
+    .unicorn-bg-glow{
       position:absolute;
-      user-select:none;
+      border-radius:50%;
+      filter:blur(18px);
+      opacity:.5;
+      animation:glowFloat 2.8s ease-in-out infinite;
     }
 
-    .mushroom-big{
-      font-size:100px;
-      left:50%;
-      top:54%;
-      transform:translate(-110px,40px) scale(.4);
+    .unicorn-bg-glow.glow1{
+      width:180px;height:180px;
+      left:-30px;top:20px;
+      background:rgba(255,182,223,.7);
+    }
+
+    .unicorn-bg-glow.glow2{
+      width:220px;height:220px;
+      right:-40px;top:30px;
+      background:rgba(173,232,255,.65);
+      animation-delay:.5s;
+    }
+
+    .unicorn-bg-glow.glow3{
+      width:200px;height:200px;
+      left:30%;bottom:-40px;
+      background:rgba(255,241,170,.6);
+      animation-delay:1s;
+    }
+
+    @keyframes glowFloat{
+      0%,100%{transform:translateY(0) scale(1)}
+      50%{transform:translateY(-10px) scale(1.06)}
+    }
+
+    .sparkles-layer{
+      position:absolute;
+      inset:0;
+    }
+
+    .sparkle{
+      position:absolute;
       opacity:0;
-      animation:mushroomJump3s 3s ease forwards;
+      animation:sparkleTwinkle 2.8s ease-in-out forwards;
+      filter:drop-shadow(0 4px 8px rgba(255,255,255,.45));
     }
 
-    .main-star-big{
-      font-size:120px;
-      left:50%;
-      top:50%;
-      transform:translate(-10px,-10px) scale(.2) rotate(0deg);
+    .sparkle.s1{left:8%;top:20%;font-size:30px;animation-delay:.1s}
+    .sparkle.s2{left:20%;top:12%;font-size:24px;animation-delay:.35s}
+    .sparkle.s3{left:30%;top:28%;font-size:28px;animation-delay:.7s}
+    .sparkle.s4{left:78%;top:18%;font-size:28px;animation-delay:.25s}
+    .sparkle.s5{left:86%;top:36%;font-size:24px;animation-delay:.9s}
+    .sparkle.s6{left:66%;top:10%;font-size:30px;animation-delay:.5s}
+    .sparkle.s7{left:12%;bottom:22%;font-size:30px;animation-delay:1.05s}
+    .sparkle.s8{right:10%;bottom:18%;font-size:28px;animation-delay:1.25s}
+    .sparkle.s9{left:44%;bottom:16%;font-size:26px;animation-delay:1.45s}
+    .sparkle.s10{left:58%;top:48%;font-size:24px;animation-delay:1.1s}
+    .sparkle.s11{left:34%;bottom:24%;font-size:24px;animation-delay:1.6s}
+    .sparkle.s12{right:24%;bottom:28%;font-size:26px;animation-delay:1.8s}
+
+    @keyframes sparkleTwinkle{
+      0%{opacity:0;transform:translateY(12px) scale(.4) rotate(0deg)}
+      20%{opacity:1}
+      50%{opacity:1;transform:translateY(-6px) scale(1.15) rotate(10deg)}
+      100%{opacity:0;transform:translateY(-18px) scale(.8) rotate(-10deg)}
+    }
+
+    .rainbow-trail{
+      position:absolute;
+      left:-18%;
+      bottom:18%;
+      width:74%;
+      height:16px;
+      border-radius:999px;
       opacity:0;
-      animation:mainStarSpin3s 3s ease forwards;
+      transform:rotate(-18deg) scaleX(.2);
+      background:linear-gradient(
+        90deg,
+        #ff6fa8 0%,
+        #ffb86c 20%,
+        #fff06a 40%,
+        #7ee081 60%,
+        #74c6ff 80%,
+        #b38cff 100%
+      );
+      box-shadow:
+        0 0 0 6px rgba(255,255,255,.16),
+        0 10px 30px rgba(255,105,180,.18);
+      animation:rainbowTrailFly 2.6s ease-out forwards;
     }
 
-    .mini-star-big.s1{font-size:34px;left:50%;top:50%;transform:translate(-20px,-20px);animation:miniStarFly3s_1 3s ease-out forwards}
-    .mini-star-big.s2{font-size:30px;left:50%;top:50%;transform:translate(10px,-30px);animation:miniStarFly3s_2 3s ease-out forwards}
-    .mini-star-big.s3{font-size:32px;left:50%;top:50%;transform:translate(-18px,18px);animation:miniStarFly3s_3 3s ease-out forwards}
-    .mini-star-big.s4{font-size:28px;left:50%;top:50%;transform:translate(26px,14px);animation:miniStarFly3s_4 3s ease-out forwards}
-    .mini-star-big.s5{font-size:26px;left:50%;top:50%;transform:translate(-46px,0);animation:miniStarFly3s_5 3s ease-out forwards}
-    .mini-star-big.s6{font-size:26px;left:50%;top:50%;transform:translate(48px,-4px);animation:miniStarFly3s_6 3s ease-out forwards}
-
-    @keyframes mushroomJump3s{
-      0%{transform:translate(-110px,60px) scale(.3);opacity:0}
-      15%{transform:translate(-110px,-35px) scale(1.2);opacity:1}
-      35%{transform:translate(-110px,-5px) scale(1);opacity:1}
-      75%{transform:translate(-110px,-12px) scale(1);opacity:1}
-      100%{transform:translate(-110px,-12px) scale(1);opacity:0}
+    @keyframes rainbowTrailFly{
+      0%{opacity:0;transform:translate(-40px,30px) rotate(-18deg) scaleX(.2)}
+      20%{opacity:.95}
+      65%{opacity:1;transform:translate(60px,-25px) rotate(-18deg) scaleX(1)}
+      100%{opacity:0;transform:translate(120px,-70px) rotate(-18deg) scaleX(1.05)}
     }
 
-    @keyframes mainStarSpin3s{
-      0%{transform:translate(-10px,-10px) scale(.2) rotate(0deg);opacity:0}
-      15%{transform:translate(-10px,-10px) scale(1.45) rotate(180deg);opacity:1}
-      35%{transform:translate(-10px,-10px) scale(1) rotate(320deg);opacity:1}
-      75%{transform:translate(-10px,-10px) scale(1.08) rotate(540deg);opacity:1}
-      100%{transform:translate(-10px,-10px) scale(1.08) rotate(720deg);opacity:0}
+    .unicorn-flight{
+      position:absolute;
+      left:0;
+      bottom:0;
+      width:160px;
+      height:160px;
+      animation:unicornFlyAcross 2.8s cubic-bezier(.2,.7,.2,1) forwards;
     }
 
-    @keyframes miniStarFly3s_1{
-      0%{transform:translate(-20px,-20px) scale(.2);opacity:0}
-      15%{opacity:1}
-      70%{transform:translate(-120px,-120px) scale(1.4);opacity:1}
-      100%{transform:translate(-150px,-150px) scale(1.7);opacity:0}
+    @keyframes unicornFlyAcross{
+      0%{
+        transform:translate(-120px,80px) scale(.75) rotate(-8deg);
+        opacity:0;
+      }
+      12%{
+        opacity:1;
+      }
+      35%{
+        transform:translate(80px,15px) scale(.95) rotate(-2deg);
+        opacity:1;
+      }
+      62%{
+        transform:translate(230px,-45px) scale(1.08) rotate(3deg);
+        opacity:1;
+      }
+      100%{
+        transform:translate(470px,-150px) scale(.88) rotate(8deg);
+        opacity:0;
+      }
     }
-    @keyframes miniStarFly3s_2{
-      0%{transform:translate(10px,-30px) scale(.2);opacity:0}
-      15%{opacity:1}
-      70%{transform:translate(120px,-110px) scale(1.4);opacity:1}
-      100%{transform:translate(150px,-140px) scale(1.7);opacity:0}
+
+    .unicorn{
+      position:relative;
+      width:140px;
+      height:110px;
+      animation:unicornBob .75s ease-in-out infinite;
     }
-    @keyframes miniStarFly3s_3{
-      0%{transform:translate(-18px,18px) scale(.2);opacity:0}
-      15%{opacity:1}
-      70%{transform:translate(-110px,110px) scale(1.4);opacity:1}
-      100%{transform:translate(-145px,145px) scale(1.7);opacity:0}
+
+    @keyframes unicornBob{
+      0%,100%{transform:translateY(0)}
+      50%{transform:translateY(-8px)}
     }
-    @keyframes miniStarFly3s_4{
-      0%{transform:translate(26px,14px) scale(.2);opacity:0}
-      15%{opacity:1}
-      70%{transform:translate(120px,105px) scale(1.4);opacity:1}
-      100%{transform:translate(150px,138px) scale(1.7);opacity:0}
+
+    .unicorn-body{
+      position:absolute;
+      left:26px;
+      top:34px;
+      width:72px;
+      height:46px;
+      background:#fff;
+      border-radius:42px;
+      box-shadow:0 6px 16px rgba(0,0,0,.08);
     }
-    @keyframes miniStarFly3s_5{
-      0%{transform:translate(-46px,0) scale(.2);opacity:0}
-      15%{opacity:1}
-      70%{transform:translate(-170px,-8px) scale(1.4);opacity:1}
-      100%{transform:translate(-205px,-10px) scale(1.7);opacity:0}
+
+    .unicorn-head{
+      position:absolute;
+      right:18px;
+      top:18px;
+      width:42px;
+      height:38px;
+      background:#fff;
+      border-radius:50%;
+      box-shadow:0 6px 16px rgba(0,0,0,.08);
     }
-    @keyframes miniStarFly3s_6{
-      0%{transform:translate(48px,-4px) scale(.2);opacity:0}
-      15%{opacity:1}
-      70%{transform:translate(170px,-15px) scale(1.4);opacity:1}
-      100%{transform:translate(205px,-18px) scale(1.7);opacity:0}
+
+    .unicorn-ear{
+      position:absolute;
+      width:14px;
+      height:18px;
+      background:#fff;
+      border-radius:12px 12px 4px 4px;
+      top:10px;
+    }
+
+    .unicorn-ear.ear1{right:36px;transform:rotate(-14deg)}
+    .unicorn-ear.ear2{right:22px;transform:rotate(12deg)}
+
+    .unicorn-horn{
+      position:absolute;
+      right:28px;
+      top:0;
+      width:0;
+      height:0;
+      border-left:7px solid transparent;
+      border-right:7px solid transparent;
+      border-bottom:24px solid #ffd54f;
+      transform:rotate(8deg);
+      filter:drop-shadow(0 3px 6px rgba(255,213,79,.4));
+    }
+
+    .unicorn-eye{
+      position:absolute;
+      right:30px;
+      top:34px;
+      width:6px;
+      height:6px;
+      background:#333;
+      border-radius:50%;
+    }
+
+    .unicorn-cheek{
+      position:absolute;
+      right:22px;
+      top:40px;
+      width:10px;
+      height:10px;
+      background:#ffbfd4;
+      border-radius:50%;
+      opacity:.9;
+    }
+
+    .unicorn-mane{
+      position:absolute;
+      border-radius:999px;
+    }
+
+    .unicorn-mane.mane1{
+      right:46px;
+      top:18px;
+      width:18px;height:26px;
+      background:#ff9ed1;
+      transform:rotate(-18deg);
+    }
+
+    .unicorn-mane.mane2{
+      right:38px;
+      top:24px;
+      width:16px;height:22px;
+      background:#9fd8ff;
+      transform:rotate(8deg);
+    }
+
+    .unicorn-mane.mane3{
+      right:48px;
+      top:30px;
+      width:16px;height:20px;
+      background:#fff59d;
+      transform:rotate(-8deg);
+    }
+
+    .unicorn-leg{
+      position:absolute;
+      width:10px;
+      height:28px;
+      background:#fff;
+      bottom:8px;
+      border-radius:12px;
+    }
+
+    .unicorn-leg.leg1{left:36px;animation:legKick .42s ease-in-out infinite}
+    .unicorn-leg.leg2{left:52px;animation:legKick .42s ease-in-out infinite .12s}
+    .unicorn-leg.leg3{left:76px;animation:legKick .42s ease-in-out infinite .06s}
+    .unicorn-leg.leg4{left:92px;animation:legKick .42s ease-in-out infinite .18s}
+
+    @keyframes legKick{
+      0%,100%{transform:rotate(0deg)}
+      50%{transform:rotate(18deg)}
+    }
+
+    .unicorn-tail{
+      position:absolute;
+      left:14px;
+      top:42px;
+      width:26px;
+      height:16px;
+      border-radius:999px;
+      background:linear-gradient(90deg,#ffb0d9,#9ed8ff,#fff59d);
+      transform:rotate(-24deg);
+      animation:tailWave .42s ease-in-out infinite;
+    }
+
+    @keyframes tailWave{
+      0%,100%{transform:rotate(-24deg)}
+      50%{transform:rotate(-42deg)}
+    }
+
+    .unicorn-wing{
+      position:absolute;
+      left:50px;
+      top:20px;
+      width:34px;
+      height:28px;
+      background:linear-gradient(180deg,#ffffff,#f8eaff);
+      border-radius:50% 50% 50% 10%;
+      box-shadow:0 4px 10px rgba(0,0,0,.05);
+      transform-origin:bottom left;
+      animation:wingFlap .26s ease-in-out infinite;
+    }
+
+    @keyframes wingFlap{
+      0%,100%{transform:rotate(-12deg)}
+      50%{transform:rotate(18deg)}
+    }
+
+    .unicorn-text{
+      position:absolute;
+      left:50%;
+      top:18%;
+      transform:translateX(-50%);
+      font-size:34px;
+      font-weight:900;
+      letter-spacing:1px;
+      color:#fff;
+      text-shadow:
+        0 3px 10px rgba(255,105,180,.35),
+        0 0 18px rgba(255,255,255,.55);
+      opacity:0;
+      animation:unicornTextPop 2.1s ease forwards;
+    }
+
+    @keyframes unicornTextPop{
+      0%{opacity:0;transform:translateX(-50%) translateY(10px) scale(.75)}
+      20%{opacity:1}
+      45%{transform:translateX(-50%) translateY(0) scale(1.08)}
+      80%{opacity:1}
+      100%{opacity:0;transform:translateX(-50%) translateY(-10px) scale(1)}
     }
 
     .bottom-actions{
@@ -492,8 +738,9 @@
       .mini-stats{grid-template-columns:repeat(3,1fr)}
       button.action{font-size:20px}
       .option{min-height:96px}
-      .animal-photo-wrap{height:220px}
-      .powerup-wrap{transform:scale(.88)}
+      .animal-photo-wrap{height:240px}
+      .reward-stage{min-height:300px}
+      .unicorn-text{font-size:28px}
     }
   </style>
 </head>
@@ -517,22 +764,56 @@
         </div>
 
         <div class="reward-stage">
-          <div class="mario-overlay" id="marioOverlay">
-            <div class="powerup-wrap">
-              <span class="mushroom-big">🍄</span>
-              <span class="main-star-big">⭐</span>
-              <span class="mini-star-big s1">✨</span>
-              <span class="mini-star-big s2">🌟</span>
-              <span class="mini-star-big s3">✨</span>
-              <span class="mini-star-big s4">🌟</span>
-              <span class="mini-star-big s5">✨</span>
-              <span class="mini-star-big s6">🌟</span>
+          <div class="unicorn-overlay" id="marioOverlay">
+            <div class="unicorn-bg-glow glow1"></div>
+            <div class="unicorn-bg-glow glow2"></div>
+            <div class="unicorn-bg-glow glow3"></div>
+
+            <div class="sparkles-layer">
+              <span class="sparkle s1">✨</span>
+              <span class="sparkle s2">✨</span>
+              <span class="sparkle s3">🌟</span>
+              <span class="sparkle s4">✨</span>
+              <span class="sparkle s5">💖</span>
+              <span class="sparkle s6">✨</span>
+              <span class="sparkle s7">🌈</span>
+              <span class="sparkle s8">💫</span>
+              <span class="sparkle s9">✨</span>
+              <span class="sparkle s10">🫧</span>
+              <span class="sparkle s11">💖</span>
+              <span class="sparkle s12">✨</span>
             </div>
+
+            <div class="rainbow-trail"></div>
+
+            <div class="unicorn-flight">
+              <div class="unicorn">
+                <div class="unicorn-body"></div>
+                <div class="unicorn-head"></div>
+                <div class="unicorn-ear ear1"></div>
+                <div class="unicorn-ear ear2"></div>
+                <div class="unicorn-horn"></div>
+                <div class="unicorn-eye"></div>
+                <div class="unicorn-cheek"></div>
+                <div class="unicorn-mane mane1"></div>
+                <div class="unicorn-mane mane2"></div>
+                <div class="unicorn-mane mane3"></div>
+                <div class="unicorn-leg leg1"></div>
+                <div class="unicorn-leg leg2"></div>
+                <div class="unicorn-leg leg3"></div>
+                <div class="unicorn-leg leg4"></div>
+                <div class="unicorn-tail"></div>
+                <div class="unicorn-wing"></div>
+              </div>
+            </div>
+
+            <div class="unicorn-text">太棒了 ✨</div>
           </div>
 
           <div class="animal-card" id="animalCard">
             <div class="animal-photo-wrap">
-              <img id="animalPhoto" class="animal-photo" src="" alt="動物圖片">
+              <img id="animalPhoto" class="animal-photo" src="" alt="卡通圖片">
+              <div class="animal-label" id="animalLabel">卡片</div>
             </div>
           </div>
         </div>
@@ -607,7 +888,7 @@
         </div>
       </div>
 
-      <div class="footer">UTF-8 繁體中文 · iPad / 手機 / 電腦都可使用</div>
+      <div class="footer">UTF-8 繁體中文 · 300 組免費 CDN 卡片 · 獨角獸滿版動畫</div>
     </div>
   </div>
 
@@ -650,78 +931,176 @@
       "ㄠ":"ㄠ","ㄡ":"ㄡ","ㄢ":"ㄢ","ㄣ":"ㄣ","ㄤ":"ㄤ","ㄥ":"ㄥ","ㄦ":"ㄦ"
     };
 
-    function makeCard(category, keyword, id) {
+    function makeCard(category, keyword, id, label) {
       return {
         category,
+        keyword,
+        label,
         img: `https://loremflickr.com/1200/900/${encodeURIComponent(keyword)}?lock=${id}`
       };
     }
 
-    const animalCards = [
-      // 寵物 8
-      makeCard("pet","dog",1),
-      makeCard("pet","puppy",2),
-      makeCard("pet","cat",3),
-      makeCard("pet","kitten",4),
-      makeCard("pet","rabbit",5),
-      makeCard("pet","hamster",6),
-      makeCard("pet","parrot",7),
-      makeCard("pet","pet dog",8),
+    function expandCards(category, label, keywords, startId, totalCount) {
+      const cards = [];
+      let id = startId;
+      while (cards.length < totalCount) {
+        for (const keyword of keywords) {
+          if (cards.length >= totalCount) break;
+          cards.push(makeCard(category, keyword, id++, label));
+        }
+      }
+      return cards;
+    }
 
-      // 非洲動物 8
-      makeCard("africa","lion",9),
-      makeCard("africa","elephant",10),
-      makeCard("africa","giraffe",11),
-      makeCard("africa","zebra",12),
-      makeCard("africa","hippo",13),
-      makeCard("africa","rhino",14),
-      makeCard("africa","cheetah",15),
-      makeCard("africa","african animal",16),
+    const cardKeywordMap = {
+      dinosaur: {
+        label: "恐龍",
+        count: 40,
+        keywords: [
+          "cute dinosaur toy",
+          "cartoon dinosaur",
+          "dinosaur figure",
+          "trex toy",
+          "triceratops toy",
+          "stegosaurus toy",
+          "brachiosaurus toy",
+          "velociraptor toy",
+          "spinosaurus toy",
+          "kawaii dinosaur"
+        ]
+      },
+      pet: {
+        label: "寵物",
+        count: 40,
+        keywords: [
+          "cute puppy",
+          "cute kitten",
+          "pet rabbit",
+          "hamster pet",
+          "cute parrot",
+          "pet dog",
+          "pet cat",
+          "cute guinea pig",
+          "cute bird pet",
+          "cute dog cat"
+        ]
+      },
+      sanrio: {
+        label: "三麗鷗明星",
+        count: 40,
+        keywords: [
+          "hello kitty toy",
+          "my melody toy",
+          "kuromi toy",
+          "cinnamoroll toy",
+          "pompompurin toy",
+          "sanrio plush",
+          "sanrio figure",
+          "hello kitty doll",
+          "sanrio character toy",
+          "cute sanrio toy"
+        ]
+      },
+      capybara: {
+        label: "水豚君",
+        count: 30,
+        keywords: [
+          "capybara cute",
+          "capybara bath",
+          "capybara orange bath",
+          "capybara cartoon",
+          "capybara plush",
+          "capybara toy",
+          "cute capybara",
+          "capybara hot spring",
+          "kawaii capybara",
+          "capybara animal"
+        ]
+      },
+      shinchan: {
+        label: "蠟筆小新",
+        count: 35,
+        keywords: [
+          "crayon shin chan toy",
+          "shin chan figure",
+          "shin chan doll",
+          "crayon shinchan toy",
+          "shinchan plush",
+          "shinchan figure toy",
+          "shin chan character toy",
+          "cute shinchan doll",
+          "shinchan cartoon toy",
+          "crayon shin chan plush"
+        ]
+      },
+      pawpatrol: {
+        label: "汪汪隊",
+        count: 35,
+        keywords: [
+          "paw patrol toy",
+          "chase paw patrol toy",
+          "marshall paw patrol toy",
+          "skye paw patrol toy",
+          "paw patrol figure",
+          "paw patrol plush",
+          "paw patrol character toy",
+          "paw patrol kids toy",
+          "cute paw patrol toy",
+          "paw patrol doll"
+        ]
+      },
+      doraemon: {
+        label: "多啦A夢",
+        count: 40,
+        keywords: [
+          "doraemon toy",
+          "doraemon figure",
+          "doraemon doll",
+          "cute doraemon toy",
+          "doraemon plush",
+          "doraemon character toy",
+          "blue doraemon toy",
+          "doraemon kids toy",
+          "doraemon cartoon figure",
+          "doraemon plush doll"
+        ]
+      },
+      dorami: {
+        label: "多啦美",
+        count: 40,
+        keywords: [
+          "dorami toy",
+          "dorami figure",
+          "dorami doll",
+          "cute dorami toy",
+          "dorami plush",
+          "dorami character toy",
+          "yellow dorami toy",
+          "dorami kids toy",
+          "dorami cartoon figure",
+          "dorami plush doll"
+        ]
+      }
+    };
 
-      // 海洋動物 8
-      makeCard("ocean","dolphin",17),
-      makeCard("ocean","whale",18),
-      makeCard("ocean","sea turtle",19),
-      makeCard("ocean","shark",20),
-      makeCard("ocean","seal",21),
-      makeCard("ocean","octopus",22),
-      makeCard("ocean","jellyfish",23),
-      makeCard("ocean","marine animal",24),
+    function build300Cards() {
+      let nextStartId = 1;
+      const result = [];
+      Object.entries(cardKeywordMap).forEach(([category, config]) => {
+        const group = expandCards(
+          category,
+          config.label,
+          config.keywords,
+          nextStartId,
+          config.count
+        );
+        result.push(...group);
+        nextStartId += config.count;
+      });
+      return result;
+    }
 
-      // 海洋生物 6
-      makeCard("sea-life","clownfish",25),
-      makeCard("sea-life","seahorse",26),
-      makeCard("sea-life","starfish",27),
-      makeCard("sea-life","coral reef fish",28),
-      makeCard("sea-life","tropical fish",29),
-      makeCard("sea-life","reef life",30),
-
-      // 恐龍 10
-      makeCard("dinosaur","t-rex",31),
-      makeCard("dinosaur","tyrannosaurus",32),
-      makeCard("dinosaur","dinosaur",33),
-      makeCard("dinosaur","triceratops",34),
-      makeCard("dinosaur","stegosaurus",35),
-      makeCard("dinosaur","velociraptor",36),
-      makeCard("dinosaur","spinosaurus",37),
-      makeCard("dinosaur","brachiosaurus",38),
-      makeCard("dinosaur","trex toy",39),
-      makeCard("dinosaur","dinosaur model",40),
-
-      // 昆蟲 5
-      makeCard("insect","butterfly",41),
-      makeCard("insect","ladybug",42),
-      makeCard("insect","bee",43),
-      makeCard("insect","dragonfly",44),
-      makeCard("insect","beetle",45),
-
-      // 家禽 5
-      makeCard("poultry","chicken",46),
-      makeCard("poultry","rooster",47),
-      makeCard("poultry","duck",48),
-      makeCard("poultry","goose",49),
-      makeCard("poultry","turkey",50)
-    ];
+    const animalCards = build300Cards();
 
     let currentAnswer = "";
     let currentOptions = [];
@@ -739,6 +1118,7 @@
     let repeatSpeakTimers = [];
     let preloadedCard = null;
     let preloadedImage = null;
+    let questionToken = 0;
 
     const modeEl = document.getElementById("mode");
     const optionsEl = document.getElementById("options");
@@ -748,6 +1128,7 @@
     const marioOverlayEl = document.getElementById("marioOverlay");
     const animalCardEl = document.getElementById("animalCard");
     const animalPhotoEl = document.getElementById("animalPhoto");
+    const animalLabelEl = document.getElementById("animalLabel");
 
     const letterRangeEl = document.getElementById("letterRange");
     const numberRangeEl = document.getElementById("numberRange");
@@ -889,26 +1270,58 @@
       }
     }
 
-    function speakRepeated(builder, times = 3, gap = 2000) {
-      if (!hasUserInteracted) return;
-      if (!("speechSynthesis" in window)) return;
+    function speakRepeated(builder, times = 3, gap = 2000, onDone = null) {
+      if (!hasUserInteracted) {
+        if (onDone) onDone();
+        return;
+      }
+      if (!("speechSynthesis" in window)) {
+        if (onDone) onDone();
+        return;
+      }
 
       clearRepeatSpeakTimers();
       window.speechSynthesis.cancel();
+
+      let finished = 0;
 
       for (let i = 0; i < times; i++) {
         const timer = setTimeout(() => {
           window.speechSynthesis.cancel();
           const utter = builder();
-          if (utter) window.speechSynthesis.speak(utter);
+
+          if (!utter) {
+            finished++;
+            if (finished === times && onDone) onDone();
+            return;
+          }
+
+          utter.onend = () => {
+            finished++;
+            if (finished === times && onDone) onDone();
+          };
+
+          utter.onerror = () => {
+            finished++;
+            if (finished === times && onDone) onDone();
+          };
+
+          window.speechSynthesis.speak(utter);
         }, i * gap);
+
         repeatSpeakTimers.push(timer);
       }
     }
 
-    function speakText(text, lang = "zh-TW", rate = 0.82, pitch = 1) {
-      if (!hasUserInteracted) return;
-      if (!("speechSynthesis" in window)) return;
+    function speakText(text, lang = "zh-TW", rate = 0.82, pitch = 1, times = 3, gap = 2000, onDone = null) {
+      if (!hasUserInteracted) {
+        if (onDone) onDone();
+        return;
+      }
+      if (!("speechSynthesis" in window)) {
+        if (onDone) onDone();
+        return;
+      }
 
       initAudio();
 
@@ -925,12 +1338,18 @@
           utter.lang = selectedVoice.lang;
         }
         return utter;
-      }, 3, 2000);
+      }, times, gap, onDone);
     }
 
-    function speakEnglishLetter(letter) {
-      if (!hasUserInteracted) return;
-      if (!("speechSynthesis" in window)) return;
+    function speakEnglishLetter(letter, times = 3, onDone = null) {
+      if (!hasUserInteracted) {
+        if (onDone) onDone();
+        return;
+      }
+      if (!("speechSynthesis" in window)) {
+        if (onDone) onDone();
+        return;
+      }
 
       initAudio();
 
@@ -954,73 +1373,42 @@
           utter.lang = voice.lang;
         }
         return utter;
-      }, 3, 2000);
+      }, times, 2000, onDone);
     }
 
-    function speakNumber(numText) {
+    function speakNumber(numText, times = 3, onDone = null) {
       const text = numberZhMap[String(numText)] || String(numText);
-      speakText(text, "zh-TW", 0.8, 1);
+      speakText(text, "zh-TW", 0.8, 1, times, 2000, onDone);
     }
 
-    function speakBopomofo(symbol) {
+    function speakBopomofo(symbol, times = 3, onDone = null) {
       const text = bopomofoSpeakMap[symbol] || symbol;
-      speakText(text, "zh-TW", 0.74, 1);
+      speakText(text, "zh-TW", 0.74, 1, times, 2000, onDone);
     }
 
-    function speakPhrase(key) {
-      if (!hasUserInteracted) return;
-      if (!("speechSynthesis" in window)) return;
-
-      initAudio();
-      stopSpeech();
-
-      let text = "";
-      let lang = "zh-TW";
-      let rate = 0.9;
-      let pitch = 1;
-
-      if (key === "correct") {
-        text = "做得很好，請繼續下一題";
-        pitch = 1.02;
-      } else if (key === "retry") {
-        text = "再來一次，你可以的";
-      }
-
-      const utter = new SpeechSynthesisUtterance(text);
-      utter.lang = lang;
-      utter.rate = rate;
-      utter.pitch = pitch;
-      utter.volume = 1;
-
-      const voice = getZhVoice();
-      if (voice) {
-        utter.voice = voice;
-        utter.lang = voice.lang;
-      }
-
-      window.speechSynthesis.speak(utter);
-    }
-
-    function speak(text) {
+    function speak(text, times = 3, onDone = null) {
       const clean = String(text).trim();
 
       if (/^[A-Z]$/.test(clean)) {
-        speakEnglishLetter(clean);
+        speakEnglishLetter(clean, times, onDone);
         return;
       }
 
       if (/^[0-9]+$/.test(clean)) {
-        speakNumber(clean);
+        speakNumber(clean, times, onDone);
         return;
       }
 
       if (bopomofoSpeakMap[clean]) {
-        speakBopomofo(clean);
+        speakBopomofo(clean, times, onDone);
+        return;
       }
+
+      if (onDone) onDone();
     }
 
-    function speakCurrent() {
-      speak(currentAnswer);
+    function speakCurrent(times = 3, onDone = null) {
+      speak(currentAnswer, times, onDone);
     }
 
     function beep(freq, start, duration, type, volume) {
@@ -1076,11 +1464,12 @@
       animalCardEl.classList.remove("show");
       animalPhotoEl.onload = null;
       animalPhotoEl.onerror = null;
+      animalLabelEl.textContent = card.label || "卡片";
 
       animalPhotoEl.onload = () => {
         animalPhotoEl.onload = null;
         animalPhotoEl.onerror = null;
-        animalPhotoEl.alt = "動物圖片";
+        animalPhotoEl.alt = card.label || "卡通圖片";
         animalCardEl.classList.remove("show");
         void animalCardEl.offsetWidth;
         animalCardEl.classList.add("show");
@@ -1112,10 +1501,6 @@
     }
 
     function runPowerUpThenCard() {
-      preloadedCard = null;
-      preloadedImage = null;
-      preloadNextAnimalCard();
-
       hideAnimalCard();
       marioOverlayEl.classList.remove("show");
       void marioOverlayEl.offsetWidth;
@@ -1128,14 +1513,19 @@
         if (preloadedCard && preloadedImage) {
           animalPhotoEl.onload = null;
           animalPhotoEl.onerror = null;
+          animalLabelEl.textContent = preloadedCard.label || "卡片";
           animalPhotoEl.src = preloadedImage.src;
-          animalPhotoEl.alt = "動物圖片";
+          animalPhotoEl.alt = preloadedCard.label || "卡通圖片";
           animalCardEl.classList.remove("show");
           void animalCardEl.offsetWidth;
           animalCardEl.classList.add("show");
         } else {
           showAnimalCard(nextAnimalCard());
         }
+
+        preloadedCard = null;
+        preloadedImage = null;
+        preloadNextAnimalCard();
 
         goNextQuestionAuto();
       }, 3000);
@@ -1154,26 +1544,6 @@
       return shuffle(candidate);
     }
 
-    function pickQuestion() {
-      clearAllTimers();
-      stopSpeech();
-      clearOptionStatesOnly();
-      hideAnimalCard();
-      marioOverlayEl.classList.remove("show");
-      locked = false;
-
-      const pool = getPool(modeEl.value);
-      if (!pool.length) return;
-
-      currentAnswer = pool[Math.floor(Math.random() * pool.length)];
-      currentOptions = buildOptions(pool, currentAnswer);
-      renderOptions();
-
-      if (hasUserInteracted) {
-        setTimeout(() => speakCurrent(), 180);
-      }
-    }
-
     function renderOptions() {
       optionsEl.innerHTML = "";
       currentOptions.forEach(opt => {
@@ -1189,7 +1559,51 @@
       const allBtns = optionsEl.querySelectorAll(".option");
       allBtns.forEach(btn => {
         btn.classList.remove("correct", "wrong");
+        btn.disabled = false;
       });
+    }
+
+    function setOptionsDisabled(disabled) {
+      const allBtns = optionsEl.querySelectorAll(".option");
+      allBtns.forEach(btn => {
+        btn.disabled = disabled;
+      });
+    }
+
+    function pickQuestion() {
+      questionToken++;
+      clearAllTimers();
+      stopSpeech();
+      clearOptionStatesOnly();
+      hideAnimalCard();
+      marioOverlayEl.classList.remove("show");
+      locked = false;
+
+      const pool = getPool(modeEl.value);
+      if (!pool.length) return;
+
+      currentAnswer = pool[Math.floor(Math.random() * pool.length)];
+      currentOptions = buildOptions(pool, currentAnswer);
+      renderOptions();
+
+      preloadNextAnimalCard();
+
+      if (hasUserInteracted) {
+        setTimeout(() => speakCurrent(), 180);
+      }
+    }
+
+    function speakPhrase(key, onDone = null) {
+      if (!hasUserInteracted) {
+        if (onDone) onDone();
+        return;
+      }
+
+      let text = "";
+      if (key === "correct") text = "做得很好，請繼續下一題";
+      if (key === "retry") text = "再來一次，你可以的";
+
+      speakText(text, "zh-TW", 0.9, 1, 1, 0, onDone);
     }
 
     function handleAnswer(selected, btn) {
@@ -1198,6 +1612,7 @@
 
       if (selected === currentAnswer) {
         locked = true;
+        setOptionsDisabled(true);
         btn.classList.add("correct");
         correctCount++;
         streakCount++;
@@ -1213,6 +1628,8 @@
           runPowerUpThenCard();
         }, 650);
       } else {
+        locked = true;
+        setOptionsDisabled(true);
         btn.classList.add("wrong");
         wrongCount++;
         streakCount = 0;
@@ -1220,8 +1637,20 @@
 
         playFailSound();
 
+        const myToken = questionToken;
+
         setTimeout(() => {
-          speakPhrase("retry");
+          speakPhrase("retry", () => {
+            setTimeout(() => {
+              if (myToken !== questionToken) return;
+              speakCurrent(3, () => {
+                if (myToken !== questionToken) return;
+                locked = false;
+                btn.classList.remove("wrong");
+                setOptionsDisabled(false);
+              });
+            }, 1000);
+          });
         }, 100);
       }
     }
