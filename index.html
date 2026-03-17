@@ -226,7 +226,7 @@
       align-items:center;
       justify-content:center;
       text-align:center;
-      gap:4px;
+      gap:2px;
     }
 
     .question-main{
@@ -240,6 +240,7 @@
       font-size:13px;
       font-weight:800;
       color:#99809a;
+      min-height:16px;
     }
 
     .cards{
@@ -635,11 +636,13 @@
     }
 
     .unicorn-wrap{
-      width:min(82vmin, 760px);
+      width:min(84vmin, 780px);
       aspect-ratio:1/1;
       transform:translate(42vw, 18vh) scale(.22) rotate(-10deg);
       opacity:0;
-      filter:drop-shadow(0 32px 42px rgba(239,136,190,.22)) drop-shadow(0 0 26px rgba(255,255,255,.74));
+      filter:
+        drop-shadow(0 32px 42px rgba(239,136,190,.20))
+        drop-shadow(0 0 26px rgba(255,255,255,.74));
       animation:unicornFly 2.2s cubic-bezier(.2,.9,.2,1) forwards;
     }
 
@@ -664,13 +667,15 @@
     .mane-wave{transform-origin:54% 34%;animation:maneWave .7s ease-in-out infinite alternate}
     .tail-wave{transform-origin:76% 62%;animation:tailWave .48s ease-in-out infinite alternate}
     .eye-blink{transform-origin:center;animation:blink 4s infinite}
-    .wing-glow{animation:wingGlow .8s ease-in-out infinite alternate}
+    .horn-glow{animation:wingGlow .8s ease-in-out infinite alternate}
+    .mane-front-wave{transform-origin:42% 30%;animation:maneWave2 .68s ease-in-out infinite alternate}
 
     @keyframes tailWave{from{transform:rotate(-3deg)}to{transform:rotate(4deg)}}
     @keyframes maneWave{from{transform:rotate(-2deg) translateY(0)}to{transform:rotate(2deg) translateY(1px)}}
+    @keyframes maneWave2{from{transform:rotate(-1.5deg) translateY(0)}to{transform:rotate(2deg) translateY(1px)}}
     @keyframes bodyBob{from{transform:translateY(0)}to{transform:translateY(-3px)}}
     @keyframes blink{0%,46%,48%,100%{transform:scaleY(1)}47%{transform:scaleY(.08)}}
-    @keyframes wingGlow{from{opacity:.55}to{opacity:1}}
+    @keyframes wingGlow{from{opacity:.75}to{opacity:1}}
 
     .intro-particle.spark{
       width:20px;
@@ -825,6 +830,7 @@
     <div class="chip">⭐ <span id="scoreText">0</span></div>
     <div class="chip center" id="modeText">準備開始</div>
     <div style="display:flex; gap:8px;">
+      <button class="icon-btn" id="nextBtn">下一題</button>
       <button class="icon-btn" id="speakBtn">再聽一次</button>
     </div>
   </div>
@@ -853,7 +859,7 @@
     <div class="question-wrap">
       <div class="question-bubble">
         <div class="question-main" id="questionMain">Tap Start</div>
-        <div class="question-sub" id="questionSub">Listen and choose the correct card</div>
+        <div class="question-sub" id="questionSub"></div>
       </div>
     </div>
 
@@ -866,7 +872,7 @@
     <div class="start-card">
       <div class="start-title">兒童學習小遊戲</div>
       <div class="start-text">
-        已整合：家長模式預設縮合、數字中文發音、英文字母分區、注音分區、答對大型隨機魔法動畫。
+        專門提供給珍珠奶茶的遊戲。
       </div>
       <button class="start-btn" id="startBtn">開始遊戲</button>
     </div>
@@ -888,24 +894,48 @@
 
     <div class="unicorn-stage">
       <div class="unicorn-wrap">
-        <svg class="unicorn-svg" viewBox="0 0 700 700" aria-hidden="true">
+        <svg class="unicorn-svg" viewBox="0 0 760 760" aria-hidden="true">
           <defs>
-            <radialGradient id="gGlow" cx="50%" cy="50%" r="60%">
-              <stop offset="0%" stop-color="#fff9ff" stop-opacity="1"/>
-              <stop offset="60%" stop-color="#ffd8ed" stop-opacity=".8"/>
-              <stop offset="100%" stop-color="#ffd8ed" stop-opacity="0"/>
+            <radialGradient id="uGlow" cx="50%" cy="48%" r="58%">
+              <stop offset="0%" stop-color="#ffffff" stop-opacity="1"/>
+              <stop offset="55%" stop-color="#ffdff1" stop-opacity=".82"/>
+              <stop offset="100%" stop-color="#ffdff1" stop-opacity="0"/>
             </radialGradient>
-            <linearGradient id="gMane" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#ffb1d0"/>
-              <stop offset="50%" stop-color="#ff8db8"/>
-              <stop offset="100%" stop-color="#ffc7dc"/>
+
+            <linearGradient id="uBody" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#fffaff"/>
+              <stop offset="100%" stop-color="#f2e5ff"/>
             </linearGradient>
-            <linearGradient id="gHorn" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stop-color="#ffd86b"/>
-              <stop offset="100%" stop-color="#ffb72b"/>
+
+            <linearGradient id="uMuzzle" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#a9e7ff"/>
+              <stop offset="100%" stop-color="#79c7ef"/>
             </linearGradient>
-            <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
-              <feGaussianBlur stdDeviation="14" result="blur"/>
+
+            <linearGradient id="uHorn" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#fff0ae"/>
+              <stop offset="60%" stop-color="#ffd973"/>
+              <stop offset="100%" stop-color="#e7b34a"/>
+            </linearGradient>
+
+            <linearGradient id="uMane1" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#82d8ff"/>
+              <stop offset="55%" stop-color="#bca7ff"/>
+              <stop offset="100%" stop-color="#ff99c9"/>
+            </linearGradient>
+
+            <linearGradient id="uMane2" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#ffb2d7"/>
+              <stop offset="100%" stop-color="#8fd8ff"/>
+            </linearGradient>
+
+            <linearGradient id="uHoof" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#c39cff"/>
+              <stop offset="100%" stop-color="#9f7ce9"/>
+            </linearGradient>
+
+            <filter id="uSoft" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="12" result="blur"/>
               <feMerge>
                 <feMergeNode in="blur"/>
                 <feMergeNode in="SourceGraphic"/>
@@ -913,62 +943,143 @@
             </filter>
           </defs>
 
-          <g>
-            <ellipse cx="350" cy="370" rx="235" ry="210" fill="url(#gGlow)" filter="url(#softGlow)" opacity=".86"/>
-          </g>
+          <ellipse cx="380" cy="390" rx="245" ry="220" fill="url(#uGlow)" filter="url(#uSoft)" opacity=".9"/>
 
           <g class="body-bob">
-            <ellipse cx="365" cy="548" rx="140" ry="20" fill="#f2c9d6" opacity=".46"/>
+            <ellipse cx="388" cy="598" rx="150" ry="22" fill="#e8d3f7" opacity=".45"/>
 
             <g class="tail-wave">
-              <path d="M510 410 C575 405, 600 455, 580 500 C560 546, 498 542, 476 505 C512 500, 533 474, 525 447 C520 431, 509 420, 494 415 Z"
-                fill="url(#gMane)" stroke="#7a4e72" stroke-width="10" stroke-linejoin="round"/>
-              <path d="M508 426 C550 430, 562 470, 540 503"
-                fill="none" stroke="#ffd8ea" stroke-width="8" stroke-linecap="round" opacity=".8"/>
+              <path d="M520 415
+                       C590 400, 635 455, 616 520
+                       C596 585, 510 576, 475 525
+                       C525 520, 552 485, 544 450
+                       C540 432, 528 421, 510 418 Z"
+                    fill="url(#uMane1)"
+                    stroke="#8f6ea8"
+                    stroke-width="10"
+                    stroke-linejoin="round"/>
+              <path d="M505 432
+                       C555 438, 570 478, 544 520"
+                    fill="none"
+                    stroke="#ffd6ea"
+                    stroke-width="8"
+                    stroke-linecap="round"
+                    opacity=".8"/>
             </g>
 
-            <g class="wing-glow" opacity=".75">
-              <path d="M358 320 C448 264, 520 300, 496 374 C474 442, 387 430, 350 386 C413 385, 444 351, 441 316 C410 316, 382 321, 358 320 Z"
-                fill="#fff7ff" stroke="#d7baf5" stroke-width="10" stroke-linejoin="round"/>
-            </g>
-
-            <path d="M262 300 C230 315, 210 348, 220 390 C232 442, 289 469, 347 470 L445 470 C488 470, 516 448, 516 404 C516 361, 489 336, 455 330 C427 264, 329 258, 262 300 Z"
-              fill="#fffdfd" stroke="#7a4e72" stroke-width="12" stroke-linejoin="round"/>
+            <path d="M280 340
+                     C236 355, 214 394, 224 445
+                     C238 512, 308 548, 384 550
+                     L468 550
+                     C534 550, 572 514, 572 448
+                     C572 390, 538 355, 490 345
+                     C462 285, 362 282, 280 340 Z"
+                  fill="url(#uBody)"
+                  stroke="#9472ab"
+                  stroke-width="12"
+                  stroke-linejoin="round"/>
 
             <g class="mane-wave">
-              <path d="M362 260 C430 267, 470 322, 454 381 C441 428, 403 452, 371 455 C390 415, 378 382, 365 355 C349 322, 345 292, 362 260 Z"
-                fill="url(#gMane)" stroke="#7a4e72" stroke-width="12" stroke-linejoin="round"/>
-              <path d="M334 284 C381 300, 401 336, 390 384 C380 420, 356 444, 332 451 C349 417, 342 388, 329 359 C316 330, 317 305, 334 284 Z"
-                fill="#ffc6dc" stroke="#7a4e72" stroke-width="12" stroke-linejoin="round"/>
+              <path d="M402 240
+                       C468 246, 520 310, 502 384
+                       C486 447, 430 485, 388 490
+                       C417 440, 408 395, 394 360
+                       C379 323, 379 278, 402 240 Z"
+                    fill="url(#uMane1)"
+                    stroke="#9270aa"
+                    stroke-width="12"
+                    stroke-linejoin="round"/>
             </g>
 
-            <path d="M198 285 C212 224, 270 186, 338 198 C384 206, 412 235, 422 275 C436 332, 399 386, 337 395 C260 406, 190 353, 198 285 Z"
-              fill="#fffdfd" stroke="#7a4e72" stroke-width="12" stroke-linejoin="round"/>
+            <g class="mane-front-wave">
+              <path d="M347 248
+                       C400 262, 424 310, 408 372
+                       C394 426, 360 466, 330 474
+                       C351 430, 344 393, 330 356
+                       C317 322, 320 280, 347 248 Z"
+                    fill="url(#uMane2)"
+                    stroke="#9270aa"
+                    stroke-width="12"
+                    stroke-linejoin="round"/>
+            </g>
 
-            <path d="M255 170 L296 95 L322 183 Z"
-              fill="url(#gHorn)" stroke="#7a4e72" stroke-width="12" stroke-linejoin="round"/>
+            <path d="M210 308
+                     C226 224, 312 177, 408 196
+                     C470 207, 509 247, 520 303
+                     C534 373, 486 438, 396 454
+                     C286 472, 195 402, 210 308 Z"
+                  fill="url(#uBody)"
+                  stroke="#9270aa"
+                  stroke-width="12"
+                  stroke-linejoin="round"/>
 
-            <path d="M277 125 L302 164" stroke="#fff5bf" stroke-width="8" stroke-linecap="round" opacity=".82"/>
-            <path d="M287 107 L309 140" stroke="#fff5bf" stroke-width="6" stroke-linecap="round" opacity=".82"/>
+            <path d="M286 156
+                     L327 80
+                     L355 177 Z"
+                  fill="url(#uHorn)"
+                  stroke="#9270aa"
+                  stroke-width="12"
+                  stroke-linejoin="round"
+                  class="horn-glow"/>
+
+            <path d="M308 110 L332 150" stroke="#fff7c9" stroke-width="8" stroke-linecap="round" opacity=".88"/>
+            <path d="M319 93 L340 130" stroke="#fff7c9" stroke-width="6" stroke-linecap="round" opacity=".88"/>
+
+            <path d="M240 212
+                     L278 160
+                     L304 232 Z"
+                  fill="url(#uMane2)"
+                  stroke="#9270aa"
+                  stroke-width="11"
+                  stroke-linejoin="round"/>
+
+            <path d="M382 214
+                     C418 216, 452 244, 457 282
+                     C458 300, 452 319, 440 334
+                     C432 294, 418 262, 382 214 Z"
+                  fill="url(#uMane1)"
+                  stroke="#9270aa"
+                  stroke-width="11"
+                  stroke-linejoin="round"/>
+
+            <path d="M188 323
+                     C244 304, 298 310, 333 342
+                     C347 354, 354 373, 348 391
+                     C336 423, 291 435, 237 420
+                     C192 409, 164 380, 166 352
+                     C168 338, 176 329, 188 323 Z"
+                  fill="url(#uMuzzle)"
+                  stroke="#9270aa"
+                  stroke-width="12"
+                  stroke-linejoin="round"/>
+
+            <path d="M330 304
+                     C320 300, 308 296, 295 296"
+                  fill="none"
+                  stroke="#8d6ba6"
+                  stroke-width="8"
+                  stroke-linecap="round"/>
 
             <g class="eye-blink">
-              <ellipse cx="282" cy="286" rx="16" ry="16" fill="#3f2c40"/>
-              <circle cx="288" cy="279" r="4" fill="#fff"/>
+              <ellipse cx="343" cy="302" rx="42" ry="54" fill="#3a2850"/>
+              <ellipse cx="351" cy="292" rx="18" ry="25" fill="#8d58ff"/>
+              <circle cx="358" cy="278" r="9" fill="#fff6a8"/>
+              <circle cx="367" cy="259" r="8" fill="#ffffff"/>
+              <circle cx="344" cy="330" r="6" fill="#ffffff" opacity=".75"/>
             </g>
 
-            <circle cx="250" cy="318" r="10" fill="#ffb5cf" opacity=".9"/>
-            <path d="M216 325 C204 318, 193 305, 189 287"
-              fill="none" stroke="#7a4e72" stroke-width="10" stroke-linecap="round"/>
+            <ellipse cx="287" cy="335" rx="11" ry="8" fill="#5ca8cb"/>
+            <circle cx="267" cy="355" r="12" fill="#ffb5cf" opacity=".85"/>
 
-            <rect x="262" y="452" width="26" height="120" rx="13" fill="#fffdfd" stroke="#7a4e72" stroke-width="12"/>
-            <rect x="334" y="452" width="26" height="120" rx="13" fill="#fffdfd" stroke="#7a4e72" stroke-width="12"/>
-            <rect x="415" y="452" width="26" height="120" rx="13" fill="#fffdfd" stroke="#7a4e72" stroke-width="12"/>
-            <rect x="470" y="448" width="26" height="120" rx="13" fill="#fffdfd" stroke="#7a4e72" stroke-width="12"/>
+            <rect x="292" y="538" width="30" height="120" rx="15" fill="url(#uBody)" stroke="#9270aa" stroke-width="12"/>
+            <rect x="370" y="538" width="30" height="120" rx="15" fill="url(#uBody)" stroke="#9270aa" stroke-width="12"/>
+            <rect x="452" y="535" width="30" height="123" rx="15" fill="url(#uBody)" stroke="#9270aa" stroke-width="12"/>
+            <rect x="514" y="532" width="30" height="126" rx="15" fill="url(#uBody)" stroke="#9270aa" stroke-width="12"/>
 
-            <path d="M276 565 h22" stroke="#ffb8cf" stroke-width="10" stroke-linecap="round"/>
-            <path d="M348 565 h22" stroke="#ffb8cf" stroke-width="10" stroke-linecap="round"/>
-            <path d="M429 565 h22" stroke="#ffb8cf" stroke-width="10" stroke-linecap="round"/>
-            <path d="M484 565 h22" stroke="#ffb8cf" stroke-width="10" stroke-linecap="round"/>
+            <path d="M290 645 h34" stroke="url(#uHoof)" stroke-width="16" stroke-linecap="round"/>
+            <path d="M368 645 h34" stroke="url(#uHoof)" stroke-width="16" stroke-linecap="round"/>
+            <path d="M450 645 h34" stroke="url(#uHoof)" stroke-width="16" stroke-linecap="round"/>
+            <path d="M512 645 h34" stroke="url(#uHoof)" stroke-width="16" stroke-linecap="round"/>
           </g>
         </svg>
       </div>
@@ -1120,6 +1231,7 @@
     const startBtn = document.getElementById('startBtn');
     const intro = document.getElementById('intro');
     const speakBtn = document.getElementById('speakBtn');
+    const nextBtn = document.getElementById('nextBtn');
     const magicBtn = document.getElementById('magicBtn');
     const categoryButtons = document.getElementById('categoryButtons');
     const rangeButtons = document.getElementById('rangeButtons');
@@ -1458,16 +1570,16 @@
 
       if (round.category === 'numbers') {
         questionMain.textContent = `找出數字 ${round.answerValue}`;
-        questionSub.textContent = `${round.answerSub} · 會自動唸三次`;
+        questionSub.textContent = '';
       } else if (round.category === 'letters') {
         questionMain.textContent = `Find: ${round.answerValue}`;
-        questionSub.textContent = 'Letter · 會自動唸三次';
+        questionSub.textContent = '';
       } else if (round.category === 'bopomofo') {
         questionMain.textContent = `找出 ${round.answerValue}`;
-        questionSub.textContent = '注音 · 會自動唸三次';
+        questionSub.textContent = '';
       } else {
         questionMain.textContent = `Find: ${capitalize(round.answerValue)}`;
-        questionSub.textContent = `${round.answerSub} · 會自動唸三次`;
+        questionSub.textContent = '';
       }
 
       round.options.forEach(option => {
@@ -1853,6 +1965,12 @@
       ensureAudio();
       if (!gameStarted || isBusy || !currentRound) return;
       await speakQuestionSequence();
+    });
+
+    nextBtn.addEventListener('click', async () => {
+      ensureAudio();
+      if (!gameStarted || isBusy) return;
+      await nextRound();
     });
 
     magicBtn.addEventListener('click', () => {
