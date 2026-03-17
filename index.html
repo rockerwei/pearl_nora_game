@@ -44,7 +44,7 @@
       user-select:none;
     }
 
-    .bg-stars,.fx-layer,.confetti-layer,.intro-particles{
+    .bg-stars,.fx-layer,.confetti-layer,.intro-particles,.mega-celebrate-layer{
       position:absolute;
       inset:0;
       pointer-events:none;
@@ -350,15 +350,6 @@
       font-weight:800;
       color:#9a7f98;
       text-align:center;
-    }
-
-    .footer-tip{
-      margin-top:12px;
-      font-size:13px;
-      font-weight:800;
-      color:#917b90;
-      text-align:center;
-      text-shadow:0 1px 0 rgba(255,255,255,.85);
     }
 
     .correct-mark,.wrong-mark{
@@ -687,6 +678,111 @@
       animation:sparkFly var(--dur) ease-out forwards;
     }
 
+    .mega-text{
+      position:absolute;
+      left:50%;
+      top:20%;
+      transform:translateX(-50%) scale(.75);
+      padding:14px 22px;
+      background:rgba(255,255,255,.88);
+      border-radius:999px;
+      box-shadow:0 14px 30px rgba(170,120,170,.18);
+      color:#7a5573;
+      font-weight:900;
+      font-size:24px;
+      opacity:0;
+      animation:megaTextIn .95s ease forwards;
+      white-space:nowrap;
+    }
+
+    @keyframes megaTextIn{
+      0%{opacity:0;transform:translateX(-50%) scale(.55)}
+      18%{opacity:1;transform:translateX(-50%) scale(1.12)}
+      70%{opacity:1;transform:translateX(-50%) scale(1)}
+      100%{opacity:0;transform:translateX(-50%) scale(.96)}
+    }
+
+    .mega-badge,.mega-bubble,.mega-ribbon,.mega-twinkle{
+      position:absolute;
+      opacity:0;
+      pointer-events:none;
+    }
+
+    .mega-badge{
+      padding:10px 16px;
+      border-radius:999px;
+      background:rgba(255,255,255,.88);
+      box-shadow:0 10px 24px rgba(170,120,170,.16);
+      font-weight:900;
+      color:#7d5b79;
+      animation:floatBadge var(--dur) ease-out forwards;
+      font-size:clamp(14px, 2.4vw, 22px);
+    }
+
+    .mega-bubble{
+      width:var(--size);
+      height:var(--size);
+      border-radius:50%;
+      background:radial-gradient(circle at 30% 30%, rgba(255,255,255,.95), var(--c1) 45%, var(--c2) 100%);
+      box-shadow:0 0 18px rgba(255,255,255,.55);
+      animation:floatBubble var(--dur) ease-out forwards;
+    }
+
+    .mega-ribbon{
+      width:var(--w);
+      height:var(--h);
+      border-radius:999px;
+      background:linear-gradient(90deg, var(--c1), var(--c2));
+      transform:translate(-50%,-50%) rotate(var(--rot));
+      filter:blur(.2px) drop-shadow(0 8px 14px rgba(0,0,0,.08));
+      animation:ribbonFly var(--dur) ease-out forwards;
+    }
+
+    .mega-twinkle{
+      width:var(--size);
+      height:var(--size);
+      animation:floatTwinkle var(--dur) ease-out forwards;
+    }
+
+    .mega-twinkle::before,
+    .mega-twinkle::after{
+      content:"";
+      position:absolute;
+      left:50%;
+      top:50%;
+      transform:translate(-50%,-50%);
+      border-radius:999px;
+      background:linear-gradient(180deg, #fff, #ffe06c);
+      box-shadow:0 0 12px rgba(255,255,255,.8);
+    }
+
+    .mega-twinkle::before{width:calc(var(--size) * .22);height:var(--size)}
+    .mega-twinkle::after{width:var(--size);height:calc(var(--size) * .22)}
+
+    @keyframes floatBadge{
+      0%{opacity:0;transform:translate(-50%,-50%) scale(.35) rotate(-6deg)}
+      15%{opacity:1}
+      100%{opacity:0;transform:translate(calc(-50% + var(--x)), calc(-50% + var(--y))) scale(1.2) rotate(var(--r))}
+    }
+
+    @keyframes floatBubble{
+      0%{opacity:0;transform:translate(-50%,-50%) scale(.25)}
+      15%{opacity:.95}
+      100%{opacity:0;transform:translate(calc(-50% + var(--x)), calc(-50% + var(--y))) scale(1.35)}
+    }
+
+    @keyframes ribbonFly{
+      0%{opacity:0;transform:translate(-50%,-50%) rotate(var(--rot)) scale(.2)}
+      15%{opacity:1}
+      100%{opacity:0;transform:translate(calc(-50% + var(--x)), calc(-50% + var(--y))) rotate(calc(var(--rot) + var(--r2))) scale(1.2)}
+    }
+
+    @keyframes floatTwinkle{
+      0%{opacity:0;transform:translate(-50%,-50%) scale(.25) rotate(0)}
+      15%{opacity:1}
+      100%{opacity:0;transform:translate(calc(-50% + var(--x)), calc(-50% + var(--y))) scale(1.4) rotate(260deg)}
+    }
+
     @media (max-width: 980px){
       .parent-panel{width:min(320px, calc(100% - 24px))}
     }
@@ -699,6 +795,7 @@
       .card-figure{height:118px}
       .big-symbol{font-size:56px}
       .card-label{font-size:20px}
+      .mega-text{font-size:20px}
     }
 
     @media (max-width: 560px){
@@ -713,6 +810,7 @@
       .start-title{font-size:28px}
       .start-text{font-size:14px}
       .start-btn{height:52px;font-size:18px}
+      .mega-text{font-size:18px;top:18%}
     }
   </style>
 </head>
@@ -721,31 +819,31 @@
   <div class="fx-layer" id="fxLayer"></div>
   <div class="confetti-layer" id="confettiLayer"></div>
   <div class="intro-particles" id="introParticles"></div>
+  <div class="mega-celebrate-layer" id="megaCelebrateLayer"></div>
 
   <div class="top-bar">
     <div class="chip">⭐ <span id="scoreText">0</span></div>
     <div class="chip center" id="modeText">準備開始</div>
     <div style="display:flex; gap:8px;">
       <button class="icon-btn" id="speakBtn">再聽一次</button>
-      <button class="icon-btn" id="magicBtn">魔法動畫</button>
     </div>
   </div>
 
-  <div class="parent-panel open" id="parentPanel">
+  <div class="parent-panel" id="parentPanel">
     <div class="parent-head" id="parentHead">
       <span>家長模式</span>
-      <span id="parentArrow">▲</span>
+      <span id="parentArrow">▼</span>
     </div>
     <div class="parent-body">
       <div class="section-title">題庫分類</div>
       <div class="btn-grid" id="categoryButtons"></div>
 
-      <div class="section-title">數字範圍</div>
-      <div class="btn-grid" id="numberRangeButtons"></div>
+      <div class="section-title" id="rangeTitle">數字範圍</div>
+      <div class="btn-grid" id="rangeButtons"></div>
 
       <div class="section-title">操作</div>
       <div class="single-row">
-        <button class="small-btn" id="newQuestionBtn">下一題</button>
+        <button class="small-btn" id="magicBtn">魔法動畫</button>
         <button class="small-btn" id="resetScoreBtn">分數歸零</button>
       </div>
     </div>
@@ -760,7 +858,6 @@
     </div>
 
     <div class="cards" id="cards"></div>
-    <div class="footer-tip">答對才會出現滿版獨角獸動畫；每題自動唸三次，每次間隔 2 秒。</div>
   </div>
 
   <div class="message-pop" id="messagePop">Good job!</div>
@@ -769,7 +866,7 @@
     <div class="start-card">
       <div class="start-title">兒童學習小遊戲</div>
       <div class="start-text">
-        這版整合了：數字、注音、英文字母、動物、家長選單、答對獨角獸動畫、題目三次重複、答錯重唸與防連點。
+        已整合：家長模式預設縮合、數字中文發音、英文字母分區、注音分區、答對大型隨機魔法動畫。
       </div>
       <button class="start-btn" id="startBtn">開始遊戲</button>
     </div>
@@ -887,8 +984,16 @@
     ];
 
     const numberRanges = [
-      [1,10],[11,20],[21,30],[31,40],[41,50],
-      [51,60],[61,70],[71,80],[81,90],[91,100]
+      { key:'1-10', label:'1~10', start:1, end:10 },
+      { key:'11-20', label:'11~20', start:11, end:20 },
+      { key:'21-30', label:'21~30', start:21, end:30 },
+      { key:'31-40', label:'31~40', start:31, end:40 },
+      { key:'41-50', label:'41~50', start:41, end:50 },
+      { key:'51-60', label:'51~60', start:51, end:60 },
+      { key:'61-70', label:'61~70', start:61, end:70 },
+      { key:'71-80', label:'71~80', start:71, end:80 },
+      { key:'81-90', label:'81~90', start:81, end:90 },
+      { key:'91-100', label:'91~100', start:91, end:100 }
     ];
 
     const bopomofoSymbols = [
@@ -919,55 +1024,92 @@
 
     const letters = Array.from({length:26}, (_,i)=>String.fromCharCode(65+i));
 
+    const letterRanges = [
+      { key:'AZ', label:'A~Z', start:0, end:25 },
+      { key:'AJ', label:'A~J', start:0, end:9 },
+      { key:'KR', label:'K~R', start:10, end:17 },
+      { key:'SZ', label:'S~Z', start:18, end:25 }
+    ];
+
+    const bopomofoRanges = [
+      { key:'ALL', label:'全部', start:0, end:bopomofoSymbols.length - 1 },
+      { key:'B-H', label:`${bopomofoSymbols[0]}~${bopomofoSymbols[12]}`, start:0, end:12 },
+      { key:'J-S', label:`${bopomofoSymbols[13]}~${bopomofoSymbols[24]}`, start:13, end:24 },
+      { key:'A-ER', label:`${bopomofoSymbols[25]}~${bopomofoSymbols[36]}`, start:25, end:36 }
+    ];
+
     const animals = [
-      { en:'dog', zh:'小狗', code:'1f436', cat:'pet', color:'#ffe9da' },
-      { en:'cat', zh:'小貓', code:'1f431', cat:'pet', color:'#efe7ff' },
-      { en:'rabbit', zh:'兔子', code:'1f430', cat:'pet', color:'#ffe6f5' },
-      { en:'hamster', zh:'倉鼠', code:'1f439', cat:'pet', color:'#fff0d9' },
-      { en:'mouse', zh:'老鼠', code:'1f42d', cat:'pet', color:'#eef2ff' },
-      { en:'horse', zh:'小馬', code:'1f434', cat:'pet', color:'#ffe9dd' },
-      { en:'unicorn', zh:'獨角獸', code:'1f984', cat:'pet', color:'#ffe9f5' },
-      { en:'tiger', zh:'老虎', code:'1f42f', cat:'wild', color:'#fff0d6' },
-      { en:'lion', zh:'獅子', code:'1f981', cat:'wild', color:'#fff2d8' },
-      { en:'bear', zh:'熊', code:'1f43b', cat:'wild', color:'#f4e6db' },
-      { en:'panda', zh:'貓熊', code:'1f43c', cat:'wild', color:'#f5f5f5' },
-      { en:'koala', zh:'無尾熊', code:'1f428', cat:'wild', color:'#edf0ff' },
-      { en:'wolf', zh:'狼', code:'1f43a', cat:'wild', color:'#eef1f8' },
-      { en:'monkey', zh:'猴子', code:'1f435', cat:'wild', color:'#f7eadf' },
-      { en:'frog', zh:'青蛙', code:'1f438', cat:'wild', color:'#e8fff0' },
-      { en:'pig', zh:'小豬', code:'1f437', cat:'farm', color:'#ffe3ee' },
-      { en:'cow', zh:'乳牛', code:'1f42e', cat:'farm', color:'#f7f7f7' },
-      { en:'chicken', zh:'雞', code:'1f414', cat:'farm', color:'#fff1d7' },
-      { en:'bird', zh:'小鳥', code:'1f426', cat:'farm', color:'#dff2ff' },
-      { en:'duck', zh:'鴨子', code:'1f986', cat:'farm', color:'#fff1cd' },
-      { en:'owl', zh:'貓頭鷹', code:'1f989', cat:'wild', color:'#f4eadf' },
-      { en:'penguin', zh:'企鵝', code:'1f427', cat:'ocean', color:'#eef2ff' },
-      { en:'bee', zh:'蜜蜂', code:'1f41d', cat:'insect', color:'#fff3cf' },
-      { en:'bug', zh:'毛毛蟲', code:'1f41b', cat:'insect', color:'#eaffdc' },
-      { en:'butterfly', zh:'蝴蝶', code:'1f98b', cat:'insect', color:'#ffe8fb' },
-      { en:'lady beetle', zh:'瓢蟲', code:'1f41e', cat:'insect', color:'#ffe0de' },
-      { en:'snail', zh:'蝸牛', code:'1f40c', cat:'insect', color:'#f4ecde' },
-      { en:'fish', zh:'魚', code:'1f41f', cat:'ocean', color:'#dff5ff' },
-      { en:'tropical fish', zh:'熱帶魚', code:'1f420', cat:'ocean', color:'#e0f7ff' },
-      { en:'blowfish', zh:'河豚', code:'1f421', cat:'ocean', color:'#fff0cf' },
-      { en:'dolphin', zh:'海豚', code:'1f42c', cat:'ocean', color:'#dff2ff' },
-      { en:'whale', zh:'鯨魚', code:'1f433', cat:'ocean', color:'#e3f0ff' },
-      { en:'shark', zh:'鯊魚', code:'1f988', cat:'ocean', color:'#eaf2fb' },
-      { en:'octopus', zh:'章魚', code:'1f419', cat:'ocean', color:'#ffe1f1' },
-      { en:'seal', zh:'海豹', code:'1f9ad', cat:'ocean', color:'#eef2f7' },
-      { en:'crab', zh:'螃蟹', code:'1f980', cat:'ocean', color:'#ffe6dc' },
-      { en:'lobster', zh:'龍蝦', code:'1f99e', cat:'ocean', color:'#ffe3de' },
-      { en:'turtle', zh:'烏龜', code:'1f422', cat:'reptile', color:'#e8ffe8' },
-      { en:'snake', zh:'蛇', code:'1f40d', cat:'reptile', color:'#eaffdf' },
-      { en:'crocodile', zh:'鱷魚', code:'1f40a', cat:'reptile', color:'#e9f7dc' },
-      { en:'sauropod', zh:'長頸龍', code:'1f995', cat:'dino', color:'#e8fff3' },
-      { en:'t-rex', zh:'暴龍', code:'1f996', cat:'dino', color:'#f0ffe5' }
+      { en:'dog', zh:'小狗', code:'1f436', color:'#ffe9da' },
+      { en:'cat', zh:'小貓', code:'1f431', color:'#efe7ff' },
+      { en:'rabbit', zh:'兔子', code:'1f430', color:'#ffe6f5' },
+      { en:'hamster', zh:'倉鼠', code:'1f439', color:'#fff0d9' },
+      { en:'mouse', zh:'老鼠', code:'1f42d', color:'#eef2ff' },
+      { en:'horse', zh:'小馬', code:'1f434', color:'#ffe9dd' },
+      { en:'unicorn', zh:'獨角獸', code:'1f984', color:'#ffe9f5' },
+      { en:'tiger', zh:'老虎', code:'1f42f', color:'#fff0d6' },
+      { en:'lion', zh:'獅子', code:'1f981', color:'#fff2d8' },
+      { en:'bear', zh:'熊', code:'1f43b', color:'#f4e6db' },
+      { en:'panda', zh:'貓熊', code:'1f43c', color:'#f5f5f5' },
+      { en:'koala', zh:'無尾熊', code:'1f428', color:'#edf0ff' },
+      { en:'wolf', zh:'狼', code:'1f43a', color:'#eef1f8' },
+      { en:'monkey', zh:'猴子', code:'1f435', color:'#f7eadf' },
+      { en:'frog', zh:'青蛙', code:'1f438', color:'#e8fff0' },
+      { en:'pig', zh:'小豬', code:'1f437', color:'#ffe3ee' },
+      { en:'cow', zh:'乳牛', code:'1f42e', color:'#f7f7f7' },
+      { en:'chicken', zh:'雞', code:'1f414', color:'#fff1d7' },
+      { en:'bird', zh:'小鳥', code:'1f426', color:'#dff2ff' },
+      { en:'duck', zh:'鴨子', code:'1f986', color:'#fff1cd' },
+      { en:'owl', zh:'貓頭鷹', code:'1f989', color:'#f4eadf' },
+      { en:'penguin', zh:'企鵝', code:'1f427', color:'#eef2ff' },
+      { en:'bee', zh:'蜜蜂', code:'1f41d', color:'#fff3cf' },
+      { en:'bug', zh:'毛毛蟲', code:'1f41b', color:'#eaffdc' },
+      { en:'butterfly', zh:'蝴蝶', code:'1f98b', color:'#ffe8fb' },
+      { en:'lady beetle', zh:'瓢蟲', code:'1f41e', color:'#ffe0de' },
+      { en:'snail', zh:'蝸牛', code:'1f40c', color:'#f4ecde' },
+      { en:'fish', zh:'魚', code:'1f41f', color:'#dff5ff' },
+      { en:'tropical fish', zh:'熱帶魚', code:'1f420', color:'#e0f7ff' },
+      { en:'blowfish', zh:'河豚', code:'1f421', color:'#fff0cf' },
+      { en:'dolphin', zh:'海豚', code:'1f42c', color:'#dff2ff' },
+      { en:'whale', zh:'鯨魚', code:'1f433', color:'#e3f0ff' },
+      { en:'shark', zh:'鯊魚', code:'1f988', color:'#eaf2fb' },
+      { en:'octopus', zh:'章魚', code:'1f419', color:'#ffe1f1' },
+      { en:'seal', zh:'海豹', code:'1f9ad', color:'#eef2f7' },
+      { en:'crab', zh:'螃蟹', code:'1f980', color:'#ffe6dc' },
+      { en:'lobster', zh:'龍蝦', code:'1f99e', color:'#ffe3de' },
+      { en:'turtle', zh:'烏龜', code:'1f422', color:'#e8ffe8' },
+      { en:'snake', zh:'蛇', code:'1f40d', color:'#eaffdf' },
+      { en:'crocodile', zh:'鱷魚', code:'1f40a', color:'#e9f7dc' },
+      { en:'sauropod', zh:'長頸龍', code:'1f995', color:'#e8fff3' },
+      { en:'t-rex', zh:'暴龍', code:'1f996', color:'#f0ffe5' }
+    ];
+
+    const praisePool = [
+      '做得很好','太棒了','你好厲害','超級棒','答對了','你真棒',
+      '好厲害喔','很棒很棒','太強了','太可愛了','完美答對','真聰明',
+      '真會選','好棒喔','答得真好','繼續保持','超厲害','真不錯',
+      '成功了','選對了','太讚了','很會喔','表現超好','今天好強'
+    ];
+
+    const badgePool = [
+      'WOW','GOOD','NICE','YAY','SUPER','BRAVO','LUCKY','MAGIC','SPARKLE','HAPPY',
+      'LOVE','STAR','SHINE','SWEET','CUTE','GO','WIN','BEST'
+    ];
+
+    const bubblePalettes = [
+      ['#ffd7ec','#ff9ec8'],['#d8f0ff','#92caff'],['#fff2c7','#ffd56d'],
+      ['#e8ddff','#b895ff'],['#daf8e8','#8ae0b1'],['#ffdfe0','#ff9f9f']
+    ];
+
+    const ribbonPalettes = [
+      ['#ff9ec8','#c19bff'],['#8fd5ff','#b9a3ff'],['#ffe58a','#ffad9e'],
+      ['#9df2b5','#7eb9ff'],['#ffc0dd','#ffd97b'],['#b9b0ff','#ff9bd0']
     ];
 
     const bgStars = document.getElementById('bgStars');
     const fxLayer = document.getElementById('fxLayer');
     const confettiLayer = document.getElementById('confettiLayer');
     const introParticles = document.getElementById('introParticles');
+    const megaCelebrateLayer = document.getElementById('megaCelebrateLayer');
     const scoreText = document.getElementById('scoreText');
     const modeText = document.getElementById('modeText');
     const questionMain = document.getElementById('questionMain');
@@ -980,8 +1122,8 @@
     const speakBtn = document.getElementById('speakBtn');
     const magicBtn = document.getElementById('magicBtn');
     const categoryButtons = document.getElementById('categoryButtons');
-    const numberRangeButtons = document.getElementById('numberRangeButtons');
-    const newQuestionBtn = document.getElementById('newQuestionBtn');
+    const rangeButtons = document.getElementById('rangeButtons');
+    const rangeTitle = document.getElementById('rangeTitle');
     const resetScoreBtn = document.getElementById('resetScoreBtn');
     const parentPanel = document.getElementById('parentPanel');
     const parentHead = document.getElementById('parentHead');
@@ -993,9 +1135,12 @@
     let audioCtx = null;
     let audioReady = false;
     let currentCategory = 'numbers';
-    let currentNumberRange = [1,10];
+    let currentNumberRange = numberRanges[0];
+    let currentLetterRange = letterRanges[0];
+    let currentBopomofoRange = bopomofoRanges[0];
     let currentRound = null;
     let questionSequenceToken = 0;
+    let celebrateSeedCounter = 0;
 
     function rand(min, max){ return Math.random() * (max - min) + min; }
     function pick(arr){ return arr[Math.floor(Math.random() * arr.length)]; }
@@ -1120,9 +1265,9 @@
 
     async function speakPromptOnce(round){
       if (round.category === 'numbers') {
-        await speak(String(round.answerValue), 'en-US', 0.9, 1.06);
+        await speak(numberToZh(round.answerValue), 'zh-TW', 0.88, 1.06);
       } else if (round.category === 'letters') {
-        await speak(round.answerValue, 'en-US', 0.82, 1.10);
+        await speak(round.answerValue, 'en-US', 0.84, 1.10);
       } else if (round.category === 'bopomofo') {
         await speak(bopomofoSpeechMap[round.answerValue] || round.answerValue, 'zh-TW', 0.86, 1.08);
       } else if (round.category === 'animals') {
@@ -1133,7 +1278,11 @@
     function updateModeText(){
       const catLabel = categories.find(c => c.key === currentCategory)?.label || '';
       if (currentCategory === 'numbers') {
-        modeText.textContent = `${catLabel} · ${currentNumberRange[0]}~${currentNumberRange[1]}`;
+        modeText.textContent = `${catLabel} · ${currentNumberRange.label}`;
+      } else if (currentCategory === 'letters') {
+        modeText.textContent = `${catLabel} · ${currentLetterRange.label}`;
+      } else if (currentCategory === 'bopomofo') {
+        modeText.textContent = `${catLabel} · ${currentBopomofoRange.label}`;
       } else {
         modeText.textContent = catLabel;
       }
@@ -1151,43 +1300,89 @@
           buildRangeButtons();
           updateModeText();
           if (gameStarted) {
-            await nextRound(false);
+            await nextRound();
           }
         });
         categoryButtons.appendChild(btn);
       });
     }
 
-    function buildRangeButtons(){
-      numberRangeButtons.innerHTML = '';
-      const shouldShow = currentCategory === 'numbers';
-      numberRangeButtons.style.display = shouldShow ? 'grid' : 'none';
+    function getActiveRangeSet(){
+      if (currentCategory === 'numbers') return numberRanges;
+      if (currentCategory === 'letters') return letterRanges;
+      if (currentCategory === 'bopomofo') return bopomofoRanges;
+      return [];
+    }
 
-      numberRanges.forEach(range => {
+    function getCurrentRangeObj(){
+      if (currentCategory === 'numbers') return currentNumberRange;
+      if (currentCategory === 'letters') return currentLetterRange;
+      if (currentCategory === 'bopomofo') return currentBopomofoRange;
+      return null;
+    }
+
+    function buildRangeButtons(){
+      const ranges = getActiveRangeSet();
+      rangeButtons.innerHTML = '';
+
+      if (currentCategory === 'numbers') {
+        rangeTitle.textContent = '數字範圍';
+      } else if (currentCategory === 'letters') {
+        rangeTitle.textContent = '英文字母範圍';
+      } else if (currentCategory === 'bopomofo') {
+        rangeTitle.textContent = '注音範圍';
+      } else {
+        rangeTitle.textContent = '範圍';
+      }
+
+      const shouldShow = currentCategory !== 'animals';
+      rangeTitle.style.display = shouldShow ? 'block' : 'none';
+      rangeButtons.style.display = shouldShow ? 'grid' : 'none';
+
+      if (!shouldShow) return;
+
+      const currentRange = getCurrentRangeObj();
+      ranges.forEach(range => {
         const btn = document.createElement('button');
-        const active = currentNumberRange[0] === range[0] && currentNumberRange[1] === range[1];
+        const active = currentRange && currentRange.key === range.key;
         btn.className = 'small-btn' + (active ? ' active' : '');
-        btn.textContent = `${range[0]}~${range[1]}`;
+        btn.textContent = range.label;
         btn.addEventListener('click', async () => {
-          currentNumberRange = range;
+          if (currentCategory === 'numbers') currentNumberRange = range;
+          if (currentCategory === 'letters') currentLetterRange = range;
+          if (currentCategory === 'bopomofo') currentBopomofoRange = range;
           buildRangeButtons();
           updateModeText();
-          if (gameStarted && currentCategory === 'numbers') {
-            await nextRound(false);
+          if (gameStarted) {
+            await nextRound();
           }
         });
-        numberRangeButtons.appendChild(btn);
+        rangeButtons.appendChild(btn);
       });
     }
 
     function getNumberPool(){
-      const [start, end] = currentNumberRange;
-      return Array.from({length:end-start+1}, (_,i)=>start+i);
+      return Array.from(
+        { length: currentNumberRange.end - currentNumberRange.start + 1 },
+        (_,i)=>currentNumberRange.start + i
+      );
+    }
+
+    function getLetterPool(){
+      return letters.slice(currentLetterRange.start, currentLetterRange.end + 1);
+    }
+
+    function getBopomofoPool(){
+      return bopomofoSymbols.slice(currentBopomofoRange.start, currentBopomofoRange.end + 1);
+    }
+
+    function ensureMinPool(pool, fallback){
+      return pool.length >= 4 ? pool : fallback;
     }
 
     function createRound(){
       if (currentCategory === 'numbers') {
-        const pool = getNumberPool();
+        const pool = ensureMinPool(getNumberPool(), Array.from({length:100}, (_,i)=>i+1));
         const correct = pick(pool);
         const wrongPool = pool.filter(n => n !== correct);
         const wrongs = shuffle(wrongPool).slice(0,3);
@@ -1195,19 +1390,20 @@
           category:'numbers',
           answerValue:correct,
           answerLabel:String(correct),
-          answerSub:'Number',
+          answerSub:numberToZh(correct),
           options:shuffle([correct, ...wrongs]).map(v => ({
             value:v,
             label:String(v),
-            sub:'Number',
+            sub:numberToZh(v),
             type:'symbol'
           }))
         };
       }
 
       if (currentCategory === 'letters') {
-        const correct = pick(letters);
-        const wrongs = shuffle(letters.filter(v => v !== correct)).slice(0,3);
+        const basePool = ensureMinPool(getLetterPool(), letters);
+        const correct = pick(basePool);
+        const wrongs = shuffle(basePool.filter(v => v !== correct)).slice(0,3);
         return {
           category:'letters',
           answerValue:correct,
@@ -1223,8 +1419,9 @@
       }
 
       if (currentCategory === 'bopomofo') {
-        const correct = pick(bopomofoSymbols);
-        const wrongs = shuffle(bopomofoSymbols.filter(v => v !== correct)).slice(0,3);
+        const basePool = ensureMinPool(getBopomofoPool(), bopomofoSymbols);
+        const correct = pick(basePool);
+        const wrongs = shuffle(basePool.filter(v => v !== correct)).slice(0,3);
         return {
           category:'bopomofo',
           answerValue:correct,
@@ -1261,7 +1458,7 @@
 
       if (round.category === 'numbers') {
         questionMain.textContent = `找出數字 ${round.answerValue}`;
-        questionSub.textContent = '會自動唸三次';
+        questionSub.textContent = `${round.answerSub} · 會自動唸三次`;
       } else if (round.category === 'letters') {
         questionMain.textContent = `Find: ${round.answerValue}`;
         questionSub.textContent = 'Letter · 會自動唸三次';
@@ -1274,8 +1471,7 @@
       }
 
       round.options.forEach(option => {
-        const card = renderCard(option);
-        cardsEl.appendChild(card);
+        cardsEl.appendChild(renderCard(option));
       });
 
       requestAnimationFrame(() => {
@@ -1378,7 +1574,7 @@
       el.classList.add('show-mark');
     }
 
-    function celebrate(){
+    function celebrateMicro(card){
       confettiLayer.innerHTML = '';
       const total = window.innerWidth < 700 ? 18 : 28;
 
@@ -1410,6 +1606,7 @@
         confettiLayer.appendChild(h);
       }
 
+      burstAtCard(card);
       setTimeout(() => confettiLayer.innerHTML = '', 1900);
     }
 
@@ -1433,6 +1630,117 @@
       }
 
       setTimeout(() => fxLayer.innerHTML = '', 1400);
+    }
+
+    function createCelebrationProfile(){
+      celebrateSeedCounter += 1;
+      const paletteA = bubblePalettes[celebrateSeedCounter % bubblePalettes.length];
+      const paletteB = ribbonPalettes[(celebrateSeedCounter * 3) % ribbonPalettes.length];
+      const praise = praisePool[celebrateSeedCounter % praisePool.length];
+
+      return {
+        praise,
+        badgeCount: 3 + (celebrateSeedCounter % 4),
+        bubbleCount: 12 + (celebrateSeedCounter % 9),
+        ribbonCount: 9 + (celebrateSeedCounter % 8),
+        twinkleCount: 10 + (celebrateSeedCounter % 10),
+        paletteA,
+        paletteB,
+        withTopText: celebrateSeedCounter % 2 === 0,
+        withSideBadges: celebrateSeedCounter % 3 !== 0,
+        withCenterSparkBurst: celebrateSeedCounter % 4 !== 1
+      };
+    }
+
+    function playMegaCelebrate(){
+      const profile = createCelebrationProfile();
+      megaCelebrateLayer.innerHTML = '';
+
+      if (profile.withTopText) {
+        const text = document.createElement('div');
+        text.className = 'mega-text';
+        text.textContent = profile.praise;
+        megaCelebrateLayer.appendChild(text);
+      }
+
+      if (profile.withSideBadges) {
+        for (let i = 0; i < profile.badgeCount; i++) {
+          const badge = document.createElement('div');
+          badge.className = 'mega-badge';
+          badge.textContent = badgePool[(celebrateSeedCounter + i * 5) % badgePool.length];
+          badge.style.left = rand(16, 84) + '%';
+          badge.style.top = rand(18, 72) + '%';
+          badge.style.setProperty('--x', rand(-120, 120) + 'px');
+          badge.style.setProperty('--y', rand(-100, 120) + 'px');
+          badge.style.setProperty('--r', rand(-80, 80) + 'deg');
+          badge.style.setProperty('--dur', rand(1.7, 2.6) + 's');
+          megaCelebrateLayer.appendChild(badge);
+        }
+      }
+
+      for (let i = 0; i < profile.bubbleCount; i++) {
+        const b = document.createElement('div');
+        b.className = 'mega-bubble';
+        const p = i % 2 === 0 ? profile.paletteA : bubblePalettes[(celebrateSeedCounter + i) % bubblePalettes.length];
+        b.style.left = rand(10, 90) + '%';
+        b.style.top = rand(14, 86) + '%';
+        b.style.setProperty('--x', rand(-160, 160) + 'px');
+        b.style.setProperty('--y', rand(-200, 120) + 'px');
+        b.style.setProperty('--dur', rand(1.4, 2.8) + 's');
+        b.style.setProperty('--size', rand(14, 54) + 'px');
+        b.style.setProperty('--c1', p[0]);
+        b.style.setProperty('--c2', p[1]);
+        megaCelebrateLayer.appendChild(b);
+      }
+
+      for (let i = 0; i < profile.ribbonCount; i++) {
+        const r = document.createElement('div');
+        r.className = 'mega-ribbon';
+        const p = i % 2 === 0 ? profile.paletteB : ribbonPalettes[(celebrateSeedCounter + i) % ribbonPalettes.length];
+        r.style.left = rand(10, 90) + '%';
+        r.style.top = rand(18, 84) + '%';
+        r.style.setProperty('--x', rand(-160, 160) + 'px');
+        r.style.setProperty('--y', rand(-140, 140) + 'px');
+        r.style.setProperty('--dur', rand(1.3, 2.5) + 's');
+        r.style.setProperty('--w', rand(40, 120) + 'px');
+        r.style.setProperty('--h', rand(8, 18) + 'px');
+        r.style.setProperty('--rot', rand(-180, 180) + 'deg');
+        r.style.setProperty('--r2', rand(60, 320) + 'deg');
+        r.style.setProperty('--c1', p[0]);
+        r.style.setProperty('--c2', p[1]);
+        megaCelebrateLayer.appendChild(r);
+      }
+
+      for (let i = 0; i < profile.twinkleCount; i++) {
+        const t = document.createElement('div');
+        t.className = 'mega-twinkle';
+        t.style.left = rand(8, 92) + '%';
+        t.style.top = rand(12, 86) + '%';
+        t.style.setProperty('--x', rand(-120, 120) + 'px');
+        t.style.setProperty('--y', rand(-140, 120) + 'px');
+        t.style.setProperty('--dur', rand(1.1, 2.2) + 's');
+        t.style.setProperty('--size', rand(12, 30) + 'px');
+        megaCelebrateLayer.appendChild(t);
+      }
+
+      if (profile.withCenterSparkBurst) {
+        for (let i = 0; i < 16; i++) {
+          const s = document.createElement('div');
+          s.className = 'intro-particle spark';
+          const angle = rand(0, Math.PI * 2);
+          const dist = rand(90, window.innerWidth < 700 ? 200 : 320);
+          s.style.left = '50%';
+          s.style.top = '50%';
+          s.style.setProperty('--x', `${Math.cos(angle) * dist}px`);
+          s.style.setProperty('--y', `${Math.sin(angle) * dist}px`);
+          s.style.setProperty('--dur', `${rand(1.0, 1.8)}s`);
+          megaCelebrateLayer.appendChild(s);
+        }
+      }
+
+      setTimeout(() => {
+        megaCelebrateLayer.innerHTML = '';
+      }, 2900);
     }
 
     function playIntro(){
@@ -1475,7 +1783,7 @@
       }, 2300);
     }
 
-    async function nextRound(runIntroOnSuccessOnly){
+    async function nextRound(){
       cancelQuestionSequence();
       isBusy = true;
       cardsEl.classList.remove('ready');
@@ -1487,12 +1795,7 @@
       await delay(150);
       disableAllCards(false);
       isBusy = false;
-
-      if (!runIntroOnSuccessOnly) {
-        await speakQuestionSequence();
-      } else {
-        await speakQuestionSequence();
-      }
+      await speakQuestionSequence();
     }
 
     async function onPick(option, card){
@@ -1505,14 +1808,14 @@
         score += 1;
         scoreText.textContent = score;
         markCard(card, 'correct');
-        burstAtCard(card);
-        celebrate();
+        celebrateMicro(card);
+        playMegaCelebrate();
         showPop('做得很好');
 
         await speak('做得很好，請繼續下一題', 'zh-TW', 0.92, 1.08);
         playIntro();
         await delay(2500);
-        await nextRound(true);
+        await nextRound();
       } else {
         markCard(card, 'wrong');
         showPop('再試一次');
@@ -1530,7 +1833,15 @@
       startOverlay.classList.add('hide');
       score = 0;
       scoreText.textContent = score;
-      await nextRound(true);
+      await nextRound();
+    }
+
+    function numberToZh(num){
+      const d = ['零','一','二','三','四','五','六','七','八','九'];
+      if (num <= 10) return num === 10 ? '十' : d[num];
+      if (num < 20) return '十' + d[num % 10];
+      if (num % 10 === 0) return d[Math.floor(num / 10)] + '十';
+      return d[Math.floor(num / 10)] + '十' + d[num % 10];
     }
 
     parentHead.addEventListener('click', () => {
@@ -1547,12 +1858,6 @@
     magicBtn.addEventListener('click', () => {
       ensureAudio();
       playIntro();
-    });
-
-    newQuestionBtn.addEventListener('click', async () => {
-      if (!gameStarted) return;
-      ensureAudio();
-      await nextRound(false);
     });
 
     resetScoreBtn.addEventListener('click', () => {
