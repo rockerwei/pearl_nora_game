@@ -869,7 +869,21 @@
     }
 
     function speakEnglishLetter(letter) {
-      speakText(letter, "en-US", 0.8, 1);
+      const utter = new SpeechSynthesisUtterance();
+      utter.text = letter;
+      utter.lang = "en-US";
+      utter.rate = 0.75;
+      utter.pitch = 1;
+      utter.volume = 1;
+    
+      const voice = getEnVoice();
+      if (voice) {
+        utter.voice = voice;
+        utter.lang = voice.lang;
+      }
+    
+      window.speechSynthesis.cancel();
+      window.speechSynthesis.speak(utter);
     }
 
     function speakNumber(numText) {
