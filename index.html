@@ -327,13 +327,60 @@
     .stat .n{font-size:24px;font-weight:900}
     .stat .t{font-size:12px;color:#666;font-weight:900}
 
-    .settings-card{
+    .settings-wrap{
       margin-top:14px;
       margin-bottom:0;
+    }
+
+    .settings-toggle{
+      width:100%;
+      border:none;
+      border-radius:24px;
+      padding:16px 18px;
+      background:linear-gradient(180deg,#ffffff,#fffaf3);
+      box-shadow:var(--shadow);
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      font-size:16px;
+      font-weight:900;
+      color:#555;
+    }
+
+    .settings-toggle-left{
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+
+    .settings-arrow{
+      transition:transform .25s ease;
+      display:inline-block;
+    }
+
+    .settings-wrap.open .settings-arrow{
+      transform:rotate(180deg);
+    }
+
+    .settings-card{
+      margin-top:10px;
       background:linear-gradient(180deg,#ffffff,#fffaf3);
       border-radius:24px;
       padding:14px;
       box-shadow:var(--shadow);
+      display:none;
+      animation:settingsDrop .22s ease;
+    }
+
+    .settings-wrap.open .settings-card{
+      display:block;
+    }
+
+    @keyframes settingsDrop{
+      0%{opacity:0;transform:translateY(-6px)}
+      100%{opacity:1;transform:translateY(0)}
     }
 
     .settings-title{
@@ -502,50 +549,59 @@
           <div class="stat"><div class="n" id="streakCount">0</div><div class="t">連續答對</div></div>
         </div>
 
-        <div class="settings-card">
-          <div class="settings-title">家長模式</div>
-          <div class="settings-grid">
-            <div class="setting-item">
-              <label for="letterRange">英文題庫</label>
-              <select id="letterRange">
-                <option value="all">A-Z</option>
-                <option value="easy6">A-F</option>
-                <option value="easy10">A-J</option>
-              </select>
-            </div>
+        <div class="settings-wrap" id="settingsWrap">
+          <button class="settings-toggle" id="settingsToggle" type="button">
+            <span class="settings-toggle-left">
+              <span>👨‍👩‍👧‍👦 家長模式</span>
+            </span>
+            <span class="settings-arrow">▼</span>
+          </button>
 
-            <div class="setting-item">
-              <label for="numberRange">數字題庫</label>
-              <select id="numberRange">
-                <option value="1-10">1 ~ 10</option>
-                <option value="11-20">11 ~ 20</option>
-                <option value="21-30">21 ~ 30</option>
-                <option value="31-40">31 ~ 40</option>
-                <option value="41-50">41 ~ 50</option>
-                <option value="51-60">51 ~ 60</option>
-                <option value="61-70">61 ~ 70</option>
-                <option value="71-80">71 ~ 80</option>
-                <option value="81-90">81 ~ 90</option>
-                <option value="91-100">91 ~ 100</option>
-                <option value="all">1 ~ 100</option>
-              </select>
-            </div>
+          <div class="settings-card">
+            <div class="settings-title">題庫與播放設定</div>
+            <div class="settings-grid">
+              <div class="setting-item">
+                <label for="letterRange">英文題庫</label>
+                <select id="letterRange">
+                  <option value="all">A-Z</option>
+                  <option value="easy6">A-F</option>
+                  <option value="easy10">A-J</option>
+                </select>
+              </div>
 
-            <div class="setting-item">
-              <label for="bopomofoRange">注音題庫</label>
-              <select id="bopomofoRange">
-                <option value="all">全部</option>
-                <option value="easy10">前 10 個</option>
-                <option value="easy21">前 21 個</option>
-              </select>
-            </div>
+              <div class="setting-item">
+                <label for="numberRange">數字題庫</label>
+                <select id="numberRange">
+                  <option value="1-10">1 ~ 10</option>
+                  <option value="11-20">11 ~ 20</option>
+                  <option value="21-30">21 ~ 30</option>
+                  <option value="31-40">31 ~ 40</option>
+                  <option value="41-50">41 ~ 50</option>
+                  <option value="51-60">51 ~ 60</option>
+                  <option value="61-70">61 ~ 70</option>
+                  <option value="71-80">71 ~ 80</option>
+                  <option value="81-90">81 ~ 90</option>
+                  <option value="91-100">91 ~ 100</option>
+                  <option value="all">1 ~ 100</option>
+                </select>
+              </div>
 
-            <div class="setting-item toggle-wrap">
-              <div class="toggle-title">自動下一題</div>
-              <label class="switch">
-                <input type="checkbox" id="autoNextToggle" checked />
-                <span class="slider"></span>
-              </label>
+              <div class="setting-item">
+                <label for="bopomofoRange">注音題庫</label>
+                <select id="bopomofoRange">
+                  <option value="all">全部</option>
+                  <option value="easy10">前 10 個</option>
+                  <option value="easy21">前 21 個</option>
+                </select>
+              </div>
+
+              <div class="setting-item toggle-wrap">
+                <div class="toggle-title">自動下一題</div>
+                <label class="switch">
+                  <input type="checkbox" id="autoNextToggle" checked />
+                  <span class="slider"></span>
+                </label>
+              </div>
             </div>
           </div>
         </div>
@@ -593,43 +649,43 @@
     }
 
     const bopomofoSpeakMap = {
-      "ㄅ":"ㄅ，發音ㄅ",
-      "ㄆ":"ㄆ，發音ㄆ",
-      "ㄇ":"ㄇ，發音ㄇ",
-      "ㄈ":"ㄈ，發音ㄈ",
-      "ㄉ":"ㄉ，發音ㄉ",
-      "ㄊ":"ㄊ，發音ㄊ",
-      "ㄋ":"ㄋ，發音ㄋ",
-      "ㄌ":"ㄌ，發音ㄌ",
-      "ㄍ":"ㄍ，發音ㄍ",
-      "ㄎ":"ㄎ，發音ㄎ",
-      "ㄏ":"ㄏ，發音ㄏ",
-      "ㄐ":"ㄐ，發音ㄐ",
-      "ㄑ":"ㄑ，發音ㄑ",
-      "ㄒ":"ㄒ，發音ㄒ",
-      "ㄓ":"ㄓ，發音ㄓ",
-      "ㄔ":"ㄔ，發音ㄔ",
-      "ㄕ":"ㄕ，發音ㄕ",
-      "ㄖ":"ㄖ，發音ㄖ",
-      "ㄗ":"ㄗ，發音ㄗ",
-      "ㄘ":"ㄘ，發音ㄘ",
-      "ㄙ":"ㄙ，發音ㄙ",
-      "ㄧ":"ㄧ，發音ㄧ",
-      "ㄨ":"ㄨ，發音ㄨ",
-      "ㄩ":"ㄩ，發音ㄩ",
-      "ㄚ":"ㄚ，發音ㄚ",
-      "ㄛ":"ㄛ，發音ㄛ",
-      "ㄜ":"ㄜ，發音ㄜ",
-      "ㄝ":"ㄝ，發音ㄝ",
-      "ㄞ":"ㄞ，發音ㄞ",
-      "ㄟ":"ㄟ，發音ㄟ",
-      "ㄠ":"ㄠ，發音ㄠ",
-      "ㄡ":"ㄡ，發音ㄡ",
-      "ㄢ":"ㄢ，發音ㄢ",
-      "ㄣ":"ㄣ，發音ㄣ",
-      "ㄤ":"ㄤ，發音ㄤ",
-      "ㄥ":"ㄥ，發音ㄥ",
-      "ㄦ":"ㄦ，發音ㄦ"
+      "ㄅ":"ㄅ",
+      "ㄆ":"ㄆ",
+      "ㄇ":"ㄇ",
+      "ㄈ":"ㄈ",
+      "ㄉ":"ㄉ",
+      "ㄊ":"ㄊ",
+      "ㄋ":"ㄋ",
+      "ㄌ":"ㄌ",
+      "ㄍ":"ㄍ",
+      "ㄎ":"ㄎ",
+      "ㄏ":"ㄏ",
+      "ㄐ":"ㄐ",
+      "ㄑ":"ㄑ",
+      "ㄒ":"ㄒ",
+      "ㄓ":"ㄓ",
+      "ㄔ":"ㄔ",
+      "ㄕ":"ㄕ",
+      "ㄖ":"ㄖ",
+      "ㄗ":"ㄗ",
+      "ㄘ":"ㄘ",
+      "ㄙ":"ㄙ",
+      "ㄧ":"ㄧ",
+      "ㄨ":"ㄨ",
+      "ㄩ":"ㄩ",
+      "ㄚ":"ㄚ",
+      "ㄛ":"ㄛ",
+      "ㄜ":"ㄜ",
+      "ㄝ":"ㄝ",
+      "ㄞ":"ㄞ",
+      "ㄟ":"ㄟ",
+      "ㄠ":"ㄠ",
+      "ㄡ":"ㄡ",
+      "ㄢ":"ㄢ",
+      "ㄣ":"ㄣ",
+      "ㄤ":"ㄤ",
+      "ㄥ":"ㄥ",
+      "ㄦ":"ㄦ"
     };
 
     const animalCards = [
@@ -678,6 +734,9 @@
     const numberRangeEl = document.getElementById("numberRange");
     const bopomofoRangeEl = document.getElementById("bopomofoRange");
     const autoNextToggleEl = document.getElementById("autoNextToggle");
+
+    const settingsWrapEl = document.getElementById("settingsWrap");
+    const settingsToggleEl = document.getElementById("settingsToggle");
 
     function shuffle(arr) {
       return [...arr].sort(() => Math.random() - 0.5);
@@ -1054,6 +1113,14 @@
         await el.requestFullscreen().catch(() => {});
       }
     }
+
+    function toggleSettings() {
+      settingsWrapEl.classList.toggle("open");
+    }
+
+    settingsToggleEl.addEventListener("click", () => {
+      toggleSettings();
+    });
 
     document.getElementById("speakBtn").addEventListener("click", () => {
       unlockAudioAndSpeech();
