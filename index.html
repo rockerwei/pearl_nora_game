@@ -628,18 +628,13 @@
 
     function numberToZh(num) {
       const digits = ["零","一","二","三","四","五","六","七","八","九"];
-
       if (num === 100) return "一百";
       if (num <= 10) {
         if (num === 10) return "十";
         return digits[num];
       }
-      if (num < 20) {
-        return "十" + digits[num % 10];
-      }
-      if (num % 10 === 0) {
-        return digits[Math.floor(num / 10)] + "十";
-      }
+      if (num < 20) return "十" + digits[num % 10];
+      if (num % 10 === 0) return digits[Math.floor(num / 10)] + "十";
       return digits[Math.floor(num / 10)] + "十" + digits[num % 10];
     }
 
@@ -649,96 +644,83 @@
     }
 
     const bopomofoSpeakMap = {
-      "ㄅ":"ㄅ",
-      "ㄆ":"ㄆ",
-      "ㄇ":"ㄇ",
-      "ㄈ":"ㄈ",
-      "ㄉ":"ㄉ",
-      "ㄊ":"ㄊ",
-      "ㄋ":"ㄋ",
-      "ㄌ":"ㄌ",
-      "ㄍ":"ㄍ",
-      "ㄎ":"ㄎ",
-      "ㄏ":"ㄏ",
-      "ㄐ":"ㄐ",
-      "ㄑ":"ㄑ",
-      "ㄒ":"ㄒ",
-      "ㄓ":"ㄓ",
-      "ㄔ":"ㄔ",
-      "ㄕ":"ㄕ",
-      "ㄖ":"ㄖ",
-      "ㄗ":"ㄗ",
-      "ㄘ":"ㄘ",
-      "ㄙ":"ㄙ",
-      "ㄧ":"ㄧ",
-      "ㄨ":"ㄨ",
-      "ㄩ":"ㄩ",
-      "ㄚ":"ㄚ",
-      "ㄛ":"ㄛ",
-      "ㄜ":"ㄜ",
-      "ㄝ":"ㄝ",
-      "ㄞ":"ㄞ",
-      "ㄟ":"ㄟ",
-      "ㄠ":"ㄠ",
-      "ㄡ":"ㄡ",
-      "ㄢ":"ㄢ",
-      "ㄣ":"ㄣ",
-      "ㄤ":"ㄤ",
-      "ㄥ":"ㄥ",
-      "ㄦ":"ㄦ"
+      "ㄅ":"ㄅ","ㄆ":"ㄆ","ㄇ":"ㄇ","ㄈ":"ㄈ","ㄉ":"ㄉ","ㄊ":"ㄊ","ㄋ":"ㄋ","ㄌ":"ㄌ","ㄍ":"ㄍ","ㄎ":"ㄎ",
+      "ㄏ":"ㄏ","ㄐ":"ㄐ","ㄑ":"ㄑ","ㄒ":"ㄒ","ㄓ":"ㄓ","ㄔ":"ㄔ","ㄕ":"ㄕ","ㄖ":"ㄖ","ㄗ":"ㄗ","ㄘ":"ㄘ",
+      "ㄙ":"ㄙ","ㄧ":"ㄧ","ㄨ":"ㄨ","ㄩ":"ㄩ","ㄚ":"ㄚ","ㄛ":"ㄛ","ㄜ":"ㄜ","ㄝ":"ㄝ","ㄞ":"ㄞ","ㄟ":"ㄟ",
+      "ㄠ":"ㄠ","ㄡ":"ㄡ","ㄢ":"ㄢ","ㄣ":"ㄣ","ㄤ":"ㄤ","ㄥ":"ㄥ","ㄦ":"ㄦ"
     };
 
+    function makeCard(category, keyword, id) {
+      return {
+        category,
+        img: `https://loremflickr.com/1200/900/${encodeURIComponent(keyword)}?lock=${id}`
+      };
+    }
+
     const animalCards = [
-      // 寵物
-      { category: "pet", img: "https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg?cs=srgb&dl=pexels-chevanon-1108099.jpg&fm=jpg" },
-      { category: "pet", img: "https://images.pexels.com/photos/4681107/pexels-photo-4681107.jpeg?cs=srgb&dl=pexels-lucasandrade-4681107.jpg&fm=jpg" },
-      { category: "pet", img: "https://images.pexels.com/photos/2061057/pexels-photo-2061057.jpeg?cs=srgb&dl=pexels-tranmautritam-2061057.jpg&fm=jpg" },
-      { category: "pet", img: "https://images.pexels.com/photos/96938/pexels-photo-96938.jpeg?cs=srgb&dl=pexels-francesco-ungaro-96938.jpg&fm=jpg" },
-    
-      // 非洲動物
-      { category: "africa", img: "https://images.pexels.com/photos/209077/pexels-photo-209077.jpeg?cs=srgb&dl=pexels-pixabay-209077.jpg&fm=jpg" },
-      { category: "africa", img: "https://images.pexels.com/photos/3850526/pexels-photo-3850526.jpeg?cs=srgb&dl=pexels-thefatmansvision-3850526.jpg&fm=jpg" },
-      { category: "africa", img: "https://images.pexels.com/photos/66898/elephant-cub-tsavo-kenya-66898.jpeg?cs=srgb&dl=pexels-pixabay-66898.jpg&fm=jpg" },
-    
-      // 海洋動物 / 海洋生物
-      { category: "ocean", img: "https://images.pexels.com/photos/3354346/pexels-photo-3354346.jpeg?cs=srgb&dl=pexels-jonasvonwerne-3354346.jpg&fm=jpg" },
-      { category: "ocean", img: "https://images.pexels.com/photos/2289462/pexels-photo-2289462.jpeg?cs=srgb&dl=pexels-francesco-ungaro-2289462.jpg&fm=jpg" },
-      { category: "ocean", img: "https://images.pexels.com/photos/1522160/pexels-photo-1522160.jpeg?cs=srgb&dl=pexels-tomfisk-1522160.jpg&fm=jpg" },
-      { category: "ocean", img: "https://images.pexels.com/photos/4772824/pexels-photo-4772824.jpeg?cs=srgb&dl=pexels-3163665-4772824.jpg&fm=jpg" },
-    
-      // 昆蟲
-      { category: "insect", img: "https://images.pexels.com/photos/672142/pexels-photo-672142.jpeg?cs=srgb&dl=pexels-zett-foto-194587-672142.jpg&fm=jpg" },
-      { category: "insect", img: "https://images.pexels.com/photos/1212693/pexels-photo-1212693.jpeg?cs=srgb&dl=pexels-katieburandt-1212693.jpg&fm=jpg" },
-    
-      // 家禽
-      { category: "poultry", img: "https://images.pexels.com/photos/2886001/pexels-photo-2886001.jpeg?cs=srgb&dl=pexels-lukebarky-2886001.jpg&fm=jpg" },
-      { category: "poultry", img: "https://images.pexels.com/photos/286580/pexels-photo-286580.jpeg?cs=srgb&dl=pexels-achim-bongard-87217-286580.jpg&fm=jpg" },
-      { category: "poultry", img: "https://images.pexels.com/photos/162140/duckling-birds-yellow-fluffy-162140.jpeg?cs=srgb&dl=pexels-pixabay-162140.jpg&fm=jpg" },
-      { category: "poultry", img: "https://images.pexels.com/photos/1024500/pexels-photo-1024500.jpeg?cs=srgb&dl=pexels-kristi-evans-383398-1024500.jpg&fm=jpg" },
-    
-      // 恐龍
-      { category: "dinosaur", img: "https://images.pexels.com/photos/8014624/pexels-photo-8014624.jpeg?cs=srgb&dl=pexels-cup-of-couple-8014624.jpg&fm=jpg" },
-      { category: "dinosaur", img: "https://images.pexels.com/photos/14955810/pexels-photo-14955810.jpeg?cs=srgb&dl=pexels-tkirkgoz-14955810.jpg&fm=jpg" },
-      { category: "dinosaur", img: "https://commons.wikimedia.org/wiki/Special:FilePath/Tyrannosaurus%20rex.jpg" },
-      { category: "dinosaur", img: "https://commons.wikimedia.org/wiki/Special:FilePath/Ibaraki%20Nature%20Museum%27s%20Tyrannosaurus%20rex.jpg" },
-      { category: "dinosaur", img: "https://commons.wikimedia.org/wiki/Special:FilePath/Tyrannosaurus%20resting%20pose.jpg" },
-      { category: "dinosaur", img: "https://commons.wikimedia.org/wiki/Special:FilePath/Tyrannosaurus%20from%20Hartman.jpg" },
-      { category: "dinosaur", img: "https://commons.wikimedia.org/wiki/Special:FilePath/Tyrannosaurus%20at%20the%20Fukui%20Prefectural%20Dinosaur%20Museum.jpg" },
-      { category: "dinosaur", img: "https://commons.wikimedia.org/wiki/Special:FilePath/Tyrannosaurus%20Rex%20skeleton%20is%20on%20display%20in%20the%20Dinosaurs%20hall%20at%20the%20Smithsonian%27s%20National%20Museum%20of%20Natural%20History%20in%20Washington%2C%20D.C..jpg" },
-      { category: "dinosaur", img: "https://commons.wikimedia.org/wiki/Special:FilePath/Tyrannosaurus%20Rex%20colored.png" },
-      { category: "dinosaur", img: "https://commons.wikimedia.org/wiki/Special:FilePath/Tyrannosaurus%20rex-human%200505.JPG" },
-      { category: "dinosaur", img: "https://commons.wikimedia.org/wiki/Special:FilePath/Tyrannosaurus%20Smithsonian%20National%20Museum%20of%20Natural%20History.jpg" },
-      { category: "dinosaur", img: "https://commons.wikimedia.org/wiki/Special:FilePath/Tyrannosaurus.jpg" },
-      { category: "dinosaur", img: "https://commons.wikimedia.org/wiki/Special:FilePath/Tyrannosaurus%20rex%20by%20durbed.jpg" },
-      { category: "dinosaur", img: "https://commons.wikimedia.org/wiki/Special:FilePath/T-Rex.jpg" },
-      { category: "dinosaur", img: "https://commons.wikimedia.org/wiki/Special:FilePath/T-Rex%20%2812859882484%29.jpg" },
-      { category: "dinosaur", img: "https://commons.wikimedia.org/wiki/Special:FilePath/T-Rex%202293.JPG" },
-      { category: "dinosaur", img: "https://commons.wikimedia.org/wiki/Special:FilePath/T%20Rex%20cast.jpg" },
-      { category: "dinosaur", img: "https://commons.wikimedia.org/wiki/Special:FilePath/ROM%20-%20Tyrannosaurus%20Rex.jpg" },
-      { category: "dinosaur", img: "https://commons.wikimedia.org/wiki/Special:FilePath/Naturalis%20Biodiversity%20Center%20-%20Museum%20-%20Exhibition%20Primeval%20parade%2029%20-%20Model%20head%20of%20dinosaur%20Tyrannosaurus.jpg" },
-      { category: "dinosaur", img: "https://commons.wikimedia.org/wiki/Special:FilePath/Dinosaur%20Egg%20Museum%2C%20Xixia%20Dinosaur%20Park-%20Tyrannosaurus%20Rex.jpg" },
-      { category: "dinosaur", img: "https://commons.wikimedia.org/wiki/Special:FilePath/Dinosaur%20exhibit%2003%20-%20Cleveland%20Museum%20of%20Natural%20History%20%2834767610906%29.jpg" },
-      { category: "dinosaur", img: "https://commons.wikimedia.org/wiki/Special:FilePath/Tyrannosaurus%20with%20Visitors%20-%20Dinosaurs%20Alive%20Exhibition%20-%20Science%20City%20-%20Calcutta%201995-June-July%20058.JPG" }
+      // 寵物 8
+      makeCard("pet","dog",1),
+      makeCard("pet","puppy",2),
+      makeCard("pet","cat",3),
+      makeCard("pet","kitten",4),
+      makeCard("pet","rabbit",5),
+      makeCard("pet","hamster",6),
+      makeCard("pet","parrot",7),
+      makeCard("pet","pet dog",8),
+
+      // 非洲動物 8
+      makeCard("africa","lion",9),
+      makeCard("africa","elephant",10),
+      makeCard("africa","giraffe",11),
+      makeCard("africa","zebra",12),
+      makeCard("africa","hippo",13),
+      makeCard("africa","rhino",14),
+      makeCard("africa","cheetah",15),
+      makeCard("africa","african animal",16),
+
+      // 海洋動物 8
+      makeCard("ocean","dolphin",17),
+      makeCard("ocean","whale",18),
+      makeCard("ocean","sea turtle",19),
+      makeCard("ocean","shark",20),
+      makeCard("ocean","seal",21),
+      makeCard("ocean","octopus",22),
+      makeCard("ocean","jellyfish",23),
+      makeCard("ocean","marine animal",24),
+
+      // 海洋生物 6
+      makeCard("sea-life","clownfish",25),
+      makeCard("sea-life","seahorse",26),
+      makeCard("sea-life","starfish",27),
+      makeCard("sea-life","coral reef fish",28),
+      makeCard("sea-life","tropical fish",29),
+      makeCard("sea-life","reef life",30),
+
+      // 恐龍 10（權重最高）
+      makeCard("dinosaur","t-rex",31),
+      makeCard("dinosaur","tyrannosaurus",32),
+      makeCard("dinosaur","dinosaur",33),
+      makeCard("dinosaur","triceratops",34),
+      makeCard("dinosaur","stegosaurus",35),
+      makeCard("dinosaur","velociraptor",36),
+      makeCard("dinosaur","spinosaurus",37),
+      makeCard("dinosaur","brachiosaurus",38),
+      makeCard("dinosaur","trex toy",39),
+      makeCard("dinosaur","dinosaur model",40),
+
+      // 昆蟲 5
+      makeCard("insect","butterfly",41),
+      makeCard("insect","ladybug",42),
+      makeCard("insect","bee",43),
+      makeCard("insect","dragonfly",44),
+      makeCard("insect","beetle",45),
+
+      // 家禽 5
+      makeCard("poultry","chicken",46),
+      makeCard("poultry","rooster",47),
+      makeCard("poultry","duck",48),
+      makeCard("poultry","goose",49),
+      makeCard("poultry","turkey",50)
     ];
 
     let currentAnswer = "";
@@ -754,6 +736,7 @@
     let cardPool = [];
     let audioCtx = null;
     let availableVoices = [];
+    let repeatSpeakTimers = [];
 
     const modeEl = document.getElementById("mode");
     const optionsEl = document.getElementById("options");
@@ -794,7 +777,6 @@
 
     function getNumbersPool() {
       const range = numberRangeEl.value;
-
       if (range === "1-10") return fullSets.numbers.slice(0, 10);
       if (range === "11-20") return fullSets.numbers.slice(10, 20);
       if (range === "21-30") return fullSets.numbers.slice(20, 30);
@@ -805,7 +787,6 @@
       if (range === "71-80") return fullSets.numbers.slice(70, 80);
       if (range === "81-90") return fullSets.numbers.slice(80, 90);
       if (range === "91-100") return fullSets.numbers.slice(90, 100);
-
       return fullSets.numbers;
     }
 
@@ -874,9 +855,32 @@
       ]);
     }
 
+    function clearRepeatSpeakTimers() {
+      repeatSpeakTimers.forEach(t => clearTimeout(t));
+      repeatSpeakTimers = [];
+    }
+
     function stopSpeech() {
+      clearRepeatSpeakTimers();
       if ("speechSynthesis" in window) {
         window.speechSynthesis.cancel();
+      }
+    }
+
+    function speakRepeated(builder, times = 3, gap = 2000) {
+      if (!hasUserInteracted) return;
+      if (!("speechSynthesis" in window)) return;
+
+      clearRepeatSpeakTimers();
+      window.speechSynthesis.cancel();
+
+      for (let i = 0; i < times; i++) {
+        const timer = setTimeout(() => {
+          window.speechSynthesis.cancel();
+          const utter = builder();
+          if (utter) window.speechSynthesis.speak(utter);
+        }, i * gap);
+        repeatSpeakTimers.push(timer);
       }
     }
 
@@ -885,74 +889,50 @@
       if (!("speechSynthesis" in window)) return;
 
       initAudio();
-      stopSpeech();
 
-      const utter = new SpeechSynthesisUtterance(text);
-      utter.lang = lang;
-      utter.rate = rate;
-      utter.pitch = pitch;
-      utter.volume = 1;
+      speakRepeated(() => {
+        const utter = new SpeechSynthesisUtterance(text);
+        utter.lang = lang;
+        utter.rate = rate;
+        utter.pitch = pitch;
+        utter.volume = 1;
 
-      const selectedVoice = lang.startsWith("en") ? getEnVoice() : getZhVoice();
-      if (selectedVoice) {
-        utter.voice = selectedVoice;
-        utter.lang = selectedVoice.lang;
-      }
-
-      window.speechSynthesis.speak(utter);
+        const selectedVoice = lang.startsWith("en") ? getEnVoice() : getZhVoice();
+        if (selectedVoice) {
+          utter.voice = selectedVoice;
+          utter.lang = selectedVoice.lang;
+        }
+        return utter;
+      }, 3, 2000);
     }
 
     function speakEnglishLetter(letter) {
       if (!hasUserInteracted) return;
       if (!("speechSynthesis" in window)) return;
-    
+
       initAudio();
-      stopSpeech();
-    
+
       const letterSpeakMap = {
-        A: "ay",
-        B: "bee",
-        C: "see",
-        D: "dee",
-        E: "ee",
-        F: "ef",
-        G: "gee",
-        H: "aitch",
-        I: "eye",
-        J: "jay",
-        K: "kay",
-        L: "el",
-        M: "em",
-        N: "en",
-        O: "oh",
-        P: "pee",
-        Q: "cue",
-        R: "ar",
-        S: "ess",
-        T: "tee",
-        U: "you",
-        V: "vee",
-        W: "double u",
-        X: "ex",
-        Y: "why",
-        Z: "zee"
+        A: "ay", B: "bee", C: "see", D: "dee", E: "ee", F: "ef", G: "gee",
+        H: "aitch", I: "eye", J: "jay", K: "kay", L: "el", M: "em", N: "en",
+        O: "oh", P: "pee", Q: "cue", R: "ar", S: "ess", T: "tee", U: "you",
+        V: "vee", W: "double u", X: "ex", Y: "why", Z: "zee"
       };
-    
-      const utter = new SpeechSynthesisUtterance();
-      utter.text = letterSpeakMap[letter] || letter;
-      utter.lang = "en-US";
-      utter.rate = 0.72;
-      utter.pitch = 1;
-      utter.volume = 1;
-    
-      const voice = getEnVoice();
-      if (voice) {
-        utter.voice = voice;
-        utter.lang = voice.lang;
-      }
-    
-      window.speechSynthesis.cancel();
-      window.speechSynthesis.speak(utter);
+
+      speakRepeated(() => {
+        const utter = new SpeechSynthesisUtterance(letterSpeakMap[letter] || letter);
+        utter.lang = "en-US";
+        utter.rate = 0.72;
+        utter.pitch = 1;
+        utter.volume = 1;
+
+        const voice = getEnVoice();
+        if (voice) {
+          utter.voice = voice;
+          utter.lang = voice.lang;
+        }
+        return utter;
+      }, 3, 2000);
     }
 
     function speakNumber(numText) {
@@ -1031,44 +1011,43 @@
       clearTimeout(animationTimer);
       clearTimeout(nextQuestionTimer);
       clearTimeout(retryTimer);
+      clearRepeatSpeakTimers();
     }
 
     function hideAnimalCard() {
       animalCardEl.classList.remove("show");
+      animalPhotoEl.onload = null;
+      animalPhotoEl.onerror = null;
       animalPhotoEl.src = "";
     }
 
     function showAnimalCard(card, retryCount = 0) {
-      const maxRetry = 8;
+      const maxRetry = 12;
       if (!card) return;
-    
+
       animalCardEl.classList.remove("show");
-    
       animalPhotoEl.onload = null;
       animalPhotoEl.onerror = null;
-    
+
       animalPhotoEl.onload = () => {
         animalPhotoEl.onload = null;
         animalPhotoEl.onerror = null;
         animalPhotoEl.alt = "動物圖片";
-    
         animalCardEl.classList.remove("show");
         void animalCardEl.offsetWidth;
         animalCardEl.classList.add("show");
       };
-    
+
       animalPhotoEl.onerror = () => {
         animalPhotoEl.onload = null;
         animalPhotoEl.onerror = null;
-    
         if (retryCount >= maxRetry) {
           animalPhotoEl.src = "";
           return;
         }
-    
         showAnimalCard(nextAnimalCard(), retryCount + 1);
       };
-    
+
       animalPhotoEl.src = card.img;
     }
 
@@ -1081,7 +1060,7 @@
       clearTimeout(nextQuestionTimer);
       nextQuestionTimer = setTimeout(() => {
         pickQuestion();
-      }, 5000);
+      }, 6000);
     }
 
     function runPowerUpThenCard() {
@@ -1151,15 +1130,6 @@
       });
     }
 
-    function markCorrectAnswer() {
-      const allBtns = optionsEl.querySelectorAll(".option");
-      allBtns.forEach(btn => {
-        if (btn.textContent === currentAnswer) {
-          btn.classList.add("correct");
-        }
-      });
-    }
-
     function handleAnswer(selected, btn) {
       if (!hasUserInteracted) unlockAudioAndSpeech();
       if (locked) return;
@@ -1191,12 +1161,6 @@
         setTimeout(() => {
           speakPhrase("retry");
         }, 100);
-
-        retryTimer = setTimeout(() => {
-          if (!locked) {
-            speakCurrent();
-          }
-        }, 1200);
       }
     }
 
