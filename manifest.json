@@ -2,9 +2,10 @@
   "name": "Pearl Nora Kids Game",
   "short_name": "Kids Game",
   "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
-  "background_color": "#fff6da",
-  "theme_color": "#ffb74d",
+  "background_color": "#fff7fb",
+  "theme_color": "#ffb7d8",
   "orientation": "portrait",
   "icons": [
     {
