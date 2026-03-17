@@ -689,22 +689,36 @@
     };
 
     const animalCards = [
-      { img:"https://images.unsplash.com/photo-1518717758536-85ae29035b6d?auto=format&fit=crop&w=1200&q=80" },
-      { img:"https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=1200&q=80" },
-      { img:"https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308?auto=format&fit=crop&w=1200&q=80" },
-      { img:"https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?auto=format&fit=crop&w=1200&q=80" },
-      { img:"https://images.unsplash.com/photo-1502784444185-1f8f4d66d8ee?auto=format&fit=crop&w=1200&q=80" },
-      { img:"https://images.unsplash.com/photo-1546182990-dffeafbe841d?auto=format&fit=crop&w=1200&q=80" },
-      { img:"https://images.unsplash.com/photo-1557053910-d9eadeed1c58?auto=format&fit=crop&w=1200&q=80" },
-      { img:"https://images.unsplash.com/photo-1523805009345-7448845a9e53?auto=format&fit=crop&w=1200&q=80" },
-      { img:"https://images.unsplash.com/photo-1564349683136-77e08dba1ef7?auto=format&fit=crop&w=1200&q=80" },
-      { img:"https://images.unsplash.com/photo-1444464666168-49d633b86797?auto=format&fit=crop&w=1200&q=80" },
-      { img:"https://images.unsplash.com/photo-1466721591366-2d5fba72006d?auto=format&fit=crop&w=1200&q=80" },
-      { img:"https://images.unsplash.com/photo-1506947411487-a56738267384?auto=format&fit=crop&w=1200&q=80" },
-      { img:"https://images.unsplash.com/photo-1524704654690-b56c05c78a00?auto=format&fit=crop&w=1200&q=80" },
-      { img:"https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1200&q=80" },
-      { img:"https://images.unsplash.com/photo-1437622368342-7a3d73a34c8f?auto=format&fit=crop&w=1200&q=80" },
-      { img:"https://images.unsplash.com/photo-1572715376701-98568319fd0b?auto=format&fit=crop&w=1200&q=80" }
+      // 寵物
+      { category: "pet", img: "https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg?cs=srgb&dl=pexels-chevanon-1108099.jpg&fm=jpg" },
+      { category: "pet", img: "https://images.pexels.com/photos/4681107/pexels-photo-4681107.jpeg?cs=srgb&dl=pexels-lucasandrade-4681107.jpg&fm=jpg" },
+      { category: "pet", img: "https://images.pexels.com/photos/2061057/pexels-photo-2061057.jpeg?cs=srgb&dl=pexels-tranmautritam-2061057.jpg&fm=jpg" },
+      { category: "pet", img: "https://images.pexels.com/photos/96938/pexels-photo-96938.jpeg?cs=srgb&dl=pexels-francesco-ungaro-96938.jpg&fm=jpg" },
+    
+      // 非洲動物
+      { category: "africa", img: "https://images.pexels.com/photos/209077/pexels-photo-209077.jpeg?cs=srgb&dl=pexels-pixabay-209077.jpg&fm=jpg" },
+      { category: "africa", img: "https://images.pexels.com/photos/3850526/pexels-photo-3850526.jpeg?cs=srgb&dl=pexels-thefatmansvision-3850526.jpg&fm=jpg" },
+      { category: "africa", img: "https://images.pexels.com/photos/66898/elephant-cub-tsavo-kenya-66898.jpeg?cs=srgb&dl=pexels-pixabay-66898.jpg&fm=jpg" },
+    
+      // 海洋動物 / 海洋生物
+      { category: "ocean", img: "https://images.pexels.com/photos/3354346/pexels-photo-3354346.jpeg?cs=srgb&dl=pexels-jonasvonwerne-3354346.jpg&fm=jpg" },
+      { category: "ocean", img: "https://images.pexels.com/photos/2289462/pexels-photo-2289462.jpeg?cs=srgb&dl=pexels-francesco-ungaro-2289462.jpg&fm=jpg" },
+      { category: "ocean", img: "https://images.pexels.com/photos/1522160/pexels-photo-1522160.jpeg?cs=srgb&dl=pexels-tomfisk-1522160.jpg&fm=jpg" },
+      { category: "ocean", img: "https://images.pexels.com/photos/4772824/pexels-photo-4772824.jpeg?cs=srgb&dl=pexels-3163665-4772824.jpg&fm=jpg" },
+    
+      // 昆蟲
+      { category: "insect", img: "https://images.pexels.com/photos/672142/pexels-photo-672142.jpeg?cs=srgb&dl=pexels-zett-foto-194587-672142.jpg&fm=jpg" },
+      { category: "insect", img: "https://images.pexels.com/photos/1212693/pexels-photo-1212693.jpeg?cs=srgb&dl=pexels-katieburandt-1212693.jpg&fm=jpg" },
+    
+      // 家禽
+      { category: "poultry", img: "https://images.pexels.com/photos/2886001/pexels-photo-2886001.jpeg?cs=srgb&dl=pexels-lukebarky-2886001.jpg&fm=jpg" },
+      { category: "poultry", img: "https://images.pexels.com/photos/286580/pexels-photo-286580.jpeg?cs=srgb&dl=pexels-achim-bongard-87217-286580.jpg&fm=jpg" },
+      { category: "poultry", img: "https://images.pexels.com/photos/162140/duckling-birds-yellow-fluffy-162140.jpeg?cs=srgb&dl=pexels-pixabay-162140.jpg&fm=jpg" },
+      { category: "poultry", img: "https://images.pexels.com/photos/1024500/pexels-photo-1024500.jpeg?cs=srgb&dl=pexels-kristi-evans-383398-1024500.jpg&fm=jpg" },
+    
+      // 恐龍
+      { category: "dinosaur", img: "https://images.pexels.com/photos/8014624/pexels-photo-8014624.jpeg?cs=srgb&dl=pexels-cup-of-couple-8014624.jpg&fm=jpg" },
+      { category: "dinosaur", img: "https://images.pexels.com/photos/14955810/pexels-photo-14955810.jpeg?cs=srgb&dl=pexels-tkirkgoz-14955810.jpg&fm=jpg" }
     ];
 
     let currentAnswer = "";
@@ -1004,12 +1018,38 @@
       animalPhotoEl.src = "";
     }
 
-    function showAnimalCard(card) {
-      animalPhotoEl.src = card.img;
-      animalPhotoEl.alt = "動物圖片";
+    function showAnimalCard(card, retryCount = 0) {
+      const maxRetry = 8;
+      if (!card) return;
+    
       animalCardEl.classList.remove("show");
-      void animalCardEl.offsetWidth;
-      animalCardEl.classList.add("show");
+    
+      animalPhotoEl.onload = null;
+      animalPhotoEl.onerror = null;
+    
+      animalPhotoEl.onload = () => {
+        animalPhotoEl.onload = null;
+        animalPhotoEl.onerror = null;
+        animalPhotoEl.alt = "動物圖片";
+    
+        animalCardEl.classList.remove("show");
+        void animalCardEl.offsetWidth;
+        animalCardEl.classList.add("show");
+      };
+    
+      animalPhotoEl.onerror = () => {
+        animalPhotoEl.onload = null;
+        animalPhotoEl.onerror = null;
+    
+        if (retryCount >= maxRetry) {
+          animalPhotoEl.src = "";
+          return;
+        }
+    
+        showAnimalCard(nextAnimalCard(), retryCount + 1);
+      };
+    
+      animalPhotoEl.src = card.img;
     }
 
     function autoNextEnabled() {
