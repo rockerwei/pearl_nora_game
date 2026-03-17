@@ -869,10 +869,45 @@
     }
 
     function speakEnglishLetter(letter) {
+      if (!hasUserInteracted) return;
+      if (!("speechSynthesis" in window)) return;
+    
+      initAudio();
+      stopSpeech();
+    
+      const letterSpeakMap = {
+        A: "ay",
+        B: "bee",
+        C: "see",
+        D: "dee",
+        E: "ee",
+        F: "ef",
+        G: "gee",
+        H: "aitch",
+        I: "eye",
+        J: "jay",
+        K: "kay",
+        L: "el",
+        M: "em",
+        N: "en",
+        O: "oh",
+        P: "pee",
+        Q: "cue",
+        R: "ar",
+        S: "ess",
+        T: "tee",
+        U: "you",
+        V: "vee",
+        W: "double u",
+        X: "ex",
+        Y: "why",
+        Z: "zee"
+      };
+    
       const utter = new SpeechSynthesisUtterance();
-      utter.text = letter;
+      utter.text = letterSpeakMap[letter] || letter;
       utter.lang = "en-US";
-      utter.rate = 0.75;
+      utter.rate = 0.72;
       utter.pitch = 1;
       utter.volume = 1;
     
