@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="theme-color" content="#ffb7d8" />
+  <link rel="manifest" href="./manifest.json">
   <title>兒童學習小遊戲</title>
   <style>
     :root{
@@ -1811,6 +1812,18 @@
     buildRangeButtons();
     updateModeText();
     makeBgStars();
+
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', async () => {
+        try {
+          await navigator.serviceWorker.register('./service-worker.js');
+          console.log('Service Worker registered');
+        } catch (err) {
+          console.error('Service Worker register failed:', err);
+        }
+      });
+    }
+    
   </script>
 </body>
 </html>
