@@ -946,11 +946,37 @@
     }
 
     function speakPhrase(key) {
+      if (!hasUserInteracted) return;
+      if (!("speechSynthesis" in window)) return;
+    
+      initAudio();
+      stopSpeech();
+    
+      let text = "";
+      let lang = "zh-TW";
+      let rate = 0.9;
+      let pitch = 1;
+    
       if (key === "correct") {
-        speakText("你好棒，答對了", "zh-TW", 0.9, 1.05);
+        text = "做得很好，請繼續下一題";
+        pitch = 1.02;
       } else if (key === "retry") {
-        speakText("再來一次，你可以的", "zh-TW", 0.9, 1);
+        text = "再來一次，你可以的";
       }
+    
+      const utter = new SpeechSynthesisUtterance(text);
+      utter.lang = lang;
+      utter.rate = rate;
+      utter.pitch = pitch;
+      utter.volume = 1;
+    
+      const voice = getZhVoice();
+      if (voice) {
+        utter.voice = voice;
+        utter.lang = voice.lang;
+      }
+    
+      window.speechSynthesis.speak(utter);
     }
 
     function speak(text) {
