@@ -8,19 +8,19 @@
   <style>
     :root{
       --bg1:#fff7fb;
-      --bg2:#f4f0ff;
-      --bg3:#fffaf0;
+      --bg2:#f5f0ff;
+      --bg3:#fffaf1;
       --ink:#6c4e69;
       --pink:#ff8fbd;
-      --pink2:#ffc5de;
-      --purple:#b693ff;
-      --purple2:#8e74ff;
+      --pink2:#ffc7df;
+      --purple:#b895ff;
+      --purple2:#8c75ff;
       --gold:#ffca59;
-      --blue:#8fc9ff;
-      --green:#7fdaa5;
+      --blue:#92caff;
+      --green:#7fd9a8;
       --card:#ffffffee;
-      --shadow:0 16px 42px rgba(166,116,166,.14);
-      --radius:28px;
+      --shadow:0 14px 36px rgba(166,116,166,.14);
+      --radius:26px;
     }
 
     *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -32,8 +32,8 @@
       font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans TC",sans-serif;
       color:var(--ink);
       background:
-        radial-gradient(circle at 15% 18%, rgba(255,255,255,.95) 0%, rgba(255,255,255,0) 22%),
-        radial-gradient(circle at 82% 18%, rgba(255,238,197,.92) 0%, rgba(255,238,197,0) 18%),
+        radial-gradient(circle at 14% 18%, rgba(255,255,255,.96) 0%, rgba(255,255,255,0) 22%),
+        radial-gradient(circle at 82% 18%, rgba(255,239,200,.92) 0%, rgba(255,239,200,0) 18%),
         radial-gradient(circle at 28% 80%, rgba(255,214,233,.72) 0%, rgba(255,214,233,0) 26%),
         linear-gradient(135deg, var(--bg1), var(--bg2) 48%, var(--bg3));
     }
@@ -44,10 +44,7 @@
       user-select:none;
     }
 
-    .bg-stars,
-    .fx-layer,
-    .confetti-layer,
-    .intro-particles{
+    .bg-stars,.fx-layer,.confetti-layer,.intro-particles{
       position:absolute;
       inset:0;
       pointer-events:none;
@@ -58,7 +55,7 @@
       width:10px;
       height:10px;
       border-radius:50%;
-      background:radial-gradient(circle, #fff 0 30%, #ffe57f 31% 58%, rgba(255,255,255,0) 59%);
+      background:radial-gradient(circle, #fff 0 28%, #ffe380 29% 58%, rgba(255,255,255,0) 59%);
       filter:drop-shadow(0 0 10px rgba(255,255,255,.9));
       opacity:.9;
       animation:twinkle ease-in-out infinite;
@@ -66,7 +63,7 @@
 
     @keyframes twinkle{
       0%,100%{transform:scale(.55);opacity:.35}
-      50%{transform:scale(1.5);opacity:1}
+      50%{transform:scale(1.45);opacity:1}
     }
 
     .top-bar{
@@ -75,35 +72,36 @@
       left:50%;
       transform:translateX(-50%);
       z-index:20;
-      width:min(920px, calc(100% - 20px));
+      width:min(980px, calc(100% - 20px));
       display:flex;
       align-items:center;
       justify-content:space-between;
       gap:10px;
       padding:10px 14px;
       border-radius:999px;
-      background:rgba(255,255,255,.72);
+      background:rgba(255,255,255,.74);
       backdrop-filter:blur(10px);
       box-shadow:0 10px 28px rgba(163,120,166,.12);
-      border:1px solid rgba(255,255,255,.8);
+      border:1px solid rgba(255,255,255,.82);
     }
 
-    .score-chip,
-    .mode-chip{
+    .chip{
       display:flex;
       align-items:center;
       gap:8px;
-      font-weight:800;
-      color:#7d5b79;
+      font-weight:900;
+      color:#7a5976;
       white-space:nowrap;
       min-width:0;
     }
 
-    .mode-chip{
+    .chip.center{
       flex:1;
       justify-content:center;
       text-align:center;
       font-size:14px;
+      overflow:hidden;
+      text-overflow:ellipsis;
     }
 
     .icon-btn{
@@ -111,16 +109,85 @@
       background:linear-gradient(180deg,#fff,#fff7fb);
       color:#7d5b79;
       border-radius:999px;
-      height:42px;
       min-width:42px;
+      height:42px;
       padding:0 14px;
       font-size:14px;
-      font-weight:800;
+      font-weight:900;
       box-shadow:0 8px 18px rgba(163,120,166,.10);
       cursor:pointer;
     }
 
     .icon-btn:active{transform:scale(.97)}
+
+    .parent-panel{
+      position:absolute;
+      left:12px;
+      top:max(72px, calc(env(safe-area-inset-top) + 58px));
+      z-index:30;
+      width:min(340px, calc(100% - 24px));
+      border-radius:24px;
+      background:rgba(255,255,255,.78);
+      backdrop-filter:blur(12px);
+      box-shadow:var(--shadow);
+      border:1px solid rgba(255,255,255,.86);
+      overflow:hidden;
+    }
+
+    .parent-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding:14px 16px;
+      cursor:pointer;
+      font-weight:900;
+      color:#765571;
+    }
+
+    .parent-body{
+      padding:0 16px 16px;
+      border-top:1px solid rgba(230,210,232,.7);
+      display:none;
+    }
+
+    .parent-panel.open .parent-body{display:block}
+
+    .section-title{
+      margin:14px 0 8px;
+      font-size:13px;
+      font-weight:900;
+      color:#8f7790;
+    }
+
+    .btn-grid{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0,1fr));
+      gap:8px;
+    }
+
+    .small-btn{
+      border:none;
+      min-height:40px;
+      padding:8px 10px;
+      border-radius:14px;
+      background:#fff;
+      color:#7b5a78;
+      font-weight:900;
+      box-shadow:0 6px 14px rgba(160,120,160,.08);
+      cursor:pointer;
+    }
+
+    .small-btn.active{
+      background:linear-gradient(135deg,#ff9ec8,#c19bff);
+      color:#fff;
+    }
+
+    .single-row{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0,1fr));
+      gap:8px;
+    }
 
     .game{
       position:absolute;
@@ -147,11 +214,11 @@
     }
 
     .question-bubble{
-      min-height:64px;
       width:min(760px, 100%);
+      min-height:72px;
       padding:14px 18px;
       border-radius:24px;
-      background:rgba(255,255,255,.82);
+      background:rgba(255,255,255,.84);
       backdrop-filter:blur(8px);
       box-shadow:var(--shadow);
       display:flex;
@@ -163,7 +230,7 @@
     }
 
     .question-main{
-      font-size:28px;
+      font-size:30px;
       font-weight:900;
       letter-spacing:.5px;
       color:#6f4d6d;
@@ -171,8 +238,8 @@
 
     .question-sub{
       font-size:13px;
-      font-weight:700;
-      color:#9a7e99;
+      font-weight:800;
+      color:#99809a;
     }
 
     .cards{
@@ -208,7 +275,7 @@
     }
 
     .card:active{transform:scale(.98)}
-    .card[disabled]{opacity:.75;cursor:default}
+    .card[disabled]{opacity:.72;cursor:default}
 
     .card::before{
       content:"";
@@ -245,6 +312,14 @@
       position:relative;
     }
 
+    .big-symbol{
+      font-size:68px;
+      font-weight:900;
+      line-height:1;
+      color:#6f4d6d;
+      text-shadow:0 6px 16px rgba(190,150,200,.16);
+    }
+
     .card-img{
       width:min(138px, 72%);
       height:min(138px, 72%);
@@ -263,7 +338,7 @@
     .card-label{
       margin-top:8px;
       text-align:center;
-      font-size:23px;
+      font-size:24px;
       font-weight:900;
       color:#72516d;
       letter-spacing:.5px;
@@ -272,21 +347,21 @@
     .card-sub{
       margin-top:4px;
       font-size:13px;
-      font-weight:700;
+      font-weight:800;
       color:#9a7f98;
+      text-align:center;
     }
 
     .footer-tip{
       margin-top:12px;
       font-size:13px;
-      font-weight:700;
+      font-weight:800;
       color:#917b90;
       text-align:center;
       text-shadow:0 1px 0 rgba(255,255,255,.85);
     }
 
-    .correct-mark,
-    .wrong-mark{
+    .correct-mark,.wrong-mark{
       position:absolute;
       inset:auto 50% 18px auto;
       transform:translateX(50%);
@@ -295,7 +370,6 @@
       opacity:0;
       pointer-events:none;
     }
-
     .correct-mark{color:#4fb97e}
     .wrong-mark{color:#ff709f}
 
@@ -314,7 +388,7 @@
       left:50%;
       top:50%;
       transform:translate(-50%,-50%) scale(.8);
-      z-index:30;
+      z-index:60;
       padding:16px 24px;
       border-radius:999px;
       background:rgba(255,255,255,.92);
@@ -337,9 +411,7 @@
       100%{opacity:0;transform:translate(-50%,-50%) scale(.96)}
     }
 
-    .confetti,
-    .spark,
-    .mini-heart{
+    .confetti,.spark,.mini-heart,.intro-particle{
       position:absolute;
       left:50%;
       top:50%;
@@ -357,17 +429,11 @@
     }
 
     @keyframes confettiFly{
-      0%{
-        opacity:0;
-        transform:translate(-50%,-50%) scale(.35) rotate(0deg);
-      }
+      0%{opacity:0;transform:translate(-50%,-50%) scale(.35) rotate(0deg)}
       12%{opacity:1}
       100%{
         opacity:0;
-        transform:
-          translate(calc(-50% + var(--x)), calc(-50% + var(--y)))
-          scale(1.2)
-          rotate(var(--r));
+        transform:translate(calc(-50% + var(--x)), calc(-50% + var(--y))) scale(1.2) rotate(var(--r));
       }
     }
 
@@ -377,8 +443,8 @@
       animation:sparkFly var(--dur) ease-out forwards;
     }
 
-    .spark::before,
-    .spark::after{
+    .spark::before,.spark::after,
+    .intro-particle.spark::before,.intro-particle.spark::after{
       content:"";
       position:absolute;
       left:50%;
@@ -389,25 +455,19 @@
       box-shadow:0 0 12px rgba(255,255,255,.8);
     }
 
-    .spark::before{width:5px;height:18px}
-    .spark::after{width:18px;height:5px}
+    .spark::before,.intro-particle.spark::before{width:5px;height:18px}
+    .spark::after,.intro-particle.spark::after{width:18px;height:5px}
 
     @keyframes sparkFly{
-      0%{
-        opacity:0;
-        transform:translate(-50%,-50%) scale(.3) rotate(0deg);
-      }
+      0%{opacity:0;transform:translate(-50%,-50%) scale(.3) rotate(0deg)}
       12%{opacity:1}
       100%{
         opacity:0;
-        transform:
-          translate(calc(-50% + var(--x)), calc(-50% + var(--y)))
-          scale(1.35)
-          rotate(260deg);
+        transform:translate(calc(-50% + var(--x)), calc(-50% + var(--y))) scale(1.35) rotate(260deg);
       }
     }
 
-    .mini-heart{
+    .mini-heart,.intro-particle.heart{
       width:14px;
       height:14px;
       background:linear-gradient(135deg, #ff90b9, #ffc3da);
@@ -416,33 +476,26 @@
       animation:heartRise var(--dur) ease-out forwards;
       filter:drop-shadow(0 0 10px rgba(255,182,210,.75));
     }
-    .mini-heart::before,
-    .mini-heart::after{
+    .mini-heart::before,.mini-heart::after,
+    .intro-particle.heart::before,.intro-particle.heart::after{
       content:"";
       position:absolute;
       width:14px;height:14px;
       background:inherit;
       border-radius:50%;
     }
-    .mini-heart::before{left:-7px;top:0}
-    .mini-heart::after{left:0;top:-7px}
+    .mini-heart::before,.intro-particle.heart::before{left:-7px;top:0}
+    .mini-heart::after,.intro-particle.heart::after{left:0;top:-7px}
 
     @keyframes heartRise{
-      0%{
-        opacity:0;
-        transform:translate(-50%,-50%) rotate(45deg) scale(.3);
-      }
+      0%{opacity:0;transform:translate(-50%,-50%) rotate(45deg) scale(.3)}
       12%{opacity:1}
       100%{
         opacity:0;
-        transform:
-          translate(calc(-50% + var(--x)), calc(-50% + var(--y)))
-          rotate(45deg)
-          scale(1.35);
+        transform:translate(calc(-50% + var(--x)), calc(-50% + var(--y))) rotate(45deg) scale(1.35);
       }
     }
 
-    /* 啟動畫面 */
     .start-overlay{
       position:absolute;
       inset:0;
@@ -462,7 +515,7 @@
     }
 
     .start-card{
-      width:min(560px, calc(100% - 28px));
+      width:min(580px, calc(100% - 28px));
       padding:28px 20px 24px;
       border-radius:34px;
       background:rgba(255,255,255,.88);
@@ -481,7 +534,7 @@
 
     .start-text{
       font-size:15px;
-      font-weight:700;
+      font-weight:800;
       color:#8f7790;
       line-height:1.7;
     }
@@ -502,7 +555,6 @@
 
     .start-btn:active{transform:scale(.98)}
 
-    /* 滿版獨角獸動畫 */
     .intro{
       position:absolute;
       inset:0;
@@ -569,7 +621,6 @@
       left:0; right:0;
       border-radius:999px;
     }
-
     .rainbow .b1{top:0;height:18%;background:linear-gradient(90deg,#ff8aa8,#ff9fc7)}
     .rainbow .b2{top:18%;height:18%;background:linear-gradient(90deg,#ffb26e,#ffd76a)}
     .rainbow .b3{top:36%;height:18%;background:linear-gradient(90deg,#ffe26d,#fff3a9)}
@@ -630,56 +681,35 @@
     @keyframes blink{0%,46%,48%,100%{transform:scaleY(1)}47%{transform:scaleY(.08)}}
     @keyframes wingGlow{from{opacity:.55}to{opacity:1}}
 
-    .intro-particle{
-      position:absolute;
-      left:50%;
-      top:50%;
-      pointer-events:none;
-      opacity:0;
-    }
-
     .intro-particle.spark{
       width:20px;
       height:20px;
       animation:sparkFly var(--dur) ease-out forwards;
     }
 
-    .intro-particle.heart{
-      width:16px;
-      height:16px;
-      border-radius:4px;
-      transform:translate(-50%,-50%) rotate(45deg);
-      background:linear-gradient(135deg,#ff90b9,#ffc7dd);
-      animation:heartRise var(--dur) ease-out forwards;
-      filter:drop-shadow(0 0 10px rgba(255,182,210,.7));
+    @media (max-width: 980px){
+      .parent-panel{width:min(320px, calc(100% - 24px))}
     }
 
-    .intro-particle.heart::before,
-    .intro-particle.heart::after{
-      content:"";
-      position:absolute;
-      width:16px;height:16px;
-      border-radius:50%;
-      background:inherit;
-    }
-    .intro-particle.heart::before{left:-8px;top:0}
-    .intro-particle.heart::after{left:0;top:-8px}
-
-    @media (max-width: 900px){
-      .question-main{font-size:24px}
-      .card{min-height:210px}
-      .card-label{font-size:21px}
-    }
-
-    @media (max-width: 640px){
+    @media (max-width: 760px){
       .top-bar{padding:9px 12px}
-      .mode-chip{font-size:12px}
-      .question-bubble{min-height:58px;padding:12px 14px}
-      .question-main{font-size:22px}
+      .chip.center{font-size:12px}
+      .question-main{font-size:24px}
+      .card{min-height:190px}
+      .card-figure{height:118px}
+      .big-symbol{font-size:56px}
+      .card-label{font-size:20px}
+    }
+
+    @media (max-width: 560px){
+      .parent-panel{top:max(66px, calc(env(safe-area-inset-top) + 54px))}
       .cards{gap:12px}
-      .card{min-height:188px;padding:12px}
-      .card-figure{height:122px}
-      .card-label{font-size:19px}
+      .card{min-height:172px;padding:12px}
+      .card-figure{height:100px}
+      .big-symbol{font-size:46px}
+      .card-label{font-size:18px}
+      .question-bubble{min-height:62px;padding:12px 14px}
+      .question-main{font-size:22px}
       .start-title{font-size:28px}
       .start-text{font-size:14px}
       .start-btn{height:52px;font-size:18px}
@@ -693,11 +723,31 @@
   <div class="intro-particles" id="introParticles"></div>
 
   <div class="top-bar">
-    <div class="score-chip">⭐ <span id="scoreText">0</span></div>
-    <div class="mode-chip" id="modeText">卡通動物答題</div>
+    <div class="chip">⭐ <span id="scoreText">0</span></div>
+    <div class="chip center" id="modeText">準備開始</div>
     <div style="display:flex; gap:8px;">
       <button class="icon-btn" id="speakBtn">再聽一次</button>
       <button class="icon-btn" id="magicBtn">魔法動畫</button>
+    </div>
+  </div>
+
+  <div class="parent-panel open" id="parentPanel">
+    <div class="parent-head" id="parentHead">
+      <span>家長模式</span>
+      <span id="parentArrow">▲</span>
+    </div>
+    <div class="parent-body">
+      <div class="section-title">題庫分類</div>
+      <div class="btn-grid" id="categoryButtons"></div>
+
+      <div class="section-title">數字範圍</div>
+      <div class="btn-grid" id="numberRangeButtons"></div>
+
+      <div class="section-title">操作</div>
+      <div class="single-row">
+        <button class="small-btn" id="newQuestionBtn">下一題</button>
+        <button class="small-btn" id="resetScoreBtn">分數歸零</button>
+      </div>
     </div>
   </div>
 
@@ -710,7 +760,7 @@
     </div>
 
     <div class="cards" id="cards"></div>
-    <div class="footer-tip">這版改成：CDN 載入失敗時，會自動切內建圖，不會再整排沒圖。</div>
+    <div class="footer-tip">答對才會出現滿版獨角獸動畫；每題自動唸三次，每次間隔 2 秒。</div>
   </div>
 
   <div class="message-pop" id="messagePop">Good job!</div>
@@ -719,8 +769,7 @@
     <div class="start-card">
       <div class="start-title">兒童學習小遊戲</div>
       <div class="start-text">
-        這版已修正外部圖片不穩問題。<br>
-        先點開始，播放滿版獨角獸動畫，動畫結束會立刻出題。
+        這版整合了：數字、注音、英文字母、動物、家長選單、答對獨角獸動畫、題目三次重複、答錯重唸與防連點。
       </div>
       <button class="start-btn" id="startBtn">開始遊戲</button>
     </div>
@@ -830,6 +879,46 @@
   </div>
 
   <script>
+    const categories = [
+      { key:'numbers', label:'數字 1~100' },
+      { key:'bopomofo', label:'注音' },
+      { key:'letters', label:'英文字母 A~Z' },
+      { key:'animals', label:'動物單字' }
+    ];
+
+    const numberRanges = [
+      [1,10],[11,20],[21,30],[31,40],[41,50],
+      [51,60],[61,70],[71,80],[81,90],[91,100]
+    ];
+
+    const bopomofoSymbols = [
+      'ㄅ','ㄆ','ㄇ','ㄈ',
+      'ㄉ','ㄊ','ㄋ','ㄌ',
+      'ㄍ','ㄎ','ㄏ',
+      'ㄐ','ㄑ','ㄒ',
+      'ㄓ','ㄔ','ㄕ','ㄖ',
+      'ㄗ','ㄘ','ㄙ',
+      'ㄧ','ㄨ','ㄩ',
+      'ㄚ','ㄛ','ㄜ','ㄝ',
+      'ㄞ','ㄟ','ㄠ','ㄡ',
+      'ㄢ','ㄣ','ㄤ','ㄥ','ㄦ'
+    ];
+
+    const bopomofoSpeechMap = {
+      'ㄅ':'ㄅ','ㄆ':'ㄆ','ㄇ':'ㄇ','ㄈ':'ㄈ',
+      'ㄉ':'ㄉ','ㄊ':'ㄊ','ㄋ':'ㄋ','ㄌ':'ㄌ',
+      'ㄍ':'ㄍ','ㄎ':'ㄎ','ㄏ':'ㄏ',
+      'ㄐ':'ㄐ','ㄑ':'ㄑ','ㄒ':'ㄒ',
+      'ㄓ':'ㄓ','ㄔ':'ㄔ','ㄕ':'ㄕ','ㄖ':'ㄖ',
+      'ㄗ':'ㄗ','ㄘ':'ㄘ','ㄙ':'ㄙ',
+      'ㄧ':'ㄧ','ㄨ':'ㄨ','ㄩ':'ㄩ',
+      'ㄚ':'ㄚ','ㄛ':'ㄛ','ㄜ':'ㄜ','ㄝ':'ㄝ',
+      'ㄞ':'ㄞ','ㄟ':'ㄟ','ㄠ':'ㄠ','ㄡ':'ㄡ',
+      'ㄢ':'ㄢ','ㄣ':'ㄣ','ㄤ':'ㄤ','ㄥ':'ㄥ','ㄦ':'ㄦ'
+    };
+
+    const letters = Array.from({length:26}, (_,i)=>String.fromCharCode(65+i));
+
     const animals = [
       { en:'dog', zh:'小狗', code:'1f436', cat:'pet', color:'#ffe9da' },
       { en:'cat', zh:'小貓', code:'1f431', cat:'pet', color:'#efe7ff' },
@@ -838,7 +927,6 @@
       { en:'mouse', zh:'老鼠', code:'1f42d', cat:'pet', color:'#eef2ff' },
       { en:'horse', zh:'小馬', code:'1f434', cat:'pet', color:'#ffe9dd' },
       { en:'unicorn', zh:'獨角獸', code:'1f984', cat:'pet', color:'#ffe9f5' },
-
       { en:'tiger', zh:'老虎', code:'1f42f', cat:'wild', color:'#fff0d6' },
       { en:'lion', zh:'獅子', code:'1f981', cat:'wild', color:'#fff2d8' },
       { en:'bear', zh:'熊', code:'1f43b', cat:'wild', color:'#f4e6db' },
@@ -849,21 +937,16 @@
       { en:'frog', zh:'青蛙', code:'1f438', cat:'wild', color:'#e8fff0' },
       { en:'pig', zh:'小豬', code:'1f437', cat:'farm', color:'#ffe3ee' },
       { en:'cow', zh:'乳牛', code:'1f42e', cat:'farm', color:'#f7f7f7' },
-
       { en:'chicken', zh:'雞', code:'1f414', cat:'farm', color:'#fff1d7' },
       { en:'bird', zh:'小鳥', code:'1f426', cat:'farm', color:'#dff2ff' },
       { en:'duck', zh:'鴨子', code:'1f986', cat:'farm', color:'#fff1cd' },
-      { en:'eagle', zh:'老鷹', code:'1f985', cat:'wild', color:'#f1e9dc' },
       { en:'owl', zh:'貓頭鷹', code:'1f989', cat:'wild', color:'#f4eadf' },
       { en:'penguin', zh:'企鵝', code:'1f427', cat:'ocean', color:'#eef2ff' },
-
       { en:'bee', zh:'蜜蜂', code:'1f41d', cat:'insect', color:'#fff3cf' },
       { en:'bug', zh:'毛毛蟲', code:'1f41b', cat:'insect', color:'#eaffdc' },
       { en:'butterfly', zh:'蝴蝶', code:'1f98b', cat:'insect', color:'#ffe8fb' },
       { en:'lady beetle', zh:'瓢蟲', code:'1f41e', cat:'insect', color:'#ffe0de' },
-      { en:'ant', zh:'螞蟻', code:'1f41c', cat:'insect', color:'#efe8e5' },
       { en:'snail', zh:'蝸牛', code:'1f40c', cat:'insect', color:'#f4ecde' },
-
       { en:'fish', zh:'魚', code:'1f41f', cat:'ocean', color:'#dff5ff' },
       { en:'tropical fish', zh:'熱帶魚', code:'1f420', cat:'ocean', color:'#e0f7ff' },
       { en:'blowfish', zh:'河豚', code:'1f421', cat:'ocean', color:'#fff0cf' },
@@ -874,40 +957,51 @@
       { en:'seal', zh:'海豹', code:'1f9ad', cat:'ocean', color:'#eef2f7' },
       { en:'crab', zh:'螃蟹', code:'1f980', cat:'ocean', color:'#ffe6dc' },
       { en:'lobster', zh:'龍蝦', code:'1f99e', cat:'ocean', color:'#ffe3de' },
-
       { en:'turtle', zh:'烏龜', code:'1f422', cat:'reptile', color:'#e8ffe8' },
       { en:'snake', zh:'蛇', code:'1f40d', cat:'reptile', color:'#eaffdf' },
       { en:'crocodile', zh:'鱷魚', code:'1f40a', cat:'reptile', color:'#e9f7dc' },
-
       { en:'sauropod', zh:'長頸龍', code:'1f995', cat:'dino', color:'#e8fff3' },
       { en:'t-rex', zh:'暴龍', code:'1f996', cat:'dino', color:'#f0ffe5' }
     ];
 
-    const cardsEl = document.getElementById('cards');
-    const questionMain = document.getElementById('questionMain');
-    const questionSub = document.getElementById('questionSub');
+    const bgStars = document.getElementById('bgStars');
+    const fxLayer = document.getElementById('fxLayer');
+    const confettiLayer = document.getElementById('confettiLayer');
+    const introParticles = document.getElementById('introParticles');
     const scoreText = document.getElementById('scoreText');
     const modeText = document.getElementById('modeText');
+    const questionMain = document.getElementById('questionMain');
+    const questionSub = document.getElementById('questionSub');
+    const cardsEl = document.getElementById('cards');
     const messagePop = document.getElementById('messagePop');
-    const confettiLayer = document.getElementById('confettiLayer');
-    const fxLayer = document.getElementById('fxLayer');
-    const bgStars = document.getElementById('bgStars');
-    const intro = document.getElementById('intro');
-    const introParticles = document.getElementById('introParticles');
     const startOverlay = document.getElementById('startOverlay');
     const startBtn = document.getElementById('startBtn');
+    const intro = document.getElementById('intro');
     const speakBtn = document.getElementById('speakBtn');
     const magicBtn = document.getElementById('magicBtn');
+    const categoryButtons = document.getElementById('categoryButtons');
+    const numberRangeButtons = document.getElementById('numberRangeButtons');
+    const newQuestionBtn = document.getElementById('newQuestionBtn');
+    const resetScoreBtn = document.getElementById('resetScoreBtn');
+    const parentPanel = document.getElementById('parentPanel');
+    const parentHead = document.getElementById('parentHead');
+    const parentArrow = document.getElementById('parentArrow');
 
-    let currentRound = null;
+    let gameStarted = false;
     let score = 0;
-    let started = false;
-    let busy = false;
+    let isBusy = false;
     let audioCtx = null;
-    let voiceReady = false;
+    let audioReady = false;
+    let currentCategory = 'numbers';
+    let currentNumberRange = [1,10];
+    let currentRound = null;
+    let questionSequenceToken = 0;
 
     function rand(min, max){ return Math.random() * (max - min) + min; }
     function pick(arr){ return arr[Math.floor(Math.random() * arr.length)]; }
+    function delay(ms){ return new Promise(resolve => setTimeout(resolve, ms)); }
+    function capitalize(s){ return s.replace(/\b\w/g, c => c.toUpperCase()); }
+
     function shuffle(arr){
       const a = [...arr];
       for(let i=a.length-1;i>0;i--){
@@ -919,7 +1013,7 @@
 
     function makeBgStars(){
       bgStars.innerHTML = '';
-      const total = window.innerWidth < 700 ? 28 : 40;
+      const total = window.innerWidth < 700 ? 28 : 42;
       for(let i=0;i<total;i++){
         const s = document.createElement('div');
         s.className = 'star';
@@ -937,8 +1031,10 @@
         const AC = window.AudioContext || window.webkitAudioContext;
         if (AC) audioCtx = new AC();
       }
-      if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume().catch(()=>{});
-      voiceReady = true;
+      if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume().catch(()=>{});
+      }
+      audioReady = true;
     }
 
     function playMagicSound(){
@@ -960,32 +1056,286 @@
       });
     }
 
-    function speak(text, rate = 0.9, pitch = 1.12){
+    function getVoices(){
+      if (!('speechSynthesis' in window)) return [];
+      return window.speechSynthesis.getVoices();
+    }
+
+    function speak(text, lang='en-US', rate=0.9, pitch=1.1){
       return new Promise(resolve => {
-        if (!('speechSynthesis' in window) || !voiceReady) {
+        if (!('speechSynthesis' in window) || !audioReady) {
           resolve();
           return;
         }
+
         window.speechSynthesis.cancel();
         const utter = new SpeechSynthesisUtterance(text);
-        utter.lang = 'en-US';
+        utter.lang = lang;
         utter.rate = rate;
         utter.pitch = pitch;
-        const voices = window.speechSynthesis.getVoices();
-        const preferred =
-          voices.find(v => /Samantha|Karen|Tessa|Moira|Ava|Allison/i.test(v.name)) ||
-          voices.find(v => /female|woman/i.test(v.name)) ||
-          voices.find(v => /^en/i.test(v.lang)) ||
-          null;
+
+        const voices = getVoices();
+        let preferred = null;
+
+        if (lang.startsWith('zh')) {
+          preferred =
+            voices.find(v => /zh-TW/i.test(v.lang) && /female|mei|hsiao|ting|yu/i.test(v.name)) ||
+            voices.find(v => /zh-TW/i.test(v.lang)) ||
+            voices.find(v => /zh/i.test(v.lang));
+        } else {
+          preferred =
+            voices.find(v => /^en/i.test(v.lang) && /Samantha|Karen|Tessa|Moira|Ava|Allison/i.test(v.name)) ||
+            voices.find(v => /^en/i.test(v.lang));
+        }
+
         if (preferred) utter.voice = preferred;
+
         utter.onend = () => resolve();
         utter.onerror = () => resolve();
         window.speechSynthesis.speak(utter);
       });
     }
 
+    function cancelQuestionSequence(){
+      questionSequenceToken += 1;
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+    }
+
+    async function speakQuestionSequence(){
+      if (!currentRound) return;
+      cancelQuestionSequence();
+      const myToken = questionSequenceToken;
+
+      for (let i = 0; i < 3; i++) {
+        if (myToken !== questionSequenceToken) return;
+        await speakPromptOnce(currentRound);
+        if (i < 2) {
+          await delay(2000);
+          if (myToken !== questionSequenceToken) return;
+        }
+      }
+    }
+
+    async function speakPromptOnce(round){
+      if (round.category === 'numbers') {
+        await speak(String(round.answerValue), 'en-US', 0.9, 1.06);
+      } else if (round.category === 'letters') {
+        await speak(round.answerValue, 'en-US', 0.82, 1.10);
+      } else if (round.category === 'bopomofo') {
+        await speak(bopomofoSpeechMap[round.answerValue] || round.answerValue, 'zh-TW', 0.86, 1.08);
+      } else if (round.category === 'animals') {
+        await speak(round.answerValue, 'en-US', 0.88, 1.12);
+      }
+    }
+
+    function updateModeText(){
+      const catLabel = categories.find(c => c.key === currentCategory)?.label || '';
+      if (currentCategory === 'numbers') {
+        modeText.textContent = `${catLabel} · ${currentNumberRange[0]}~${currentNumberRange[1]}`;
+      } else {
+        modeText.textContent = catLabel;
+      }
+    }
+
+    function buildCategoryButtons(){
+      categoryButtons.innerHTML = '';
+      categories.forEach(cat => {
+        const btn = document.createElement('button');
+        btn.className = 'small-btn' + (cat.key === currentCategory ? ' active' : '');
+        btn.textContent = cat.label;
+        btn.addEventListener('click', async () => {
+          currentCategory = cat.key;
+          buildCategoryButtons();
+          buildRangeButtons();
+          updateModeText();
+          if (gameStarted) {
+            await nextRound(false);
+          }
+        });
+        categoryButtons.appendChild(btn);
+      });
+    }
+
+    function buildRangeButtons(){
+      numberRangeButtons.innerHTML = '';
+      const shouldShow = currentCategory === 'numbers';
+      numberRangeButtons.style.display = shouldShow ? 'grid' : 'none';
+
+      numberRanges.forEach(range => {
+        const btn = document.createElement('button');
+        const active = currentNumberRange[0] === range[0] && currentNumberRange[1] === range[1];
+        btn.className = 'small-btn' + (active ? ' active' : '');
+        btn.textContent = `${range[0]}~${range[1]}`;
+        btn.addEventListener('click', async () => {
+          currentNumberRange = range;
+          buildRangeButtons();
+          updateModeText();
+          if (gameStarted && currentCategory === 'numbers') {
+            await nextRound(false);
+          }
+        });
+        numberRangeButtons.appendChild(btn);
+      });
+    }
+
+    function getNumberPool(){
+      const [start, end] = currentNumberRange;
+      return Array.from({length:end-start+1}, (_,i)=>start+i);
+    }
+
+    function createRound(){
+      if (currentCategory === 'numbers') {
+        const pool = getNumberPool();
+        const correct = pick(pool);
+        const wrongPool = pool.filter(n => n !== correct);
+        const wrongs = shuffle(wrongPool).slice(0,3);
+        return {
+          category:'numbers',
+          answerValue:correct,
+          answerLabel:String(correct),
+          answerSub:'Number',
+          options:shuffle([correct, ...wrongs]).map(v => ({
+            value:v,
+            label:String(v),
+            sub:'Number',
+            type:'symbol'
+          }))
+        };
+      }
+
+      if (currentCategory === 'letters') {
+        const correct = pick(letters);
+        const wrongs = shuffle(letters.filter(v => v !== correct)).slice(0,3);
+        return {
+          category:'letters',
+          answerValue:correct,
+          answerLabel:correct,
+          answerSub:'Letter',
+          options:shuffle([correct, ...wrongs]).map(v => ({
+            value:v,
+            label:v,
+            sub:'Letter',
+            type:'symbol'
+          }))
+        };
+      }
+
+      if (currentCategory === 'bopomofo') {
+        const correct = pick(bopomofoSymbols);
+        const wrongs = shuffle(bopomofoSymbols.filter(v => v !== correct)).slice(0,3);
+        return {
+          category:'bopomofo',
+          answerValue:correct,
+          answerLabel:correct,
+          answerSub:'注音',
+          options:shuffle([correct, ...wrongs]).map(v => ({
+            value:v,
+            label:v,
+            sub:'注音',
+            type:'symbol'
+          }))
+        };
+      }
+
+      const correct = pick(animals);
+      const wrongs = shuffle(animals.filter(a => a.en !== correct.en)).slice(0,3);
+      return {
+        category:'animals',
+        answerValue:correct.en,
+        answerLabel:capitalize(correct.en),
+        answerSub:correct.zh,
+        options:shuffle([correct, ...wrongs]).map(v => ({
+          value:v.en,
+          label:capitalize(v.en),
+          sub:v.zh,
+          type:'animal',
+          animal:v
+        }))
+      };
+    }
+
+    function renderRound(round){
+      cardsEl.innerHTML = '';
+
+      if (round.category === 'numbers') {
+        questionMain.textContent = `找出數字 ${round.answerValue}`;
+        questionSub.textContent = '會自動唸三次';
+      } else if (round.category === 'letters') {
+        questionMain.textContent = `Find: ${round.answerValue}`;
+        questionSub.textContent = 'Letter · 會自動唸三次';
+      } else if (round.category === 'bopomofo') {
+        questionMain.textContent = `找出 ${round.answerValue}`;
+        questionSub.textContent = '注音 · 會自動唸三次';
+      } else {
+        questionMain.textContent = `Find: ${capitalize(round.answerValue)}`;
+        questionSub.textContent = `${round.answerSub} · 會自動唸三次`;
+      }
+
+      round.options.forEach(option => {
+        const card = renderCard(option);
+        cardsEl.appendChild(card);
+      });
+
+      requestAnimationFrame(() => {
+        cardsEl.classList.add('ready');
+      });
+    }
+
+    function renderCard(option){
+      const card = document.createElement('button');
+      card.className = 'card';
+      card.dataset.value = option.value;
+
+      if (option.type === 'symbol') {
+        card.innerHTML = `
+          <span class="card-glow"></span>
+          <div class="card-figure">
+            <div class="big-symbol">${option.label}</div>
+          </div>
+          <div class="card-label">${option.label}</div>
+          <div class="card-sub">${option.sub}</div>
+          <div class="correct-mark">✓</div>
+          <div class="wrong-mark">✕</div>
+        `;
+      } else {
+        const imgUrl = twemojiUrl(option.animal.code);
+        const fallback = fallbackAnimalSVG(option.animal);
+        card.innerHTML = `
+          <span class="card-glow"></span>
+          <div class="card-figure">
+            <img class="card-img" src="${imgUrl}" alt="${option.label}" loading="eager" decoding="async">
+            <div class="fallback-svg">${fallback}</div>
+          </div>
+          <div class="card-label">${option.label}</div>
+          <div class="card-sub">${option.sub}</div>
+          <div class="correct-mark">✓</div>
+          <div class="wrong-mark">✕</div>
+        `;
+
+        const img = card.querySelector('.card-img');
+        const fallbackEl = card.querySelector('.fallback-svg');
+        img.addEventListener('error', () => {
+          img.style.display = 'none';
+          fallbackEl.style.display = 'block';
+        }, { once:true });
+
+        img.addEventListener('load', () => {
+          fallbackEl.style.display = 'none';
+        }, { once:true });
+      }
+
+      card.addEventListener('click', () => onPick(option, card));
+      return card;
+    }
+
     function twemojiUrl(code){
       return `https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/${code}.svg`;
+    }
+
+    function emojiFromCode(code){
+      return code.split('-').map(part => String.fromCodePoint(parseInt(part,16))).join('');
     }
 
     function fallbackAnimalSVG(item){
@@ -1009,144 +1359,23 @@
       `;
     }
 
-    function emojiFromCode(code){
-      return code.split('-').map(part => String.fromCodePoint(parseInt(part,16))).join('');
-    }
-
-    function renderCard(item, idx){
-      const card = document.createElement('button');
-      card.className = 'card';
-      card.dataset.answer = item.en;
-
-      const imgUrl = twemojiUrl(item.code);
-      const fallback = fallbackAnimalSVG(item);
-
-      card.innerHTML = `
-        <span class="card-glow"></span>
-        <div class="card-figure">
-          <img class="card-img" src="${imgUrl}" alt="${item.en}" loading="eager" decoding="async">
-          <div class="fallback-svg">${fallback}</div>
-        </div>
-        <div class="card-label">${capitalize(item.en)}</div>
-        <div class="card-sub">${item.zh}</div>
-        <div class="correct-mark">✓</div>
-        <div class="wrong-mark">✕</div>
-      `;
-
-      const img = card.querySelector('.card-img');
-      const fallbackEl = card.querySelector('.fallback-svg');
-      img.addEventListener('error', () => {
-        img.style.display = 'none';
-        fallbackEl.style.display = 'block';
-      }, { once:true });
-
-      img.addEventListener('load', () => {
-        fallbackEl.style.display = 'none';
-      }, { once:true });
-
-      card.addEventListener('click', () => onPick(item, card));
-      return card;
-    }
-
-    function capitalize(s){
-      return s.replace(/\b\w/g, c => c.toUpperCase());
-    }
-
-    function createRound(){
-      const correct = pick(animals);
-      const pool = animals.filter(a => a.en !== correct.en);
-      const wrongs = shuffle(pool).slice(0,3);
-      const options = shuffle([correct, ...wrongs]);
-      return { correct, options };
-    }
-
-    function renderRound(round){
-      cardsEl.innerHTML = '';
-      round.options.forEach((item, idx) => {
-        cardsEl.appendChild(renderCard(item, idx));
-      });
-
-      requestAnimationFrame(() => {
-        cardsEl.classList.add('ready');
-      });
-
-      questionMain.textContent = `Find: ${capitalize(round.correct.en)}`;
-      questionSub.textContent = `Listen and choose the correct card · ${round.correct.zh}`;
-      modeText.textContent = `目前題目：${round.correct.zh}`;
-    }
-
-    async function askQuestion(repeat = false){
-      if (!currentRound) return;
-      if (repeat) {
-        await speak(currentRound.correct.en, 0.88, 1.1);
-        await delay(220);
-        await speak(currentRound.correct.en, 0.88, 1.1);
-      } else {
-        await speak(currentRound.correct.en, 0.88, 1.1);
-      }
-    }
-
-    async function nextRound(withIntro = false){
-      busy = true;
-      cardsEl.classList.remove('ready');
-
-      if (withIntro) {
-        playIntro();
-        await delay(240);
-      }
-
-      currentRound = createRound();
-      renderRound(currentRound);
-
-      await delay(120);
-      busy = false;
-
-      if (withIntro) {
-        await delay(1180);
-      } else {
-        await delay(150);
-      }
-
-      askQuestion(false);
-    }
-
-    async function onPick(item, card){
-      if (busy || !currentRound) return;
-      busy = true;
-
-      const allCards = [...cardsEl.querySelectorAll('.card')];
-      allCards.forEach(c => c.disabled = true);
-
-      if (item.en === currentRound.correct.en) {
-        score += 1;
-        scoreText.textContent = score;
-        showPop('做得很好');
-        card.querySelector('.correct-mark').classList.remove('show-mark');
-        void card.offsetWidth;
-        card.querySelector('.correct-mark').classList.add('show-mark');
-        burstAtCard(card);
-        celebrate();
-        await speak('Good job. Next one.', 0.95, 1.18);
-        await delay(500);
-        await nextRound(false);
-      } else {
-        card.querySelector('.wrong-mark').classList.remove('show-mark');
-        void card.offsetWidth;
-        card.querySelector('.wrong-mark').classList.add('show-mark');
-        showPop('再試一次');
-        await speak('Keep trying.', 0.92, 1.08);
-        await delay(1000);
-        allCards.forEach(c => c.disabled = false);
-        busy = false;
-        await askQuestion(true);
-      }
-    }
-
     function showPop(text){
       messagePop.textContent = text;
       messagePop.classList.remove('show');
       void messagePop.offsetWidth;
       messagePop.classList.add('show');
+    }
+
+    function disableAllCards(disabled){
+      [...cardsEl.querySelectorAll('.card')].forEach(c => c.disabled = disabled);
+    }
+
+    function markCard(card, type){
+      const selector = type === 'correct' ? '.correct-mark' : '.wrong-mark';
+      const el = card.querySelector(selector);
+      el.classList.remove('show-mark');
+      void el.offsetWidth;
+      el.classList.add('show-mark');
     }
 
     function celebrate(){
@@ -1188,6 +1417,7 @@
       const rect = card.getBoundingClientRect();
       const cx = rect.left + rect.width / 2;
       const cy = rect.top + rect.height / 2;
+      fxLayer.innerHTML = '';
 
       for(let i=0;i<16;i++){
         const s = document.createElement('div');
@@ -1245,31 +1475,93 @@
       }, 2300);
     }
 
-    function delay(ms){
-      return new Promise(resolve => setTimeout(resolve, ms));
+    async function nextRound(runIntroOnSuccessOnly){
+      cancelQuestionSequence();
+      isBusy = true;
+      cardsEl.classList.remove('ready');
+
+      currentRound = createRound();
+      renderRound(currentRound);
+      updateModeText();
+
+      await delay(150);
+      disableAllCards(false);
+      isBusy = false;
+
+      if (!runIntroOnSuccessOnly) {
+        await speakQuestionSequence();
+      } else {
+        await speakQuestionSequence();
+      }
+    }
+
+    async function onPick(option, card){
+      if (!gameStarted || isBusy || !currentRound) return;
+      isBusy = true;
+      cancelQuestionSequence();
+      disableAllCards(true);
+
+      if (option.value === currentRound.answerValue) {
+        score += 1;
+        scoreText.textContent = score;
+        markCard(card, 'correct');
+        burstAtCard(card);
+        celebrate();
+        showPop('做得很好');
+
+        await speak('做得很好，請繼續下一題', 'zh-TW', 0.92, 1.08);
+        playIntro();
+        await delay(2500);
+        await nextRound(true);
+      } else {
+        markCard(card, 'wrong');
+        showPop('再試一次');
+        await speak('繼續努力', 'zh-TW', 0.92, 1.04);
+        await delay(1000);
+        disableAllCards(false);
+        isBusy = false;
+        await speakQuestionSequence();
+      }
     }
 
     async function startGame(){
       ensureAudio();
-      started = true;
+      gameStarted = true;
       startOverlay.classList.add('hide');
-      playIntro();
-      await delay(1350);
-      nextRound(true);
+      score = 0;
+      scoreText.textContent = score;
+      await nextRound(true);
     }
 
-    startBtn.addEventListener('click', startGame);
+    parentHead.addEventListener('click', () => {
+      parentPanel.classList.toggle('open');
+      parentArrow.textContent = parentPanel.classList.contains('open') ? '▲' : '▼';
+    });
 
     speakBtn.addEventListener('click', async () => {
       ensureAudio();
-      if (!currentRound || busy) return;
-      await askQuestion(false);
+      if (!gameStarted || isBusy || !currentRound) return;
+      await speakQuestionSequence();
     });
 
     magicBtn.addEventListener('click', () => {
       ensureAudio();
       playIntro();
     });
+
+    newQuestionBtn.addEventListener('click', async () => {
+      if (!gameStarted) return;
+      ensureAudio();
+      await nextRound(false);
+    });
+
+    resetScoreBtn.addEventListener('click', () => {
+      score = 0;
+      scoreText.textContent = score;
+      showPop('分數已歸零');
+    });
+
+    startBtn.addEventListener('click', startGame);
 
     window.addEventListener('pointerdown', () => {
       ensureAudio();
@@ -1284,6 +1576,9 @@
 
     window.addEventListener('resize', makeBgStars);
 
+    buildCategoryButtons();
+    buildRangeButtons();
+    updateModeText();
     makeBgStars();
   </script>
 </body>
