@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+"http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+
+  <key>PayloadContent</key>
+  <array>
+    <dict>
+      <key>FullScreen</key>
+      <true/>
+      <key>Icon</key>
+      <data></data>
+      <key>IsRemovable</key>
+      <true/>
+      <key>Label</key>
+      <string>Pearl Nora</string>
+      <key>PayloadDescription</key>
+      <string>Pearl Nora Kids Game</string>
+      <key>PayloadDisplayName</key>
+      <string>Pearl Nora</string>
+      <key>PayloadIdentifier</key>
+      <string>com.rockerwei.pearlnora.webclip</string>
+      <key>PayloadType</key>
+      <string>com.apple.webClip.managed</string>
+      <key>PayloadUUID</key>
+      <string>9F1E3A9B-1234-4C5D-8E2A-123456789001</string>
+      <key>PayloadVersion</key>
+      <integer>1</integer>
+      <key>Precomposed</key>
+      <true/>
+      <key>URL</key>
+      <string>https://rockerwei.github.io/pearl_nora_game/</string>
+    </dict>
+  </array>
+
+  <key>PayloadDisplayName</key>
+  <string>Pearl Nora App</string>
+  <key>PayloadIdentifier</key>
+  <string>com.rockerwei.pearlnora.profile</string>
+  <key>PayloadRemovalDisallowed</key>
+  <false/>
+  <key>PayloadType</key>
+  <string>Configuration</string>
+  <key>PayloadUUID</key>
+  <string>8A2C7D9F-5678-4AAA-BBBB-123456789002</string>
+  <key>PayloadVersion</key>
+  <integer>1</integer>
+
+</dict>
+</plist>
